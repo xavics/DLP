@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+{#    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.js"></script>#}
+{#    <script src="//pineconellc.github.io/angular-foundation/mm-foundation-tpls-0.8.0.js"></script>#}
+{#    <link href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.css" rel="stylesheet">#}
+{#    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>#}
+    {% load staticfiles %}
+    <script src="{% static 'angular/angular.js' %}"></script>
+    <script src="{% static 'angular-ui-router/release/angular-ui-router.js' %}"></script>
+    <script src="{% static 'javascript/app.js' %}"></script>
+    <script src="{% static 'javascript/Controllers/IndexCntrll.js' %}"></script>
+    <script src="{% static 'javascript/Controllers/WelcomeCntrll.js' %}"></script>
+    <script src="{% static 'javascript/Services/ServiceCrud.js' %}"></script>
+    <script src="{% static 'foundation/js/vendor/jquery.js' %}"></script>
+    <script src="{% static 'foundation/js/vendor/modernizr.js' %}"></script>
+    <script src="{% static 'foundation/js/foundation/foundation.js' %}"></script>
+    <script src="{% static 'angular-foundation/mm-foundation-tpls.js' %}"></script>
+    <script src="{% static 'angular-translate/angular-translate.js' %}"></script>
+    <script src="{% static 'angular-resource/angular-resource.js' %}"></script>
+
+    {#    <script src="{% static 'foundation/js/foundation/foundation.accordion.js' %}"></script>#}
+{#    <script src="{% static 'foundation-apps/js/angular/app.js' %}"></script>#}
+{#    <script src="{% static 'foundation-apps/js/angular/foundation.js' %}"></script>#}
+{#    <script src="{% static 'foundation-apps/js/angular/components/panel/panel.js' %}"></script>#}
+    <link rel="stylesheet" href="{% static 'foundation/css/foundation.css' %}">
+    <link rel="stylesheet" href="{% static 'foundation/css/normalize.css' %}">
+    <title>DLP</title>
+</head>
+<body ng-app="DLPApp">
+{#<div zf-panel="" id="panel">#}
+{#    <a zf-close="" class="close-button">×</a>#}
+{#    <p>This is a basic panel.</p>#}
+{#</div>#}
+    <div ui-view></div>
+</body>
+</html>
