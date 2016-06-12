@@ -1,7 +1,10 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from DLP.settings import MAPS_API_KEY
+from rest_framework import viewsets, generics
 from djng.views.crud import NgCRUDView
-import models
+from dlp.serializers import *
+from models import *
+from filters import *
 
 
 def index(request, city=None):
@@ -19,32 +22,50 @@ def welcome(request):
 
 
 def base(request):
-    return render(request, 'base.html')
+    maps_api_key = MAPS_API_KEY
+    return render(request, 'base.html', {'maps_api_key' : maps_api_key})
 
 
-class LogisticCenter(NgCRUDView):
-    model = models.LogisticCenter
-    slug_field = 'city'
+class CityViewSet(viewsets.ModelViewSet):
+    model = City
+    queryset = City.objects.all()
+    serializer_class = CitySerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_class = CityFilter
 
 
-class Drone(NgCRUDView):
-    model = models.Drone
+class LogisticCenterViewSet(viewsets.ModelViewSet):
+    model = LogisticCenter
+    queryset = LogisticCenter.objects.all()
+    serializer_class = LogisticCenterSerializer
 
 
-class Droppoint(NgCRUDView):
-    model = models.DropPoint
+class DropPointViewSet(viewsets.ModelViewSet):
+    model = DropPoint
+    queryset = DropPoint.objects.all()
+    serializer_class = DropPointSerializer
 
 
-class Package(NgCRUDView):
-    model = models.Package
+class DroneViewSet(viewsets.ModelViewSet):
+    model = Drone
+    queryset = Drone.objects.all()
+    serializer_class = DroneSerializer
 
 
-class City(NgCRUDView):
-    model = models.City
+class PackageViewSet(viewsets.ModelViewSet):
+    model = Package
+    queryset = Package.objects.all()
+    serializer_class = PackageSerializer
 
 
-class Transport(NgCRUDView):
-    model = models.Transport
-# class DroneViewSet(viewsets.ModelViewSet):
-#     queryset = models.Drone.objects.all()
-#     context_object_name = 'drone'
+class TransportViewSet(viewsets.ModelViewSet):
+    model = Transport
+    queryset = Transport.objects.all()
+    serializer_class = TransportSerializer
+
+
+class StyleURLViewSet(viewsets.ModelViewSet):
+    model = StyleURL
+    queryset = StyleURL.objects.all()
+    serializer_class = StyleURLSerializer
+    filter_backends = (filters.DjangoFilterBackend,)

@@ -34,6 +34,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # WEATHER_API_KEY = os.environ['WEATHER_API_KEY']
+MAPS_API_KEY = os.environ['MAPS_API_KEY']
 
 # Application definition
 
@@ -52,8 +53,14 @@ INSTALLED_APPS = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
-    'PAGE_SIZE': 10
+    # 'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': [],
+    'DEFAULT_PERMISSION_CLASSES': [],
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+    )
 }
 
 MIDDLEWARE_CLASSES = [
@@ -146,7 +153,8 @@ BOWER_INSTALLED_APPS = (
     'foundation-apps',
     'angular-foundation',
     'angular-translate',
-    'angular-resource'
+    'angular-resource',
+    'https://github.com/angular-ui/angular-google-maps.git#2.3.2'
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'dlp/static')

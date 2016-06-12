@@ -16,29 +16,25 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers
+from rest_framework.routers import DefaultRouter
+
 from dlp import models, views
 
-# router = routers.DefaultRouter()
-# router.register(r'drone', views.DroneViewSet.as_view())
-# router.register(r'droppoints', views.DropPointViewSet, 'droppoints')
-# router.register(r'meteostations', views.MeteoStationViewSet, 'meteostations')
+
+router = DefaultRouter()
+router.register(r'cities', views.CityViewSet)
+router.register(r'logisticcenters', views.LogisticCenterViewSet)
+router.register(r'droppoints', views.DropPointViewSet)
+router.register(r'drones', views.DroneViewSet)
+router.register(r'packages', views.PackageViewSet)
+router.register(r'transports', views.TransportViewSet)
+router.register(r'styleurls', views.StyleURLViewSet)
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.base),
-    url(r'^crud/logisticCenter/?$', views.LogisticCenter.as_view(),
-        name='logistic_center_view'),
-    url(r'^crud/drone/?$', views.Drone.as_view(),
-        name='drone_view'),
-    url(r'^crud/dropPoint/?$', views.Droppoint.as_view(),
-        name='drop_point_view'),
-    url(r'^crud/city/?$', views.City.as_view(),
-        name='city_view'),
-    url(r'^crud/package/?$', views.Package.as_view(),
-        name='package_view'),
-    url(r'^crud/transport/?$', views.Transport.as_view(),
-        name='transport_view'),
-    # url(r'^api/', include(router.urls)),
+    url(r'^api/', include(router.urls)),
     # url(r'^api-auth/',
     #     include('rest_framework.urls', namespace='rest_framework')),
 ]

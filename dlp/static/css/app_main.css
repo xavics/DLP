@@ -1,0 +1,70 @@
+.custom_tab {
+    width: 25%;
+}
+
+html, body, #map_canvas {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+}
+
+#map_canvas {
+    position: relative;
+}
+
+.angular-google-map-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.panel-left{
+    width:35%;
+    margin:0;
+}
+
+.panel-right{
+    width:15%;
+    margin:0;
+}
+
+.accordion {
+    border: transparent !important;
+}
+
+.form-group{
+    width: 100%;
+}
+
+/*.animate-switch-container {*/
+  /*position:relative;*/
+  /*background:white;*/
+  /*border:1px solid black;*/
+  /*height:300px;*/
+  /*overflow:hidden;*/
+/*}*/
+
+/*.animate-switch {*/
+  /*padding:10px;*/
+/*}*/
+
+/*.animate-switch.ng-animate {*/
+  /*transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;*/
+
+  /*position:absolute;*/
+  /*top:0;*/
+  /*left:0;*/
+  /*right:0;*/
+  /*bottom:0;*/
+/*}*/
+
+/*.animate-switch.ng-leave.ng-leave-active,*/
+/*.animate-switch.ng-enter {*/
+  /*top:-300px;*/
+/*}*/
+/*.animate-switch.ng-leave,*/
+/*.animate-switch.ng-enter.ng-enter-active {*/
+  /*top:0;*/
+/*}*/

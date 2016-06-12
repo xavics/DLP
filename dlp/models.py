@@ -31,14 +31,12 @@ class LogisticCenter(models.Model):
     name = models.CharField(max_length=50, null=True)
     address = models.CharField(max_length=50)
     description = models.TextField()
-    latitude = models.FloatField()
-    longitude = models.FloatField()
-    altitude = models.FloatField()
+    lat = models.FloatField()
+    lng = models.FloatField()
+    alt = models.FloatField()
     radius = models.FloatField()
-    # is_available = models.BooleanField(default=True)
     style_url = models.ForeignKey(StyleURL)
-    # drop_points = models.ManyToManyField(DropPoint)
-    city = models.ForeignKey(City, related_name='logisticcenter')
+    city = models.ForeignKey(City, related_name='logistic_centers')
 
     def __unicode__(self):
         return str(self.name)
@@ -47,13 +45,13 @@ class LogisticCenter(models.Model):
 class DropPoint(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField()
-    latitude = models.FloatField()
-    longitude = models.FloatField()
-    altitude = models.FloatField()
+    lat = models.FloatField()
+    lng = models.FloatField()
+    alt = models.FloatField()
     is_available = models.IntegerField(default=0, choices=STATUS)
     style_url = models.ForeignKey(StyleURL)
     logistic_center = models.ForeignKey(LogisticCenter,
-                                        related_name='dropoint')
+                                        related_name='droppoints')
 
     def __unicode__(self):
         return str(self.name)
@@ -62,23 +60,21 @@ class DropPoint(models.Model):
 class Drone(models.Model):
     model = models.CharField(max_length=50)
     plate = models.CharField(max_length=50)
-    # altitude = models.FloatField(default=50)
     is_transporting = models.IntegerField(default=0, choices=STATUS)
     battery_life = models.PositiveSmallIntegerField(default=100)
-    logistic_center = models.ForeignKey(LogisticCenter, related_name='drone')
+    logistic_center = models.ForeignKey(LogisticCenter, related_name='drones')
     style_url = models.ForeignKey(StyleURL)
 
     def __unicode__(self):
-        return str(self.name + '-' + self.plate)
+        return str(self.plate)
 
 
 class Package(models.Model):
     name = models.CharField(max_length=50)
-    dropPoint = models.ForeignKey(DropPoint, related_name='package')
-    logistic_center = models.ForeignKey(LogisticCenter, related_name='package')
+    dropPoint = models.ForeignKey(DropPoint, related_name='packages')
 
 
 class Transport(models.Model):
     is_active = models.IntegerField(default=0, choices=STATUS)
     package = models.ForeignKey(Package, related_name='transport')
-    drone = models.ForeignKey(Drone, null=True, related_name='transport')
+    drone = models.ForeignKey(Drone, null=True, related_name='transports')

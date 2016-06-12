@@ -6,7 +6,11 @@ var app = angular.module('DLPApp', [
     'mm.foundation',
     'ngResource',
     'pascalprecht.translate',
-    'myServices'
+    'myServices',
+    'foundation.core',
+    'application',
+    'foundation',
+    'uiGmapgoogle-maps'
 ]);
 app.config(function ($stateProvider, $urlRouterProvider) {
     // For any unmatched url, send to /route1
@@ -22,7 +26,11 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             templateUrl: "/static/templates/index.html",
             controller: "IndexCntrll",
             params:{
-                city: "1"
+                city: {
+                    value: 1,
+                    squash: true
+                },
+                hiddenParam: 'YES'
             }
         })
 });
@@ -31,21 +39,18 @@ app.config(['$httpProvider', function ($httpProvider){
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
     $httpProvider.defaults.withCredentials = true;
     $httpProvider.defaults.cache=true;
-    $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+    $httpProvider.defaults.headers.post['Content-Type'] = 'application/json';
+    $httpProvider.defaults.headers.common['X-CSRFToken'] = '{{ csrf_token|escapejs }}';
 }]);
-app.config(['$translateProvider', function ($translateProvider) {
-    $translateProvider.translations('en', {
-        'INFORMATION': 'Information',
-        'LOGISTICCENTER': 'Logistic Center',
-        'DRONES': 'Drones'
+app.config(['uiGmapGoogleMapApiProvider', function(uiGmapGoogleMapApiProvider) {
+    uiGmapGoogleMapApiProvider.configure({
+        key: 'AIzaSyCTuiXVTgyiTF-BVyN8UeZi_K0Jg0Mv-cE',
+        v: '3.20', //defaults to latest 3.X anyhow
+        libraries: 'weather,geometry,visualization'
     });
-
-    $translateProvider.translations('es', {
-        'INFORMATION': 'Información',
-        'LOGISTICCENTER': 'Centro Logístico',
-        'DRONES': 'Drones'
-    });
-
-    $translateProvider.preferredLanguage('en');
 }]);
+app.config(function($resourceProvider) {
+  $resourceProvider.defaults.stripTrailingSlashes = false;
+});
+
 

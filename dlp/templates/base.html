@@ -2,37 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-{#    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.js"></script>#}
-{#    <script src="//pineconellc.github.io/angular-foundation/mm-foundation-tpls-0.8.0.js"></script>#}
-{#    <link href="//cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/foundation.css" rel="stylesheet">#}
-{#    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>#}
+    <link rel="icon" href="http://static.hubspot.com/favicon.ico">
+{#    <script async defer#}
+{#      src="https://maps.googleapis.com/maps/api/js?key={{ maps_api_key }}&callback=initMap">#}
+{#    </script>#}
     {% load staticfiles %}
     <script src="{% static 'angular/angular.js' %}"></script>
     <script src="{% static 'angular-ui-router/release/angular-ui-router.js' %}"></script>
     <script src="{% static 'javascript/app.js' %}"></script>
+    <script src="{% static 'javascript/appTranslation.js' %}"></script>
     <script src="{% static 'javascript/Controllers/IndexCntrll.js' %}"></script>
     <script src="{% static 'javascript/Controllers/WelcomeCntrll.js' %}"></script>
-    <script src="{% static 'javascript/Services/ServiceCrud.js' %}"></script>
+    <script src="{% static 'javascript/Controllers/AccordionCntrll.js' %}"></script>
+    <script src="{% static 'javascript/Controllers/CreateLCCntrll.js' %}"></script>
+    <script src="{% static 'javascript/Services/ServiceAPI.js' %}"></script>
     <script src="{% static 'foundation/js/vendor/jquery.js' %}"></script>
     <script src="{% static 'foundation/js/vendor/modernizr.js' %}"></script>
     <script src="{% static 'foundation/js/foundation/foundation.js' %}"></script>
     <script src="{% static 'angular-foundation/mm-foundation-tpls.js' %}"></script>
     <script src="{% static 'angular-translate/angular-translate.js' %}"></script>
     <script src="{% static 'angular-resource/angular-resource.js' %}"></script>
-
-    {#    <script src="{% static 'foundation/js/foundation/foundation.accordion.js' %}"></script>#}
-{#    <script src="{% static 'foundation-apps/js/angular/app.js' %}"></script>#}
-{#    <script src="{% static 'foundation-apps/js/angular/foundation.js' %}"></script>#}
-{#    <script src="{% static 'foundation-apps/js/angular/components/panel/panel.js' %}"></script>#}
+    <script src="{% static 'foundation-apps/js/angular/app.js' %}"></script>
+    <script src="{% static 'foundation-apps/js/angular/foundation.js' %}"></script>
+    <script src="{% static 'angular-animate/angular-animate.js' %}"></script>
+    <script src="{% static 'fastclick/lib/fastclick.js' %}"></script>
+    <script src="{% static 'foundation-apps/dist/js/foundation-apps.js' %}"></script>
+    <script src="{% static 'foundation-apps/dist/js/foundation-apps-templates.js' %}"></script>
+    <script src="{% static 'lodash/lodash.js' %}"></script>
+    <script src="{% static 'angular-simple-logger/dist/angular-simple-logger.js' %}"></script>
+    <script src="{% static 'angular-google-maps/dist/angular-google-maps.js' %}"></script>
+    <script src="https://use.fontawesome.com/90beeb5512.js"></script>
     <link rel="stylesheet" href="{% static 'foundation/css/foundation.css' %}">
+    <link rel="stylesheet" href="{% static 'foundation-apps/dist/css/foundation-apps.css' %}">
     <link rel="stylesheet" href="{% static 'foundation/css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'css/app_main.css' %}">
     <title>DLP</title>
 </head>
 <body ng-app="DLPApp">
-{#<div zf-panel="" id="panel">#}
-{#    <a zf-close="" class="close-button">×</a>#}
-{#    <p>This is a basic panel.</p>#}
-{#</div>#}
     <div ui-view></div>
 </body>
 </html>

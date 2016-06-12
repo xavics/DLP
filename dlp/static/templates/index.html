@@ -1,32 +1,36 @@
-<div ng-controller="IndexCntrll">
-    <ng-include src="/static/templates/top_bar.html"></ng-include>
-    <div>
-        <accordion close-others="true">
-            <accordion-group ng-repeat="group in groups" id="{{ group.title }}">
-                <accordion-heading>
-                    MRV {{group.title}} {{ $index + 1 }}
-                </accordion-heading>
-                <div>
-                    <tabset>
-                        <tab heading="{{ 'LOGISTICCENTER' | translate }}">{{ models }}</tab>
-                        <tab heading="Static title">Static content</tab>
-                        <tab heading="Static title">Static content</tab>
-                    </tabset>
-                </div>
-            </accordion-group>
-            <accordion-group heading="Dynamic Body Content">
-                <p>The body of the accordion group grows to fit the contents</p>
-                <button class="button small" ng-click="addItem()">Add Item</button>
-                <div ng-repeat="item in items">{{item}}</div>
-            </accordion-group>
-            <accordion-group is-open="isopen">
-                <accordion-heading>
-                    I can have markup, too!
-                    <i class="right" ng-class="{'fa fa-chevron-down': isopen, 'fa fa-chevron-right': !isopen}"></i>
-                </accordion-heading>
-                This is just some content to illustrate fancy headings.
-            </accordion-group>
-        </accordion>
+<div zf-esc-close zf-close-all>
+    <div class="vertical grid-frame">
+        <div id="header" class="shrink collapse grid-content">
+            <div ng-include="'/static/templates/top_bar.html'" ng-controller="WelcomeCntrll"></div>
+        </div>
+        <div class="grid-block" style="overflow: hidden !important;">
+            <div zf-panel="" position="left" zf-ignore-all-close="" id="example-panel-left" class="panel-left">
+                <a zf-close="" class="close-button">×</a>
+                <div ng-include="'/static/templates/logistic_center_acordeon.html'"></div>
+            </div>
+            <div id="map_canvas" class="flex-video">
+                <ui-gmap-google-map center="map.center" zoom="map.zoom"></ui-gmap-google-map>
+            </div>
+            <div class="grid-block shrink" ng-if="left_menu">
+                Some little here?
+                {{ left_menu.state }}
+            </div>
+            <div zf-panel="" position="right" zf-ignore-all-close="" id="map_panel" class="panel-right">
+                <a zf-close="" class="close-button">×</a>
+                Map options...
+                 -> Logisttic Centers
+                 -> Drones
+                 -> Transport ?
+            </div>
+            <div zf-panel="" position="right" zf-ignore-all-close="" id="galaxy_panel" class="panel-right">
+                <a zf-close="" class="close-button">×</a>
+                Galaxy
+                 -> Status
+                 -> Refresh KML
+            </div>
+        </div>
+        <div class="grid-content shrink">
+              Footer Sticks to the Bottom
+        </div>
     </div>
-    <button class="button">Primary Action</button>
 </div>

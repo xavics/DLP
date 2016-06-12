@@ -1,0 +1,69 @@
+<div class="vertical grid-block">
+    <div class="grid-block medium-up-2">
+        <div class="vertical grid-block">
+            <div class="grid-block">
+                <dl>
+                    <dt>Description</dt>
+                    <dd>{{ center.address }}</dd>
+                </dl>
+            </div>
+            <div class="grid-block">
+                <dl>
+                    <dt>Address</dt>
+                    <dd>{{ center.address }}</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="grid-block">
+            picture
+        </div>
+    </div>
+    <div class="grid-block medium-up-4">
+        <div class="grid-block">
+            <dl>
+                <dt>Latitude</dt>
+                <dd>{{ center.lat }}</dd>
+            </dl>
+        </div>
+        <div class="grid-block">
+            <dl>
+                <dt>Longitude</dt>
+                <dd>{{ center.lng }}</dd>
+            </dl>
+        </div>
+        <div class="grid-block">
+            <dl>
+                <dt>Altitude</dt>
+                <dd>{{ center.alt }}</dd>
+            </dl>
+        </div>
+        <div class="grid-block">
+            <dl>
+                <dt>Radius</dt>
+                <dd>{{ center.lat }}</dd>
+            </dl>
+        </div>
+    </div>
+    <div class="grid-block medium-up-2">
+        <div class="grid-block">
+            <dl>
+                <dt>Drop Points</dt>
+                <dd>{{ center.droppoints.length }}</dd>
+            </dl>
+        </div>
+        <div class="grid-block">
+            <dl>
+                <dt>Drones</dt>
+                <dd>{{ center.drones.length }}</dd>
+            </dl>
+        </div>
+    </div>
+    <div class="align-right grid-block">
+        <div style="text-align: right">
+            <a ng-click="modify_mode_lc('edit')" class="large hollow button">
+                <i class="fa fa-pencil-square" aria-hidden="true"></i> {{ 'EDIT' | translate }}</a>
+            <a ng-click="modify_mode_lc('edit')" class="large alert hollow button">
+                <i class="fa fa-trash" aria-hidden="true"></i> {{ 'DELETE' | translate }}</a>
+        </div>
+    </div>
+</div>

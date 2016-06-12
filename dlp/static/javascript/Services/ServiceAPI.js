@@ -4,31 +4,36 @@
 var myServices = angular.module('myServices', ['ngResource']);
 
 myServices.factory('LogisticCenter', ['$resource', function($resource) {
-    return $resource('/crud/logisticCenter/', {'pk': '@pk'}, {
+    return $resource('/api/logisticcenters/:id', {'id': '@id'}, {
     });
 }]);
 
 myServices.factory('Drone', ['$resource', function($resource) {
-    return $resource('/crud/drone/', {'pk': '@pk'}, {
+    return $resource('/api/drones/:id', {'id': '@id'}, {
     });
 }]);
 
 myServices.factory('Droppoint', ['$resource', function($resource) {
-    return $resource('/crud/dropPoint/', {'pk': '@pk'}, {
+    return $resource('/api/droppoints/:id', {'id': '@id'}, {
     });
 }]);
 
 myServices.factory('City', ['$resource', function($resource) {
-    return $resource('/crud/city/', {'pk': '@pk'}, {
+    return $resource('/api/cities/:id', {'id': '@id'}, {
     });
 }]);
 
 myServices.factory('Package', ['$resource', function($resource) {
-    return $resource('/crud/package/', {'pk': '@pk'}, {
+    return $resource('/api/packages/:id', {'id': '@id'}, {
     });
 }]);
 
 myServices.factory('Transport', ['$resource', function($resource) {
-    return $resource('/crud/transport/', {'pk': '@pk'}, {
+    return $resource('/api/transports/:id', {'id': '@id'}, {
+    });
+}]);
+
+myServices.factory('CityByName', ['$resource', function($resource) {
+    return $resource('/api/cities/?name=:name', {'name': '@name'}, {
     });
 }]);
