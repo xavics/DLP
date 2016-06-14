@@ -36,7 +36,7 @@ class PackageSerializer(serializers.ModelSerializer):
 
 
 class DroneSerializer(serializers.ModelSerializer):
-    transports = TransportSerializer(many=True, read_only=True)
+    transports = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = models.Drone
@@ -46,7 +46,7 @@ class DroneSerializer(serializers.ModelSerializer):
 
 
 class DropPointSerializer(serializers.ModelSerializer):
-    packages = PackageSerializer(many=True, read_only=True)
+    packages = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = models.DropPoint
@@ -56,8 +56,8 @@ class DropPointSerializer(serializers.ModelSerializer):
 
 
 class LogisticCenterSerializer(serializers.ModelSerializer):
-    droppoints = DropPointSerializer(many=True, read_only=True)
-    drones = DroneSerializer(many=True, read_only=True)
+    droppoints = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    drones = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = models.LogisticCenter

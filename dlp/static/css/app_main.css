@@ -38,6 +38,42 @@ html, body, #map_canvas {
     width: 100%;
 }
 
+.centered_td{
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.left-td{
+    display: table-cell;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.right-td{
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+}
+
+.block_info{
+    padding: 20px;
+    position: absolute;
+    left: 10%;
+    background-color: transparent;
+    width: 25%;
+    height: 100%;
+}
+
+.title-bar{
+    height: 2.825rem;
+    position: relative;
+    padding: 0 1rem 0 1rem !important;
+    .title-bar.dark{
+        padding: 0 1rem 0 1rem !important;
+    }
+}
+
 /*.animate-switch-container {*/
   /*position:relative;*/
   /*background:white;*/

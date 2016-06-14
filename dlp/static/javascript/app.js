@@ -3,13 +3,12 @@
  */
 var app = angular.module('DLPApp', [
     'ui.router',
+    //'application',
+    'foundation',
     'mm.foundation',
     'ngResource',
     'pascalprecht.translate',
     'myServices',
-    'foundation.core',
-    'application',
-    'foundation',
     'uiGmapgoogle-maps'
 ]);
 app.config(function ($stateProvider, $urlRouterProvider) {
@@ -52,5 +51,7 @@ app.config(['uiGmapGoogleMapApiProvider', function(uiGmapGoogleMapApiProvider) {
 app.config(function($resourceProvider) {
   $resourceProvider.defaults.stripTrailingSlashes = false;
 });
-
+//app.run(function($rootScope){
+//    $rootScope.$apply($(document).foundation());
+//});
 

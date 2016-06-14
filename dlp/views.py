@@ -1,29 +1,33 @@
 from django.shortcuts import render
 from DLP.settings import MAPS_API_KEY
-from rest_framework import viewsets, generics
-from djng.views.crud import NgCRUDView
+from rest_framework import viewsets
 from dlp.serializers import *
 from models import *
 from filters import *
 
 
-def index(request, city=None):
-    if city:
-        LogisticCenters = models.LogisticCenter.objects.filter(city=city)
-    else:
-        return welcome(request)
-    return render(request, 'static/templates/index.html', {'cities': city})
-
-
-def welcome(request):
-    cities_available = models.City.objects.all()
-    return render(request, 'static/templates/welcome.html',
-                  {'cities_available': cities_available})
+# def index(request, city=None):
+#     if city:
+#         LogisticCenters = models.LogisticCenter.objects.filter(city=city)
+#     else:
+#         return welcome(request)
+#     return render(request, 'static/templates/index.html', {'cities': city})
+#
+#
+# def welcome(request):
+#     cities_available = models.City.objects.all()
+#     return render(request, 'static/templates/welcome.html',
+#                   {'cities_available': cities_available})
 
 
 def base(request):
     maps_api_key = MAPS_API_KEY
-    return render(request, 'base.html', {'maps_api_key' : maps_api_key})
+    return render(request, 'base.html', {'maps_api_key': maps_api_key})
+
+
+'''
+Rest ViewSets
+'''
 
 
 class CityViewSet(viewsets.ModelViewSet):
@@ -69,3 +73,10 @@ class StyleURLViewSet(viewsets.ModelViewSet):
     queryset = StyleURL.objects.all()
     serializer_class = StyleURLSerializer
     filter_backends = (filters.DjangoFilterBackend,)
+
+# def refresh_weather(request):
+#     path_to_kml = generate_weather_image(os.path.dirname(__file__))
+#     try:
+#         return FileResponse(open(path_to_kml, 'rb'))
+#     except IOError:
+#         return HttpResponse(status=201)

@@ -2,11 +2,12 @@
  * Created by xavi on 7/06/16.
  */
 angular.module('DLPApp').controller('IndexCntrll',['$scope', '$http', '$state', '$stateParams', '$translate', 'uiGmapGoogleMapApi',
-    'uiGmapIsReady', 'City', 'CityByName', 'LogisticCenter', 'Droppoint', 'Drone', 'Package', 'Transport',
+    'uiGmapIsReady', 'City', 'CityByName', 'LogisticCenter', 'Droppoint', 'Drone', 'Package', 'Transport', '$timeout', 'FoundationApi',
     function($scope, $state, $stateParams, $http, $translate, uiGmapGoogleMapApi, uiGmapIsReady, City, CityByName,
-    LogisticCenter, Droppoint, Drone, Package, Transport){
+             LogisticCenter, Droppoint, Drone, Package, $timeout, FoundationApi){
         var city_str = $stateParams.city;
         $scope.logistic_centers = [];
+        $scope.lc = [];
         city_str = (city_str) ? city_str : "Lleida";
         if (isNaN(city_str)) {
             $scope.main_city = CityByName.get({name: city_str},
@@ -26,9 +27,21 @@ angular.module('DLPApp').controller('IndexCntrll',['$scope', '$http', '$state', 
             var logistic_center = LogisticCenter.get({id: item},
                 function () {
                     $scope.logistic_centers.push(logistic_center);
+                    $scope.lc[logistic_center.id] = false;
                 });
         };
 
+        $scope.openAccordion = function() {
+
+        };
+
+        $scope.selected_center = null
+        $scope.change_center = function(index){
+            $scope.selected_center = $scope.logistic_centers[index];
+        }
+        $scope.close_center = function(){
+            $scope.selected_center = null;
+        }
         // Do stuff with your $scope.
         // Note: Some of the directives require at least something to be defined originally!
         // e.g. $scope.markers = []
@@ -39,8 +52,13 @@ angular.module('DLPApp').controller('IndexCntrll',['$scope', '$http', '$state', 
             $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
         });
         uiGmapIsReady.promise()                     // this gets all (ready) map instances - defaults to 1 for the first map
-        .then(function(instances) {                 // instances is an array object
-            var maps = instances[0].map;            // if only 1 map it's found at index 0 of array
-        });
+            .then(function(instances) {                 // instances is an array object
+                var maps = instances[0].map;            // if only 1 map it's found at index 0 of array
+            });
+
+        $scope.openCenterInfo = function (index) {
+            FoundationApi.subscribe('LCrepresentation', 'open')
+            $scope.lc[index] = !$scope.lc[index];
+        };
 
     }]);

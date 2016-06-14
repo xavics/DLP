@@ -1,0 +1,33 @@
+<table style="width: 100%;">
+    <thead>
+    <tr>
+        <th colspan="6">{{ 'DRONE' | translate }} {{ drone.id }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th style="width: 15%;">{{ 'PLATE' | translate }}</th>
+        <td style="width: 30%;"><input type="text" style="height: 25px; max-width: 160px; margin: 0 !important;" ng-model="drone.plate" value="{{ drone.plate }}"></td>
+        <th style="width: 25%;">{{ 'ISTRANSPORTING' | translate }}</th>
+        <td style="width: 10%;">{{ drone.is_transporting }}</td>
+        <td rowspan="2" class="centered_td" style="width: 15%;">
+            <h1>
+                <a ng-click="update_drone()" class="default">
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i> </a>
+            </h1>
+        </td>
+        <td rowspan="2" class="centered_td" style="width: 15%;">
+            <h1>
+                <a ng-click="changeMode('default')" class="warning">
+                    <i class="fa fa-ban" aria-hidden="true"></i> </a>
+            </h1>
+        </td>
+    </tr>
+    <tr>
+        <th style="width: 15%;">{{ 'MODEL' | translate }}</th>
+        <td style="width: 30%;"><input type="text" style="height: 25px; max-width: 160px; margin: 0 !important;" ng-model="drone.model" value="{{ drone.model }}"></td>
+        <th style="width: 25%;">{{ 'BATTERY' | translate }}</th>
+        <td style="width: 10%;">{{ drone.battery_life }}</td>
+    </tr>
+    </tbody>
+</table>
