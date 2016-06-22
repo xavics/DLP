@@ -8,6 +8,15 @@ STATUS = (
     (ACTIVE, 'Active'),
     (DISABLED, 'Disabled'))
 
+PENDING = 2
+SENDING = 1
+SENT = 0
+STATUS_PACKAGE = (
+    (PENDING, 'Pending'),
+    (SENDING, 'Sending'),
+    (SENT, 'Sent')
+)
+
 
 class City(models.Model):
     name = models.CharField(max_length=100)
@@ -72,9 +81,10 @@ class Drone(models.Model):
 class Package(models.Model):
     name = models.CharField(max_length=50)
     dropPoint = models.ForeignKey(DropPoint, related_name='packages')
+    status = models.IntegerField(default=2, choices=STATUS_PACKAGE)
 
 
 class Transport(models.Model):
-    is_active = models.IntegerField(default=0, choices=STATUS)
+    is_active = models.IntegerField(default=1, choices=STATUS)
     package = models.ForeignKey(Package, related_name='transport')
     drone = models.ForeignKey(Drone, null=True, related_name='transports')

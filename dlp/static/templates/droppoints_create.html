@@ -1,0 +1,48 @@
+<accordion style="width: 100%">
+    <accordion-group>
+        <accordion-heading>
+            <i class="fa fa-plus" aria-hidden="true"></i> {{ 'CREATE NEW' | translate }} {{ 'DROPPOINT' | translate }}
+        </accordion-heading>
+        <div class="grid-block">
+            <form>
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label>{{ 'NAME' | translate }}
+                            <input type="text" ng-model="newDroppoint.name" placeholder="{{ 'NAME' | translate }}" />
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="large-4 columns">
+                        <label>{{ 'LATITUDE' | translate }}
+                            <input type="number" ng-model="newDroppoint.lat" placeholder="{{ 'LATITUDE' | translate }}" />
+                        </label>
+                    </div>
+                    <div class="large-4 columns">
+                        <label>{{ 'LONGITUDE' | translate }}
+                            <input type="number" ng-model="newDroppoint.lng" placeholder="{{ 'LONGITUDE' | translate }}" />
+                        </label>
+                    </div>
+                    <div class="large-4 columns">
+                        <label>{{ 'ALTITUDE' | translate }}
+                            <input type="number" ng-model="newDroppoint.alt" value="0" placeholder="{{ 'ALTITUDE' | translate }}" />
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label>{{ 'DESCRIPTION' | translate }}
+                            <textarea ng-model="newDroppoint.description" placeholder="{{ 'DESCRIPTION' | translate }}"></textarea>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="large-12 columns" style="text-align: right;">
+                        <a ng-click="create_new_droppoint()" class="large success hollow button" style="margin: 0">
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i> {{ 'SAVE' | translate }}</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </accordion-group>
+</accordion>

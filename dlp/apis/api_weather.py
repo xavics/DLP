@@ -50,7 +50,7 @@ def generate_weather_image(path, ip=None):
 
 def generate_html(path, description, id_icon, lat, lon, temp, temp_max,
                   temp_min, wind, cloud, pressure, humidity):
-    base = open(path + "/static/img/page_base.html", "r")
+    base = open(path + "/apis/templates/temperature.html", "r")
     print "reading"
     string_file = base.read()
     final_html = string_file.format(
@@ -59,7 +59,7 @@ def generate_html(path, description, id_icon, lat, lon, temp, temp_max,
         temp_min=str(temp_min), cloud=str(cloud), wind=str(wind),
         pressure=str(pressure), humidity=str(humidity))
     base.close()
-    temp = open(path + "/static/img/temperature.html", "w")
+    temp = open(path + "/static/tmp/temperature.html", "w")
     temp.write(final_html)
     temp.close()
 
@@ -67,7 +67,7 @@ def generate_html(path, description, id_icon, lat, lon, temp, temp_max,
 def generate_image(path):
     os.system(
         "python " + path + "/utilities/python-webkit2png/webkit2png/" +
-        "scripts.py " + path + "/static/img/temperature.html -o " +
+        "scripts.py " + path + "/static/tmp/temperature.html -o " +
         path + "/static/img/temperature.png -g 600 250")
 
 

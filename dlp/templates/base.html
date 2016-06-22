@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="icon" href="http://static.hubspot.com/favicon.ico">
+{#    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>#}
 {#    <script async defer#}
 {#      src="https://maps.googleapis.com/maps/api/js?key={{ maps_api_key }}&callback=initMap">#}
 {#    </script>#}
@@ -18,6 +19,8 @@
     <script src="{% static 'javascript/Controllers/UpdateLCCntrll.js' %}"></script>
     <script src="{% static 'javascript/Controllers/CreateDroneCntrll.js' %}"></script>
     <script src="{% static 'javascript/Controllers/ManageDroneCntrll.js' %}"></script>
+    <script src="{% static 'javascript/Controllers/CreateDroppointCntrll.js' %}"></script>
+    <script src="{% static 'javascript/Controllers/ManageDroppointCntrll.js' %}"></script>
     <script src="{% static 'javascript/Services/ServiceAPI.js' %}"></script>
     <script src="{% static 'foundation/js/vendor/jquery.js' %}"></script>
 {#    <script src="{% static 'foundation/js/vendor/modernizr.js' %}"></script>#}
@@ -26,7 +29,7 @@
     <script src="{% static 'angular-translate/angular-translate.js' %}"></script>
     <script src="{% static 'angular-resource/angular-resource.js' %}"></script>
 {#    <script src="{% static 'foundation-apps/js/angular/app.js' %}"></script>#}
-{#    <script src="{% static 'foundation-apps/js/angular/foundation.js' %}"></script>#}
+    <script src="{% static 'foundation-apps/js/angular/foundation.js' %}"></script>
 {#    <script src="{% static 'foundation-apps/js/angular/services/foundation.core.js' %}"></script>#}
     <script src="{% static 'angular-animate/angular-animate.js' %}"></script>
     <script src="{% static 'fastclick/lib/fastclick.js' %}"></script>

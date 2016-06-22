@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+	<Placemark>
+		<name>{name}</name>
+		<visibility>1</visibility>
+		<description>{description}</description>
+		<Style>
+			<IconStyle>
+				<Icon>
+					<href>{icon_url}</href>
+				</Icon>
+			</IconStyle>
+			<LineStyle>
+				<width>2</width>
+			</LineStyle>
+		</Style>
+		<Point>
+			<extrude>1</extrude>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>{alt},{lng},200.0</coordinates>
+		</Point>
+	</Placemark>
+</kml>

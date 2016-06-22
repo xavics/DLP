@@ -4,20 +4,7 @@ from rest_framework import viewsets
 from dlp.serializers import *
 from models import *
 from filters import *
-
-
-# def index(request, city=None):
-#     if city:
-#         LogisticCenters = models.LogisticCenter.objects.filter(city=city)
-#     else:
-#         return welcome(request)
-#     return render(request, 'static/templates/index.html', {'cities': city})
-#
-#
-# def welcome(request):
-#     cities_available = models.City.objects.all()
-#     return render(request, 'static/templates/welcome.html',
-#                   {'cities_available': cities_available})
+import tasks
 
 
 def base(request):

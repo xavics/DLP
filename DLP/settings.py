@@ -11,9 +11,11 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
-
+from datetime import timedelta
+import djcelery
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+djcelery.setup_loader()
 
 PROJECT_ROOT = os.path.abspath(
     os.path.join(os.path.dirname(__file__), ".."),
@@ -35,6 +37,7 @@ ALLOWED_HOSTS = []
 
 # WEATHER_API_KEY = os.environ['WEATHER_API_KEY']
 MAPS_API_KEY = os.environ['MAPS_API_KEY']
+os.environ["CELERY_LOADER"] = "django"
 
 # Application definition
 
@@ -50,6 +53,7 @@ INSTALLED_APPS = [
     'djng',
     'foundation',
     'djangobower',
+    "djcelery"
 ]
 
 REST_FRAMEWORK = {
@@ -150,13 +154,28 @@ STATICFILES_FINDERS = (
 )
 
 BOWER_INSTALLED_APPS = (
+    # 'angular'
     'foundation-apps',
-    'angular-foundation',
-    'angular-translate',
-    'angular-resource',
-    'https://github.com/angular-ui/angular-google-maps.git#2.3.2'
+    # 'angular-foundation',
+    # 'angular-translate',
+    # 'angular-resource',
+    # 'https://github.com/angular-ui/angular-google-maps.git#2.3.2'
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'dlp/static')
 
 STATIC_URL = '/static/'
+
+# CELERY STUFF
+BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+CELERYBEAT_SCHEDULE = {
+    'search_packets_every_minute': {
+        'task': 'tasks.manage_all_packets',
+        'schedule': timedelta(seconds=3),
+    },
+}

@@ -9,18 +9,25 @@
                 <div ng-include="'/static/templates/logistic_center_acordeon.html'"></div>
             </zf-panel>
             <div id="map_canvas" class="flex-video">
-                <ui-gmap-google-map center="map.center" zoom="map.zoom"></ui-gmap-google-map>
+                <ui-gmap-google-map center="map.center" zoom="map.zoom" options="map.options" events="map.events">
+{#                    <ui-gmap-marker ng-repeat="m in map.markers" coords="m.coords" options="m.options" idkey="m.id" events="m.events"></ui-gmap-marker>#}
+                    <ui-gmap-marker models="map.markers" coords="'coords'"></ui-gmap-marker>
+                </ui-gmap-google-map>
             </div>
             <div class="grid-block shrink" ng-if="left_menu">
                 Some little here?
                 {{ left_menu.state }}
+                {{ map.markers }}
+
             </div>
             <div zf-panel="" position="right" zf-ignore-all-close="" id="map_panel" class="panel-right">
                 <a zf-close="" class="close-button">×</a>
                 Map options...
                 -> Logisttic Centers
                 -> Drones
+                {{ map.markers }}
                 -> Transport ?
+                {{ newCoords }}
             </div>
             <div zf-panel="" position="right" zf-ignore-all-close="" id="galaxy_panel" class="panel-right">
                 <a zf-close="" class="close-button">×</a>
@@ -36,7 +43,7 @@
             <div class="block_info" ng-show="selected_center">
                 <div style="background-color: #00c900">
                     thats crazy
-                    {{ selected_center.id }}
+                   selected_center.id
                 </div>
             </div>
             -->

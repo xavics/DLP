@@ -4,6 +4,7 @@
 var app = angular.module('DLPApp', [
     'ui.router',
     //'application',
+    //'foundation',
     'foundation',
     'mm.foundation',
     'ngResource',
