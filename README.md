@@ -16,8 +16,8 @@ done...
 
 
 
-#How to run (Under construction...)
+#How to run (Under construction.../provisional)
 
 In the root of DLP:
 
-$ bash bash 'maps_api_key' 'server_ip' (It will create 4 terminals: Redis Server, Worker1, CeleryBeat, Django Server)
+$ bash rundlp 'maps_api_key' 'server_ip' (It will create 4 terminals: Redis Server, Worker1, CeleryBeat, Django Server)
