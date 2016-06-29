@@ -1,9 +1,12 @@
+from django.http import HttpResponse
 from django.shortcuts import render
-from DLP.settings import MAPS_API_KEY
+from django.views.decorators.csrf import csrf_exempt
+from DLP.settings import MAPS_API_KEY, SITE_URL
 from rest_framework import viewsets
 from dlp.serializers import *
 from models import *
 from filters import *
+from dlp.kml_manager import kml_generator
 import tasks
 
 
@@ -12,8 +15,24 @@ def base(request):
     return render(request, 'base.html', {'maps_api_key': maps_api_key})
 
 
+@csrf_exempt
+def receive_position(request):
+    id_trans = request.POST.get('id_transport')
+    lat = request.POST.get('lat')
+    lng = request.POST.get('lng')
+    alt = request.POST.get('alt')
+    variables = {'icon': SITE_URL + "static/images/galaxy_icons/drone_icon.png",
+                 'name': "Transport " + id_trans,
+                 'description': "Drone transporting packet.",
+                 'lat': lat,
+                 'lng': lng,
+                 'alt': alt}
+    kml_name = "Transport" + id_trans + ".kml"
+    kml_generator.create_kml("drone_placemark.kml", kml_name, variables)
+    return HttpResponse(status=204)
+
 '''
-Rest ViewSets
+API REST ViewSets
 '''
 
 

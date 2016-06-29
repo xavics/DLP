@@ -34,6 +34,7 @@ router.register(r'styleurls', views.StyleURLViewSet)
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.base),
+    url(r'^receive_position$', views.receive_position),
     url(r'^api/', include(router.urls)),
     # url(r'^api-auth/',
     #     include('rest_framework.urls', namespace='rest_framework')),

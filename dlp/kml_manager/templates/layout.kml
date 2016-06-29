@@ -1,0 +1,9 @@
+<ScreenOverlay>
+    <Icon>
+        <href>{url_icon}</href>
+    </Icon>
+    <overlayXY x='{overlay_x}' y='{overlay_y}' xunits='fraction' yunits='fraction'/>
+    <screenXY x='{screen_x}' y='{screen_x}' xunits='fraction' yunits='fraction'/>
+    <rotationXY x='0' y='0' xunits='fraction' yunits='fraction'/>
+    <size x='{size_x}' y='{size_y}' xunits='fraction' yunits='fraction'/>
+</ScreenOverlay>

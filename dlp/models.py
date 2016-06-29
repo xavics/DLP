@@ -29,7 +29,8 @@ class City(models.Model):
 
 class StyleURL(models.Model):
     name = models.CharField(max_length=50)
-    href = models.URLField()
+    maps_url = models.CharField(max_length=50)
+    earth_url = models.CharField(max_length=50)
     scale = models.FloatField()
 
     def __unicode__(self):
@@ -88,3 +89,15 @@ class Transport(models.Model):
     is_active = models.IntegerField(default=1, choices=STATUS)
     package = models.ForeignKey(Package, related_name='transport')
     drone = models.ForeignKey(Drone, null=True, related_name='transports')
+
+
+class Layouts(models.Model):
+    name = models.CharField(max_length=50)
+    url = models.CharField(max_length=50)
+    size_x = models.FloatField()
+    size_y = models.FloatField()
+    screen_x = models.FloatField()
+    screen_y = models.FloatField()
+    overlay_x = models.FloatField()
+    overlay_y = models.FloatField()
+

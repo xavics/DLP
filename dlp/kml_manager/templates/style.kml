@@ -1,0 +1,8 @@
+<Style id="{id}">
+    <IconStyle>
+        <Icon>
+            <href>{icon}</href>
+            <scale>{scale}</scale>
+        </Icon>
+    </IconStyle>
+</Style>

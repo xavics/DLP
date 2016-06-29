@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [ -z $1 ]; then
+    echo "Maps Api Key required"
+    exit 1
+fi
+if [ -z $2 ]; then
+    echo "runserver will run on http://127.0.0.1:8000/"
+    $ip = "127.0.0.1:8000"
+else
+    $ip = $2
+fi
+export MAPS_API_KEY=$1
+gnome-terminal --title="Redis Server" -e "redis-server" &
+gnome-terminal --title="Worker 1" -e "python manage.py celeryd --verbosity=2 --loglevel=DEBUG" &
+gnome-terminal --title="Worker 2" -e "python manage.py celeryd --verbosity=2 --loglevel=DEBUG" &
+gnome-terminal --title="CeleryBeat" -e "python manage.py celerybeat --verbosity=2 --loglevel=DEBUG" &
+gnome-terminal --title="Django Server" -e "python manage.py runserver $ip" &

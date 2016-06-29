@@ -1,0 +1,8 @@
+        <NetworkLink>
+            <Name>{name}</Name>
+            <Link>
+                <href>{href}</href>
+                <refreshMode>onInterval</refreshMode>
+                <refreshInterval>{refreshInterval}</refreshInterval>
+            </Link>
+        </NetworkLink>
