@@ -1,23 +1,46 @@
 # DLP (Drone Logistic Platform)
 
-#How to Install:
+## How to install
 
-Get the last git version of DLP.
+Get the latest git version:
 
-pip install requeriments.txt
+```
+git clone https://github.com/xavics/DLP
+```
 
-<!--install geopy-->
+Install dependencies:
 
-python manage.py bower-install
+```
+apt-get install nodejs-legacy npm
+npm install -g bower
 
+apt-get install python-pip redis-server
+pip install -r requeriments.txt
+
+export MAPS_API_KEY=<API_KEY>
+python manage.py bower install
 python manage.py collectstatic
+```
 
-done...
+## How to run
 
+### Environment variables
 
+```
+export MAPS_API_KEY=<API_KEY>
+```
 
-#How to run (Under construction.../provisional)
+### Run server
+```
+./rundlp <server_ip> 
+```
+or
+```
+python manage.py rundlp <server_ip>
+```
 
-In the root of DLP:
+It will create 4 terminals: Redis Server, Worker1, CeleryBeat, Django Server.
 
-$ bash rundlp 'maps_api_key' 'server_ip' (It will create 4 terminals: Redis Server, Worker1, CeleryBeat, Django Server)
+### Exiting server
+
+Write `y` on the master console.

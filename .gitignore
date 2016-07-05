@@ -1,0 +1,10 @@
+*.pyc
+*.swp
+*~
+
+ipsettings
+celerybeat-schedule
+celerybeat.pid
+
+components/
+dlp/static/

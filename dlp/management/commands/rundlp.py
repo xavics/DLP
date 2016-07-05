@@ -25,7 +25,11 @@ def write_ip(ip_galaxy, site_url):
 
 
 class Command(BaseCommand):
+    PATH_TMP = os.path.join(PROJECT_ROOT, "dlp/static/kmls/tmp/")
+    PATH_PERSISTENT = os.path.join(PROJECT_ROOT,
+                                   "dlp/static/kmls/persistent/")
     help = 'Set the <ip> of the galaxy Liquid system.'
+
 
     def add_arguments(self, parser):
         parser.add_argument('ip', nargs='?',
@@ -47,14 +51,11 @@ class Command(BaseCommand):
                 write_ip(parsed_ip, site_url)
                 self.stdout.write(self.style.SUCCESS(
                     'Successfully changed the ip to "%s"' % parsed_ip))
-                path_tmp = os.path.join(PROJECT_ROOT, "dlp/static/kmls/tmp/*")
-                path_persitent = os.path.join(PROJECT_ROOT,
-                                    "dlp/static/kmls/persistent/*")
                 # Erasing the files and Databases with KMl and
                 # other dynamic information created during the FAED run.
                 self.create_system_files()
-                os.system("rm -r " + path_tmp + "*")
-                os.system("rm -r " + path_persitent + "*")
+                os.system("rm -r " + self.PATH_TMP + "*")
+                os.system("rm -r " + self.PATH_PERSISTENT + "*")
                 # self.clear_databases()
                 # Creating the KMl files with the information of the Database
                 self.create_base_kml()
@@ -79,9 +80,8 @@ class Command(BaseCommand):
 
     def create_system_files(self):
         self.stdout.write("Creating startUp files...")
-        os.system("mkdir /tmp/kml")
-        os.system("touch /tmp/kml/kmls.txt")
-        os.system("touch /tmp/kml/kmls_slave.txt")
+        os.system("mkdir -p " + self.PATH_TMP)
+        os.system("mkdir -p " + self.PATH_PERSISTENT)
 
     def create_base_kml(self):
         create_logisticcenters_list()

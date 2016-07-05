@@ -27,7 +27,7 @@ PROJECT_ROOT = os.path.abspath(
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # Geos Library it can change depending the installation place
-GEOS_LIBRARY_PATH = '/usr/local/lib/libgeos_c.so'
+# GEOS_LIBRARY_PATH = '/usr/local/lib/libgeos_c.so'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '2&ad*-ltofd-kz^7^6^7&ad(ng81+et-ypapqp8x)f_8gdqa$x'
@@ -152,12 +152,12 @@ STATICFILES_FINDERS = (
 )
 
 BOWER_INSTALLED_APPS = (
-    # 'angular'
-    'foundation-apps',
-    # 'angular-foundation',
-    # 'angular-translate',
-    # 'angular-resource',
-    # 'https://github.com/angular-ui/angular-google-maps.git#2.3.2'
+    'angular#1.4.12',
+    'foundation-apps#1.2.0',
+    'angular-foundation#0.8.0',
+    'angular-translate#2.11.0',
+    'angular-resource#1.4.12',
+    'https://github.com/angular-ui/angular-google-maps.git#2.3.2'
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'dlp/static')
