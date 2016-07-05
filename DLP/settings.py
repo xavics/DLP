@@ -177,12 +177,3 @@ CELERYBEAT_SCHEDULE = {
         'schedule': timedelta(seconds=3),
     },
 }
-
-
-def get_site_url():
-    f = open(os.path.join(BASE_DIR + "/ipsettings"), 'r')
-    ip_config = f.read().split(',')
-    f.close()
-    return ip_config[1]
-
-SITE_URL = get_site_url()

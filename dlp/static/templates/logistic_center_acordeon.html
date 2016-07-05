@@ -26,15 +26,7 @@
                     <div ng-include="'/static/templates/droppoints_view.html'"></div>
                 </tab>
                 <tab class="custom_tab" heading="{{ 'TRANSPORTS' | translate }}">
-                    <div class="animate-switch-container" ng-switch on="mode_transports">
-                          <div class="animate-switch" ng-switch-when="edit">
-                              Settings Div
-                          </div>
-                          <div class="animate-switch" ng-switch-when="delete">Home Span</div>
-                          <div class="animate-switch" ng-switch-default>
-                              default
-                          </div>
-                    </div>
+                    <div ng-include="'/static/templates/transports_view.html'"></div>
                 </tab>
             </tabset>
         </div>

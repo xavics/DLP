@@ -1,7 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from DLP.settings import MAPS_API_KEY, SITE_URL
+from DLP.settings import MAPS_API_KEY
+from dlp.apps import get_site_url
 from rest_framework import viewsets
 from dlp.serializers import *
 from models import *
@@ -21,14 +22,17 @@ def receive_position(request):
     lat = request.POST.get('lat')
     lng = request.POST.get('lng')
     alt = request.POST.get('alt')
-    variables = {'icon': SITE_URL + "static/images/galaxy_icons/drone_icon.png",
+    variables = {'icon': get_site_url() + "static/images/galaxy_icons/drone_icon.png",
                  'name': "Transport " + id_trans,
                  'description': "Drone transporting packet.",
                  'lat': lat,
                  'lng': lng,
                  'alt': alt}
     kml_name = "Transport" + id_trans + ".kml"
-    kml_generator.create_kml("drone_placemark.kml", kml_name, variables)
+    kml_generator.create_kml("drone_placemark.kml", kml_name, variables, True)
+    transport = Transport.objects.get(id=id_trans)
+    transport.step += 1
+    transport.save()
     return HttpResponse(status=204)
 
 '''
@@ -72,6 +76,8 @@ class TransportViewSet(viewsets.ModelViewSet):
     model = Transport
     queryset = Transport.objects.all()
     serializer_class = TransportSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_class = TransportFilter
 
 
 class StyleURLViewSet(viewsets.ModelViewSet):

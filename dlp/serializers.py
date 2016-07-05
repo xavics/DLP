@@ -23,7 +23,8 @@ class TransportSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Transport
         fields = (
-            'id', 'package', 'drone')
+            'id', 'is_active', 'package', 'logistic_center', 'drone', 'step',
+            'max_steps')
 
 
 class PackageSerializer(serializers.ModelSerializer):

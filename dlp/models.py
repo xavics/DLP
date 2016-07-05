@@ -83,12 +83,18 @@ class Package(models.Model):
     name = models.CharField(max_length=50)
     dropPoint = models.ForeignKey(DropPoint, related_name='packages')
     status = models.IntegerField(default=2, choices=STATUS_PACKAGE)
+    style_url = models.ForeignKey(StyleURL)
+    date_delivered = models.DateTimeField(null=True, blank=True)
 
 
 class Transport(models.Model):
     is_active = models.IntegerField(default=1, choices=STATUS)
     package = models.ForeignKey(Package, related_name='transport')
+    logistic_center = models.ForeignKey(LogisticCenter,
+                                        related_name='transports')
     drone = models.ForeignKey(Drone, null=True, related_name='transports')
+    step = models.IntegerField(default=0)
+    max_steps = models.IntegerField()
 
 
 class Layouts(models.Model):
@@ -100,4 +106,3 @@ class Layouts(models.Model):
     screen_y = models.FloatField()
     overlay_x = models.FloatField()
     overlay_y = models.FloatField()
-

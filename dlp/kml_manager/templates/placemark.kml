@@ -1,9 +1,9 @@
-<Placemark>
-    <name>{name}</name>
-    <description>{description}</description>
-    <styleUrl>#{id_style}</styleUrl>
-    <Point>
-        <altitudeMode>relativeToGround</altitudeMode>
-        <coordinates>{lat},{lng},{alt}</coordinates>
-    </Point>
-</Placemark>
+            <Placemark>
+                <name>{name}</name>
+                <description>{description}</description>
+                <styleUrl>#{id_style}</styleUrl>
+                <Point>
+                    <altitudeMode>relativeToGround</altitudeMode>
+                    <coordinates>{lat},{lng},{alt}</coordinates>
+                </Point>
+            </Placemark>

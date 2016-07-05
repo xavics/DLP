@@ -33,7 +33,7 @@ myServices.factory('Package', ['$resource', function($resource) {
 }]);
 
 myServices.factory('Transport', ['$resource', function($resource) {
-    return $resource('/api/transports/:id/', {'id': '@id'}, {
+    return $resource('/api/transports/:id/?time=:time', {'id': '@id', 'time': '@time'}, {
         'update': { method:'PUT' }
     });
 }]);
@@ -41,4 +41,10 @@ myServices.factory('Transport', ['$resource', function($resource) {
 myServices.factory('CityByName', ['$resource', function($resource) {
     return $resource('/api/cities/?name=:name', {'name': '@name'}, {
     });
+}]);
+
+myServices.factory('TransportByLc', ['$resource', function($resource) {
+    return $resource('/api/transports/?logistic_center=:logistic_center&is_active=:is_active&time=time',
+        {'logistic_center': '@logistic_center', is_active: '@is_active', 'time': '@time'}, {
+        });
 }]);

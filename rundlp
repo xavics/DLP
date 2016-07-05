@@ -1,18 +1,27 @@
 #!/bin/bash
 
 if [ -z $1 ]; then
-    echo "Maps Api Key required"
-    exit 1
-fi
-if [ -z $2 ]; then
-    echo "runserver will run on http://127.0.0.1:8000/"
-    $ip = "127.0.0.1:8000"
+    ip = "127.0.0.1:8000"
 else
-    $ip = $2
+    ip=$1
 fi
-export MAPS_API_KEY=$1
-gnome-terminal --title="Redis Server" -e "redis-server" &
-gnome-terminal --title="Worker 1" -e "python manage.py celeryd --verbosity=2 --loglevel=DEBUG" &
-gnome-terminal --title="Worker 2" -e "python manage.py celeryd --verbosity=2 --loglevel=DEBUG" &
-gnome-terminal --title="CeleryBeat" -e "python manage.py celerybeat --verbosity=2 --loglevel=DEBUG" &
-gnome-terminal --title="Django Server" -e "python manage.py runserver $ip" &
+echo "runserver will run on $ip"
+gnome-terminal --title="Django Server" --disable-factory -e "python manage.py runserver $ip" & t1=$!
+gnome-terminal --title="Redis Server" --disable-factory -e "redis-server" & t2=$!
+gnome-terminal --title="Worker 1" --disable-factory -e "python manage.py celeryd --verbosity=2 --loglevel=DEBUG" & t3=$!
+gnome-terminal --title="Worker 2" --disable-factory -e "python manage.py celeryd --verbosity=2 --loglevel=DEBUG" & t4=$!
+gnome-terminal --title="CeleryBeat" --disable-factory -e "python manage.py celerybeat --verbosity=2 --loglevel=DEBUG" & t5=$!
+echo "$t1 , $t2 , $t3 , $t4 , $t5"
+echo -n "If you want to close DLP press 'y' > "
+read text
+until [ "$text" == "y" ]
+do
+    echo -n "If you want to close DLP press 'y' > "
+    read text
+done
+pgrep -P $t1 | xargs kill
+pgrep -P $t2 | xargs kill
+pgrep -P $t3 | xargs kill
+pgrep -P $t4 | xargs kill
+pgrep -P $t5 | xargs kill
+exit

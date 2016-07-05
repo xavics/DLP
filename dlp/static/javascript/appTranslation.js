@@ -22,14 +22,16 @@ angular.module('DLPApp').config(['$translateProvider', function ($translateProvi
         'NAME': 'Name',
         'CITY': 'City',
         'DELETE': 'Delete',
-        'TRANSPORTS': 'Transports',
+        'TRANSPORTS': 'Deliveries',
         'DRONE': 'Drone',
         'PLATE': 'Plate',
         'ICON': 'Icon',
         'MODEL': 'Model',
         'ISTRANSPORTING': 'Is transporting?',
         'BATTERY': 'Battery life',
-        'DELETE_ALERT': 'Are you sure you want to delete this'
+        'DELETE_ALERT': 'Are you sure you want to delete this',
+        'TRANSPORT': 'Delivery',
+        'PACKAGE': 'Package'
     });
 
     $translateProvider.translations('es', {
@@ -52,14 +54,16 @@ angular.module('DLPApp').config(['$translateProvider', function ($translateProvi
         'NAME': 'Nombre',
         'CITY': 'Ciudad',
         'DELETE': 'Eliminar',
-        'TRANSPORTS': 'Transportes',
+        'TRANSPORTS': 'Repartos',
         'DRONE': 'Dron',
         'PLATE': 'Matrícula',
         'ICON': 'Icono',
         'MODEL': 'Modelo',
         'ISTRANSPORTING': 'Esta transportando?',
         'BATTERY': 'Estado de la bateria',
-        'DELETE_ALERT': 'Esta seguro que desea eliminar este'
+        'DELETE_ALERT': 'Esta seguro que desea eliminar este',
+        'TRANSPORT': 'Entrega',
+        'PACKAGE': 'Paquete'
     });
 
     $translateProvider.preferredLanguage('en');

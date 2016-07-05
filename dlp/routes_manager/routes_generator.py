@@ -82,7 +82,3 @@ def get_drone_steps(origin, destiny):
             steps.append(
                 Point(actual_point.lat, actual_point.lng, actual_point.alt))
     return steps
-
-
-origin = Point(41.6183169, 0.6218659, 270)
-destiny = Point(41.615437, 0.6223383, 180)

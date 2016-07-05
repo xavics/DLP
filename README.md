@@ -6,7 +6,7 @@ Get the last git version of DLP.
 
 pip install requeriments.txt
 
-install geopy
+<!--install geopy-->
 
 python manage.py bower-install
 
