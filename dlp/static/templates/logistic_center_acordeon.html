@@ -1,0 +1,41 @@
+<div ng-controller="AccordionCntrll">
+<accordion close-others="true">
+    <accordion-group ng-repeat="center in logistic_centers | orderBy: 'id'" id="lc{{ center.id }}" is-open="lc[{{ center.id }}]">
+        <accordion-heading>
+            {{center.name}} {{ center.id }} <!--{{ $index }}-->
+        </accordion-heading>
+        <div>
+            <tabset style="width: 100%;">
+                <tab class="custom_tab" heading="{{ 'LOGISTICCENTER' | translate }}">
+                    <div ng-switch on="modes.mode_lc">
+                          <div class="animate-switch" ng-switch-when="edit">
+                              <div ng-include="'/static/templates/logistic_center_edit.html'"></div>
+                          </div>
+                          <div class="animate-switch" ng-switch-when="delete">
+                              Home Span
+                          </div>
+                          <div class="animate-switch" ng-switch-default>
+                              <div ng-include="'/static/templates/logistic_center_view.html'"></div>
+                          </div>
+                    </div>
+                </tab>
+                <tab class="custom_tab" heading="{{ 'DRONES' | translate }}">
+                    <div ng-include="'/static/templates/drones_view.html'"></div>
+                </tab>
+                <tab class="custom_tab" heading="{{ 'DROPPOINTS' | translate }}">
+                    <div ng-include="'/static/templates/droppoints_view.html'"></div>
+                </tab>
+                <tab class="custom_tab" heading="{{ 'TRANSPORTS' | translate }}">
+                    <div ng-include="'/static/templates/transports_view.html'"></div>
+                </tab>
+            </tabset>
+        </div>
+    </accordion-group>
+    <accordion-group>
+        <accordion-heading>
+            ##CREATE NEW LOGISTIC CENTER##
+        </accordion-heading>
+            <div ng-include="'/static/templates/logistic_center_create.html'"></div>
+    </accordion-group>
+</accordion>
+</div>

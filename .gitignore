@@ -7,4 +7,3 @@ celerybeat-schedule
 celerybeat.pid
 
 components/
-dlp/static/templates/

@@ -1,0 +1,73 @@
+<div class="vertical grid-block" ng-controller="CreateLCCntrll">
+    <div class="grid-block medium-up-2">
+        <div class="vertical grid-block">
+            <div class="grid-block">
+                <div class="form-group">
+                    <label>{{ 'NAME' | translate }}</label>
+                    <input type="text" ng-model="newCenter.name" placeholder="{{ 'NAME' | translate }}">
+                </div>
+            </div>
+            <div class="grid-block">
+                <div class="form-group">
+                    <label>{{ 'ADDRESS' | translate }}</label>
+                    <input type="text" ng-model="newCenter.address" placeholder="{{ 'ADDRESS' | translate }}">
+                </div>
+            </div>
+        </div>
+        <div class="grid-block">
+            <div class="form-group">
+                <label>{{ 'DESCRIPTION' | translate }}</label>
+                <textarea ng-model="newCenter.description" placeholder="{{ 'DESCRIPTION' | translate }}" rows="3"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="grid-block medium-up-4">
+        <div class="grid-block">
+            <div class="form-group">
+                <label>{{ 'LATITUDE' | translate }}</label>
+                <input type="number" ng-model="newCenter.lat" placeholder="{{ 'LATITUDE' | translate }}">
+            </div>
+        </div>
+        <div class="grid-block">
+            <div class="form-group">
+                <label>{{ 'LONGITUDE' | translate }}</label>
+                <input type="number" ng-model="newCenter.lng" placeholder="{{ 'LONGITUDE' | translate }}">
+            </div>
+        </div>
+        <div class="grid-block">
+            <div class="form-group">
+                <label>{{ 'ALTITUDE' | translate }}</label>
+                <input type="number" ng-model="newCenter.alt" placeholder="{{ 'ALTITUDE' | translate }}">
+            </div>
+        </div>
+        <div class="grid-block">
+            <div class="form-group">
+                <label>{{ 'RADIUS' | translate }}</label>
+                <input type="text" ng-model="newCenter.radius" placeholder="{{ 'RADIUS' | translate }}">
+            </div>
+        </div>
+    </div>
+    <div class="grid-block medium-up-2">
+        <div class="grid-block">
+            <div class="form-group">
+                <label>{{ 'CITY' | translate }}</label>
+                <select ng-model="newCenter.city">
+                    <option value="{{ main_city.id }}" selected>{{ main_city.name }}</option>
+{#                    <option value="{{ city.id }}" ng-repeat="city in cities_list">{{ city.name }}</option>#}
+                </select>
+            </div>
+        </div>
+        <div class="grid-block">
+            <div class="form-group">
+                <label>#Style URL#</label>
+                <input type="text" ng-model="newCenter.style_url" placeholder="Something">
+            </div>
+        </div>
+    </div>
+    <div class="align-right grid-block">
+        <div style="text-align: right">
+            <a ng-click="create_new_center()" class="large success hollow button">
+                <i class="fa fa-floppy-o" aria-hidden="true"></i> {{ 'SAVE' | translate }}</a>
+        </div>
+    </div>
+</div>
