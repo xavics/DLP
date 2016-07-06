@@ -1,0 +1,114 @@
+.custom_tab {
+    width: 24%;
+    margin: 0;
+}
+
+html, body, #map_canvas {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+}
+
+#map_canvas {
+    position: relative;
+}
+
+.angular-google-map-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.panel-left{
+    width:35%;
+    margin:0;
+}
+
+.panel-right{
+    width:15%;
+    margin:0;
+}
+
+.accordion {
+    border: transparent !important;
+}
+
+.form-group{
+    width: 100%;
+}
+
+.centered_td{
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.left-td{
+    display: table-cell;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.right-td{
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+}
+
+.block_info{
+    padding: 20px;
+    position: absolute;
+    left: 10%;
+    background-color: transparent;
+    width: 25%;
+    height: 100%;
+}
+
+.title-bar{
+    height: 2.825rem;
+    position: relative;
+    padding: 0 1rem 0 1rem !important;
+    .title-bar.dark{
+        padding: 0 1rem 0 1rem !important;
+    }
+}
+
+.logo-image{
+    height: auto;
+    width: 180px;
+    max-width: 180px;
+    max-height: 4rem;
+}
+
+/*.animate-switch-container {*/
+  /*position:relative;*/
+  /*background:white;*/
+  /*border:1px solid black;*/
+  /*height:300px;*/
+  /*overflow:hidden;*/
+/*}*/
+
+/*.animate-switch {*/
+  /*padding:10px;*/
+/*}*/
+
+/*.animate-switch.ng-animate {*/
+  /*transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;*/
+
+  /*position:absolute;*/
+  /*top:0;*/
+  /*left:0;*/
+  /*right:0;*/
+  /*bottom:0;*/
+/*}*/
+
+/*.animate-switch.ng-leave.ng-leave-active,*/
+/*.animate-switch.ng-enter {*/
+  /*top:-300px;*/
+/*}*/
+/*.animate-switch.ng-leave,*/
+/*.animate-switch.ng-enter.ng-enter-active {*/
+  /*top:0;*/
+/*}*/
