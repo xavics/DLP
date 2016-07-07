@@ -34,5 +34,5 @@ def create_kml_file():
 
 
 def send_kmls():
-    create_kml_file()
+    # create_kml_file()
     sync_kmls_to_galaxy()

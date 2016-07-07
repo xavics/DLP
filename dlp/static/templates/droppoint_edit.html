@@ -1,33 +1,45 @@
 <table style="width: 100%;">
     <thead>
     <tr>
-        <th colspan="5"><input type="text" ng-model="droppoint.name" value="{{ droppoint.name }}"></th>
+        <th colspan="3"><input type="text" ng-model="droppoint.name" value="{{ droppoint.name }}"></th>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <th colspan="2">{{ 'LATITUDE' | translate }}</th>
-        <th colspan="2">{{ 'LONGITUDE' | translate }}</th>
+        <th colspan="1">{{ 'LATITUDE' | translate }}</th>
+        <th colspan="1">{{ 'LONGITUDE' | translate }}</th>
         <th colspan="1">{{ 'ALTITUDE' | translate }}</th>
     </tr>
     <tr>
-        <td colspan="2"><input type="text" ng-model="droppoint.lat" value="{{ droppoint.lat }}"></td>
-        <td colspan="2"><input type="text" ng-model="droppoint.lng" value="{{ droppoint.lng }}"></td>
+        <td colspan="1"><input type="text" ng-model="droppoint.lat" value="{{ droppoint.lat }}"></td>
+        <td colspan="1"><input type="text" ng-model="droppoint.lng" value="{{ droppoint.lng }}"></td>
         <td colspan="1"><input type="text" ng-model="droppoint.alt" value="{{ droppoint.alt }}"></td>
     </tr>
     <tr>
-        <th colspan="4">{{ 'DESCRIPTION' | translate }}</th>
-        <td rowspan="2" colspan="1" class="centered_td">
-            <h1 style="text-align: center">
-                <a ng-click="update_droppoint()" class="default" style="margin-right: 20px;">
-                    <i class="fa fa-floppy-o" aria-hidden="true"></i> </a>
-                <a ng-click="changeMode('default')" style="color:orange">
-                    <i class="fa fa-ban" aria-hidden="true"></i> </a>
-            </h1>
-        </td>
+        <th colspan="3">{{ 'DESCRIPTION' | translate }}</th>
     </tr>
     <tr>
-        <td colspan="4"><textarea ng-model="droppoint.description" placeholder="{{ droppoint.description }}"></textarea></td>
+        <td colspan="3"><textarea ng-model="droppoint.description" placeholder="{{ droppoint.description }}"></textarea></td>
+    </tr>
+    <tr>
+        <td colspan="3" class="centered_td">
+            <div class="grid-block">
+                <div class="grid-block">
+                    <div style="text-align: center; width: 100%;">
+                        <a ng-click="update_droppoint()" class="success hollow button">
+                            <i class="fa fa-pencil-square" aria-hidden="true"></i> {{ 'SAVE' | translate }}
+                        </a>
+                    </div>
+                </div>
+                <div class="grid-block">
+                    <div style="text-align: center; width: 100%;">
+                        <a ng-click="changeMode('default')" class="warning hollow button">
+                            <i class="fa fa-trash" aria-hidden="true"></i> {{ 'CANCEL' | translate }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </td>
     </tr>
     </tbody>
 </table>

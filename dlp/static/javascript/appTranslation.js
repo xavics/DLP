@@ -31,7 +31,8 @@ angular.module('DLPApp').config(['$translateProvider', function ($translateProvi
         'BATTERY': 'Battery life',
         'DELETE_ALERT': 'Are you sure you want to delete this',
         'TRANSPORT': 'Delivery',
-        'PACKAGE': 'Package'
+        'PACKAGE': 'Package',
+        'SEND_PACKAGE': 'Send package'
     });
 
     $translateProvider.translations('es', {
@@ -63,7 +64,8 @@ angular.module('DLPApp').config(['$translateProvider', function ($translateProvi
         'BATTERY': 'Estado de la bateria',
         'DELETE_ALERT': 'Esta seguro que desea eliminar este',
         'TRANSPORT': 'Entrega',
-        'PACKAGE': 'Paquete'
+        'PACKAGE': 'Paquete',
+        'SEND_PACKAGE': 'Enviar paquete'
     });
 
     $translateProvider.preferredLanguage('en');

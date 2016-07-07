@@ -4,6 +4,6 @@
                 <styleUrl>#{id_style}</styleUrl>
                 <Point>
                     <altitudeMode>relativeToGround</altitudeMode>
-                    <coordinates>{lat},{lng},{alt}</coordinates>
+                    <coordinates>{lng},{lat},{alt}</coordinates>
                 </Point>
             </Placemark>

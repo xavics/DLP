@@ -70,9 +70,9 @@ html, body, #map_canvas {
     height: 2.825rem;
     position: relative;
     padding: 0 1rem 0 1rem !important;
-    .title-bar.dark{
-        padding: 0 1rem 0 1rem !important;
-    }
+.title-bar.dark{
+    padding: 0 1rem 0 1rem !important;
+}
 }
 
 .logo-image{
@@ -82,33 +82,99 @@ html, body, #map_canvas {
     max-height: 4rem;
 }
 
+
+/************************
+    Welcome Page
+*************************/
+
+.centered_class{
+    position:absolute;
+    top:40%;
+    left:50%;
+    transform: translate(-50%, -40%);
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.custom-footer{
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.7);
+    bottom: 0;
+    width: 100%;
+    display: block;
+    text-align: center;
+    max-height: 200px;
+}
+
+.image-logo{
+    max-width: 300px;
+}
+
+.centered_table_cell{
+    display: table-cell;
+    vertical-align: middle;
+    background-color: transparent;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.centered_table_cell:hover{
+    background-color: white;
+}
+
+
+div.orbit-container
+{
+    height: 100vh; /* Your own height */
+    width: 100%; /* Your own width */
+    position: absolute;
+}
+ul.orbit-ul, li.orbit-item
+{
+    height: 100vh; /* Your own height */
+}
+li.orbit-item-1
+{
+    background: url('/static/images/slide/1.jpg') no-repeat center;
+    background-size: cover;
+}
+li.orbit-item-2
+{
+    background: url('/static/images/slide/2.jpg') no-repeat center;
+    background-size: cover;
+}
+li.orbit-item-3
+{
+    background: url('/static/images/slide/3.jpg') no-repeat center;
+    background-size: cover;
+}
+
 /*.animate-switch-container {*/
-  /*position:relative;*/
-  /*background:white;*/
-  /*border:1px solid black;*/
-  /*height:300px;*/
-  /*overflow:hidden;*/
+/*position:relative;*/
+/*background:white;*/
+/*border:1px solid black;*/
+/*height:300px;*/
+/*overflow:hidden;*/
 /*}*/
 
 /*.animate-switch {*/
-  /*padding:10px;*/
+/*padding:10px;*/
 /*}*/
 
 /*.animate-switch.ng-animate {*/
-  /*transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;*/
+/*transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;*/
 
-  /*position:absolute;*/
-  /*top:0;*/
-  /*left:0;*/
-  /*right:0;*/
-  /*bottom:0;*/
+/*position:absolute;*/
+/*top:0;*/
+/*left:0;*/
+/*right:0;*/
+/*bottom:0;*/
 /*}*/
 
 /*.animate-switch.ng-leave.ng-leave-active,*/
 /*.animate-switch.ng-enter {*/
-  /*top:-300px;*/
+/*top:-300px;*/
 /*}*/
 /*.animate-switch.ng-leave,*/
 /*.animate-switch.ng-enter.ng-enter-active {*/
-  /*top:0;*/
+/*top:0;*/
 /*}*/

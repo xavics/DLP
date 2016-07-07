@@ -52,7 +52,7 @@ def manage_all_packets():
     logger.info("Searching for packages pending to send")
     create_transports_list()
     create_packages_list()
-    send_kmls()
+    # send_kmls()
     packages = Package.objects.filter(status=2)
     for package in packages:
         drones_availability(package)
@@ -66,7 +66,6 @@ def drones_availability(package):
     for drone in drones:
         package.status = 1
         package.save()
-        # create_packet_kml(package)
         drone.is_transporting = 1
         drone.save()
         origin = Point(lc.lat, lc.lng, lc.alt)

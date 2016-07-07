@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+	<Document id="1467813803">
+        <NetworkLink>
+            <Name>Transports</Name>
+            <Link>
+                <href>http://10.160.100.54:8000/static/kmls/persistent/Transport.kml</href>
+                <refreshMode>onInterval</refreshMode>
+                <refreshInterval>3</refreshInterval>
+            </Link>
+        </NetworkLink>
+        <NetworkLink>
+            <Name>DropPoint</Name>
+            <Link>
+                <href>http://10.160.100.54:8000/static/kmls/persistent/DropPoint.kml</href>
+            </Link>
+        </NetworkLink>
+        <NetworkLink>
+            <Name>Layout</Name>
+            <Link>
+                <href>http://10.160.100.54:8000/static/kmls/persistent/Layout.kml</href>
+            </Link>
+        </NetworkLink>
+        <NetworkLink>
+            <Name>Logistic Center</Name>
+            <Link>
+                <href>http://10.160.100.54:8000/static/kmls/persistent/LogisticCenter.kml</href>
+            </Link>
+        </NetworkLink>
+        <NetworkLink>
+            <Name>Package</Name>
+            <Link>
+                <href>http://10.160.100.54:8000/static/kmls/persistent/Package.kml</href>
+                <refreshMode>onInterval</refreshMode>
+                <refreshInterval>3</refreshInterval>
+            </Link>
+        </NetworkLink>
+    </Document>
+</kml>

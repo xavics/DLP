@@ -1,8 +1,8 @@
 /**
  * Created by xavi on 15/06/16.
  */
-angular.module('DLPApp').controller('CreateDroppointCntrll',['$scope', 'Droppoint',
-    function ($scope, Droppoint){
+angular.module('DLPApp').controller('CreateDroppointCntrll',['$scope', 'Droppoint', 'UpdateDp',
+    function ($scope, Droppoint, UpdateDp){
         $scope.newDroppoint = new Droppoint()
         $scope.newDroppoint.logistic_center = $scope.center.id;
         $scope.newDroppoint.style_url = 1;
@@ -21,6 +21,7 @@ angular.module('DLPApp').controller('CreateDroppointCntrll',['$scope', 'Droppoin
                     $scope.newDroppoint.logistic_center = $scope.center.id;
                     $scope.newDroppoint.style_url = 1;
                     $scope.newDroppoint.is_available = 1;
+                    UpdateDp.dp()
                 })
         };
     }]);

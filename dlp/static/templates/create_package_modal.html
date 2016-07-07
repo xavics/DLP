@@ -1,0 +1,15 @@
+<h3>{{ 'CREATE NEW' | translate }} {{ 'PACKAGE' | translate }}</h3>
+<div class="vertical grid-block">
+    <div class="grid-block">
+        <label>
+            {{ 'NAME' | translate }}
+            <input type="text" ng-model="newPackage.name" placeholder="{{ 'PLATE' | translate }}">
+        </label>
+    </div>
+    <div class="grid-block">
+        <a ng-click="save()" class="success hollow button">
+            <i class="fa fa-floppy-o" aria-hidden="true"></i> {{ 'SAVE' | translate }}</a>
+        <a ng-click="cancel()" class="warning hollow button">
+            <i class="fa fa-floppy-o" aria-hidden="true"></i> {{ 'CANCEL' | translate }}</a>
+    </div>
+</div>

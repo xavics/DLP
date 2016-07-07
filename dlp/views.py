@@ -4,6 +4,8 @@ from django.views.decorators.csrf import csrf_exempt
 from DLP.settings import MAPS_API_KEY
 from dlp.apps import get_site_url
 from rest_framework import viewsets
+from dlp.kml_manager.kml_generator import create_updates, TMP, \
+    LOGISTICCENTER, DROPPOINT
 from dlp.serializers import *
 from models import *
 from filters import *
@@ -22,18 +24,33 @@ def receive_position(request):
     lat = request.POST.get('lat')
     lng = request.POST.get('lng')
     alt = request.POST.get('alt')
-    variables = {'icon': get_site_url() + "static/images/galaxy_icons/drone_icon.png",
-                 'name': "Transport " + id_trans,
-                 'description': "Drone transporting packet.",
-                 'lat': lat,
-                 'lng': lng,
-                 'alt': alt}
+    variables = {
+        'id': "Transport" + id_trans,
+        'icon': get_site_url() + "static/images/galaxy_icons/drone_icon.png",
+        'name': "Transport " + id_trans,
+        'description': "Drone transporting packet.",
+        'lat': lat,
+        'lng': lng,
+        'alt': alt}
     kml_name = "Transport" + id_trans + ".kml"
-    kml_generator.create_kml("drone_placemark.kml", kml_name, variables, True)
+    kml_generator.create_kml("drone_placemark.kml", kml_name, variables, TMP)
     transport = Transport.objects.get(id=id_trans)
     transport.step += 1
     transport.save()
     return HttpResponse(status=204)
+
+
+@csrf_exempt
+def update_droppoints(request):
+    create_updates(DROPPOINT)
+    return HttpResponse(status=204)
+
+
+@csrf_exempt
+def update_logistic_centers(request):
+    create_updates(LOGISTICCENTER)
+    return HttpResponse(status=204)
+
 
 '''
 API REST ViewSets
@@ -86,9 +103,9 @@ class StyleURLViewSet(viewsets.ModelViewSet):
     serializer_class = StyleURLSerializer
     filter_backends = (filters.DjangoFilterBackend,)
 
-# def refresh_weather(request):
-#     path_to_kml = generate_weather_image(os.path.dirname(__file__))
-#     try:
-#         return FileResponse(open(path_to_kml, 'rb'))
-#     except IOError:
-#         return HttpResponse(status=201)
+    # def refresh_weather(request):
+    #     path_to_kml = generate_weather_image(os.path.dirname(__file__))
+    #     try:
+    #         return FileResponse(open(path_to_kml, 'rb'))
+    #     except IOError:
+    #         return HttpResponse(status=201)

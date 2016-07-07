@@ -4,6 +4,7 @@ from dlp.apps import get_site_url
 import logging
 from itertools import chain
 import datetime
+import time
 
 logger = logging.getLogger(__name__)
 templates_path = os.path.dirname(__file__) + "/templates/"
@@ -11,7 +12,10 @@ kmls_tmp_path = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "..")) + "/static/kmls/tmp/"
 kmls_persistent_path = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "..")) + "/static/kmls/persistent/"
+kmls_updates_path = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "..")) + "/static/kmls/updates/"
 kmls_url = get_site_url() + "static/kmls/tmp/"
+kmls_update_url = get_site_url() + "static/kmls/persistent/"
 # kmls_tmp_url = get_site_url() + "static/kmls/tmp/"
 
 # Model name variables
@@ -20,17 +24,22 @@ LOGISTICCENTER = "LogisticCenter"
 LAYOUT = "Layout"
 PACKAGE = "Package"
 TRANSPORT = "Transport"
+PERSISTENT = "persistent"
+TMP = "tmp"
+UPDATES = "updates"
 
 
-def create_kml(template_name, kml_name, variables, tmp=False):
+def create_kml(template_name, kml_name, variables, directory):
     base = open(templates_path + template_name, "r")
     string_file = base.read()
     kml = string_file.format(**variables)
     base.close()
-    if tmp:
+    if directory == TMP:
         temp = open(os.path.join(kmls_tmp_path, kml_name), "w")
-    else:
+    elif directory == PERSISTENT:
         temp = open(os.path.join(kmls_persistent_path, kml_name), "w")
+    elif directory == UPDATES:
+        temp = open(os.path.join(kmls_updates_path, kml_name), "w")
     temp.write(kml)
     temp.close()
 
@@ -47,16 +56,20 @@ def create_list_test(model):
     if model == TRANSPORT:
         create_kml("document.txt", model + ".kml",
                    create_items_networklink(
-                       Transport.objects.filter(is_active=1)))
+                       Transport.objects.filter(is_active=1), model),
+                   PERSISTENT)
     elif model == LOGISTICCENTER:
         create_kml("document.txt", model + ".kml",
-                   create_items_placemark(LogisticCenter.objects.all()))
+                   create_items_placemark(LogisticCenter.objects.all(), model),
+                   PERSISTENT)
     elif model == DROPPOINT:
         create_kml("document.txt", model + ".kml",
-                   create_items_placemark(DropPoint.objects.all()))
+                   create_items_placemark(DropPoint.objects.all(), model),
+                   PERSISTENT)
     elif model == LAYOUT:
         create_kml("document.txt", model + ".kml",
-                   create_items_layouts(Layouts.objects.all()))
+                   create_items_layouts(Layouts.objects.all(), model),
+                   PERSISTENT)
     elif model == PACKAGE:
         create_kml("document.txt", model + ".kml",
                    create_items_placemark(chain(
@@ -64,9 +77,20 @@ def create_list_test(model):
                        Package.objects.filter(status=0).exclude(
                            date_delivered__lte=(
                                datetime.datetime.now() - datetime.timedelta(
-                                   seconds=45))))))
+                                   seconds=45)))), model), PERSISTENT)
     else:
         logger.error("Bad model: {}".format(model))
+
+
+def create_updates(model):
+    if model == LOGISTICCENTER:
+        variables = create_items_placemark(LogisticCenter.objects.all(), model)
+        variables['targetHref'] = kmls_update_url + model + ".kml"
+    else:
+        variables = create_items_placemark(DropPoint.objects.all(), model)
+        variables['targetHref'] = kmls_update_url + model + ".kml"
+    create_kml("update_document.txt", "update_" + model + ".kml", variables,
+               UPDATES)
 
 
 def placemark_variables(item):
@@ -89,7 +113,7 @@ def style_variables(item):
 
 def networklink_variables(item):
     return {'name': "Transport" + str(item.id),
-            'href': kmls_url + item.__class__.__name__ + str(item.id),
+            'href': kmls_url + item.__class__.__name__ + str(item.id) + ".kml",
             'refreshInterval': 1}
 
 
@@ -100,29 +124,29 @@ def layout_variables(item):
     return variables
 
 
-def create_items_placemark(items):
+def create_items_placemark(items, model):
     items_str = ""
     for item in items:
         items_str += str(
             fill_template("style.kml", style_variables(item))) + "\n"
         items_str += str(fill_template("placemark.kml",
                                        placemark_variables(item))) + "\n"
-    return {'items': items_str}
+    return {'id': model, 'items': items_str}
 
 
-def create_items_layouts(items):
+def create_items_layouts(items, model):
     items_str = ""
     for item in items:
         items_str += fill_template("layout.kml", layout_variables(item)) + "\n"
-    return {'items': items_str}
+    return {'id': model, 'items': items_str}
 
 
-def create_items_networklink(items):
+def create_items_networklink(items, model):
     items_str = ""
     for item in items:
         items_str += str(fill_template("networklink_refresh.kml",
                                        networklink_variables(item))) + "\n"
-    return {'items': items_str}
+    return {'id': model, 'items': items_str}
 
 
 def create_droppoints_list():

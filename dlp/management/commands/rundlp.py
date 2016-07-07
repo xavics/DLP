@@ -30,7 +30,6 @@ class Command(BaseCommand):
                                    "dlp/static/kmls/persistent/")
     help = 'Set the <ip> of the galaxy Liquid system.'
 
-
     def add_arguments(self, parser):
         parser.add_argument('ip', nargs='?',
                             help='Mandatory galaxy liquid ip address')

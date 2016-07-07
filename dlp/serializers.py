@@ -33,7 +33,7 @@ class PackageSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Package
         fields = (
-            'id', 'name', 'dropPoint', 'transport')
+            'id', 'name', 'dropPoint', 'transport', 'style_url')
 
 
 class DroneSerializer(serializers.ModelSerializer):

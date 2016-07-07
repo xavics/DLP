@@ -48,3 +48,15 @@ myServices.factory('TransportByLc', ['$resource', function($resource) {
         {'logistic_center': '@logistic_center', is_active: '@is_active', 'time': '@time'}, {
         });
 }]);
+
+
+myServices.factory('UpdateDp', function($http) {
+ return{
+    dp : function() {
+        return $http({
+            url: '/update_droppoints',
+            method: 'GET'
+        })
+    }
+ }
+});

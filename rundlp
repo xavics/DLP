@@ -20,8 +20,8 @@ do
     read text
 done
 pgrep -P $t1 | xargs kill
-pgrep -P $t2 | xargs kill
+pgrep -P $t5 | xargs kill
 pgrep -P $t3 | xargs kill
 pgrep -P $t4 | xargs kill
-pgrep -P $t5 | xargs kill
+pgrep -P $t2 | xargs kill
 exit

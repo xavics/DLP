@@ -1,3 +1,43 @@
 <div ng-controller="WelcomeCntrll">
-
+    <ul data-orbit class="orbit-ul"
+        data-options="animation:slide;
+                  pause_on_hover:false;
+                  animation_speed:500;
+                  navigation_arrows:false;
+                  bullets:false;
+                  slide_number: true;
+                  next_on_click: true">
+        <li class="orbit-item orbit-item-2">
+        </li>
+        <li class="orbit-item orbit-item-3">
+        </li>
+        <li class="orbit-item orbit-item-1">
+        </li>
+    </ul>
+    <div class="custom-footer">
+        <div style="display: table; width: 100%; text-align: center">
+            <div style="display:table-row;">
+                <div class="centered_table_cell" ng-repeat="logo in logos">
+                    <img ng-src="{{ logo.name }}" class="image-logo" ng-init="logo.name=logo.init" ng-mouseover="logo.name=logo.hover" ng-mouseout="logo.name=logo.init" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="centered_class">
+        <div class="dark card">
+            <img style="max-height: 300px; max-width: 600px" src="static/images/logos/dlp.png">
+            <div class="card-divider">
+                Welcome to Drone Logistics Platform!
+            </div>
+            <div class="card-section">
+                <h4>Select a city to start</h4>
+                <form>
+                    <span class="inline-label">
+                        <input type="search" placeholder="Search a thing">
+                        <a href="#" class="button">Search</a>
+                    </span>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
