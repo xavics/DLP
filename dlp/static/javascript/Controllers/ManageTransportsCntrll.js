@@ -3,13 +3,14 @@
  */
 angular.module('DLPApp').controller('ManageTransportsCntrll',['$scope', '$interval', 'TransportByLc', 'Transport',
     function ($scope, $interval, TransportByLc, Transport){
+        var stop;
         var transports = TransportByLc.get({
             logistic_center: $scope.$parent.center.id,
             is_active: 1,
             time: Date.now()
         }, function () {
             $scope.transports = transports.results;
-            $interval(callAtInterval, 3000, false);
+            stop = $interval(callAtInterval, 3000, false);
         });
 
         var callAtInterval = function() {
@@ -39,7 +40,19 @@ angular.module('DLPApp').controller('ManageTransportsCntrll',['$scope', '$interv
             })
         }
 
-    }])
+        $scope.stopInterval = function() {
+          if (angular.isDefined(stop)) {
+            $interval.cancel(stop);
+            stop = undefined;
+          }
+        };
+
+        $scope.$on('$destroy', function() {
+          // Make sure that the interval is destroyed too
+          $scope.stopInterval();
+        });
+
+    }]);
 
 
 

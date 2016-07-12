@@ -70,9 +70,9 @@ html, body, #map_canvas {
     height: 2.825rem;
     position: relative;
     padding: 0 1rem 0 1rem !important;
-.title-bar.dark{
-    padding: 0 1rem 0 1rem !important;
-}
+    .title-bar.dark{
+        padding: 0 1rem 0 1rem !important;
+    }
 }
 
 .logo-image{
@@ -102,11 +102,15 @@ html, body, #map_canvas {
     width: 100%;
     display: block;
     text-align: center;
-    max-height: 200px;
+    max-height: 220px;
 }
 
 .image-logo{
     max-width: 300px;
+}
+
+#main-card{
+    background-color: transparent;
 }
 
 .centered_table_cell{
@@ -121,6 +125,11 @@ html, body, #map_canvas {
     background-color: white;
 }
 
+.dlp-box-img{
+    max-height: 300px;
+    max-width: 600px;
+    opacity: 0.8;
+}
 
 div.orbit-container
 {

@@ -24,19 +24,20 @@
         </div>
     </div>
     <div class="centered_class">
-        <div class="dark card">
-            <img style="max-height: 300px; max-width: 600px" src="static/images/logos/dlp.png">
+        <div id="main-card" class="dark card">
+            <img class="dlp-box-img" src="static/images/logos/dlp.png">
             <div class="card-divider">
-                Welcome to Drone Logistics Platform!
+                {{ 'WELCOME' | translate }} <b>Drone Logistics Platform</b>
             </div>
             <div class="card-section">
-                <h4>Select a city to start</h4>
+                <h4>{{ 'SELECT_CITY' | translate }}</h4>
                 <form>
                     <span class="inline-label">
-                        <input type="search" placeholder="Search a thing">
-                        <a href="#" class="button">Search</a>
+                        <input id="autocomplete_google" type="text" ng-model="city.name" placeholder="Search a city" autocomplete="off" >
+                        <a ng-click="accessDLP()" class="button">Access</a>
                     </span>
                 </form>
+                <alert ng-show="alert.show" type="alert.type" close="closeAlert()">{{ alert.msg | translate }}</alert>
             </div>
         </div>
     </div>

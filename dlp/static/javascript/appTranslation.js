@@ -32,7 +32,10 @@ angular.module('DLPApp').config(['$translateProvider', function ($translateProvi
         'DELETE_ALERT': 'Are you sure you want to delete this',
         'TRANSPORT': 'Delivery',
         'PACKAGE': 'Package',
-        'SEND_PACKAGE': 'Send package'
+        'SEND_PACKAGE': 'Send package',
+        'WELCOME': 'Welcome to',
+        'SELECT_CITY': 'Select a city',
+        'ERROR_MESSAGE_1': 'Please, select one of the cities available in the dropdown'
     });
 
     $translateProvider.translations('es', {
@@ -65,7 +68,10 @@ angular.module('DLPApp').config(['$translateProvider', function ($translateProvi
         'DELETE_ALERT': 'Esta seguro que desea eliminar este',
         'TRANSPORT': 'Entrega',
         'PACKAGE': 'Paquete',
-        'SEND_PACKAGE': 'Enviar paquete'
+        'SEND_PACKAGE': 'Enviar paquete',
+        'WELCOME': 'Bienvenido a',
+        'SELECT_CITY': 'Selecciona una ciudad',
+        'ERROR_MESSAGE_1': 'Por favor, seleccione una de las ciudades disponibles en el desplegable'
     });
 
     $translateProvider.preferredLanguage('en');

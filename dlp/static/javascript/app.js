@@ -14,7 +14,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     // For any unmatched url, send to /route1
     $urlRouterProvider.otherwise("/");
     $stateProvider
-        .state('index', {
+        .state('welcome', {
             url: "/",
             templateUrl: "/static/templates/welcome.html",
             controller: "WelcomeCntrll"
@@ -25,7 +25,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             controller: "IndexCntrll",
             params:{
                 city: {
-                    value: 1,
+                    value: "ChIJf9M750jgphIRr6pZ0qIu06A",
                     squash: true
                 },
                 hiddenParam: 'YES'

@@ -41,8 +41,9 @@ def calculate_initial_compass_bearing(geo_point_origin, geo_point_destiny):
 def get_drone_steps(origin, destiny):
     geo_point_origin = (origin.lat, origin.lng)
     geo_point_destiny = (destiny.lat, destiny.lng)
-    dist = geopy.distance.distance(geo_point_origin, geo_point_destiny) \
-        .meters
+    dist = geopy.distance.distance(
+        geo_point_origin, geo_point_destiny
+    ).meters
     total_steps = int(dist // horizontal_speed)
     extra_step = (dist % horizontal_speed) * horizontal_speed
     bearing = \

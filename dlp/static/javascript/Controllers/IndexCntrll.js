@@ -1,18 +1,20 @@
 /**
  * Created by xavi on 7/06/16.
  */
-angular.module('DLPApp').controller('IndexCntrll',['$scope', '$http', '$state', '$stateParams', '$translate', 'uiGmapGoogleMapApi',
-    'uiGmapIsReady', 'City', 'CityByName', 'LogisticCenter', '$timeout', 'FoundationApi',
-    function($scope, $state, $stateParams, $http, $translate, uiGmapGoogleMapApi, uiGmapIsReady, City, CityByName,
+angular.module('DLPApp').controller('IndexCntrll',['$scope', '$http', '$stateParams', '$state', '$translate', 'uiGmapGoogleMapApi',
+    'uiGmapIsReady', 'City', 'CityByPlaceId', 'LogisticCenter', '$timeout', 'FoundationApi',
+    function($scope, $http, $stateParams, $state, $translate, uiGmapGoogleMapApi, uiGmapIsReady, City, CityByPlaceId,
              LogisticCenter, $timeout, FoundationApi){
+        window.alert("Param: " + $stateParams.city)
         var city_str = $stateParams.city;
         $scope.logistic_centers = [];
         $scope.lc = [];
-        city_str = (city_str) ? city_str : "Lleida";
         if (isNaN(city_str)) {
-            $scope.main_city = CityByName.get({name: city_str},
+            window.alert("Correct way! ")
+            $scope.main_city = CityByPlaceId.get({place_id: city_str, time: Date.now()},
                 function () {
                     $scope.main_city = $scope.main_city.results[0];
+                    window.alert($scope.main_city)
                     $scope.main_city.logistic_centers.forEach(get_logistic_centers);
                     $scope.map = { center: { latitude: $scope.main_city.lat, longitude: $scope.main_city.lng }, zoom: 14,
                         options: { maxZoom: 18, minZoom: 11 },
@@ -29,6 +31,7 @@ angular.module('DLPApp').controller('IndexCntrll',['$scope', '$http', '$state', 
                 })
         }
         else{
+            window.alert("Is going here maybe?")
             $scope.main_city = City.get({id:city_str});
         }
         $scope.changeLanguage = function (key) {

@@ -5,7 +5,7 @@ from rest_framework import filters
 class CityFilter(filters.FilterSet):
     class Meta:
         model = City
-        fields = ['name']
+        fields = ['place_id']
 
 
 class TransportFilter(filters.FilterSet):

@@ -35,7 +35,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.base),
     url(r'^receive_position$', views.receive_position),
-    url(r'^update_logistic_centers$', views.update_logistic_centers),
+    url(r'^update_logistic_centers', views.update_logistic_centers),
     url(r'^update_droppoints', views.update_droppoints),
     url(r'^api/', include(router.urls)),
     # url(r'^api-auth/',

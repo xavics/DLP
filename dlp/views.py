@@ -4,13 +4,14 @@ from django.views.decorators.csrf import csrf_exempt
 from DLP.settings import MAPS_API_KEY
 from dlp.apps import get_site_url
 from rest_framework import viewsets
+
+from dlp.galaxy_comunication.galaxy_comunication import send_kmls
 from dlp.kml_manager.kml_generator import create_updates, TMP, \
-    LOGISTICCENTER, DROPPOINT
+    LOGISTICCENTER, DROPPOINT, remove_updates
 from dlp.serializers import *
 from models import *
 from filters import *
 from dlp.kml_manager import kml_generator
-import tasks
 
 
 def base(request):
@@ -42,13 +43,17 @@ def receive_position(request):
 
 @csrf_exempt
 def update_droppoints(request):
+    remove_updates()
     create_updates(DROPPOINT)
+    send_kmls()
     return HttpResponse(status=204)
 
 
 @csrf_exempt
 def update_logistic_centers(request):
+    remove_updates()
     create_updates(LOGISTICCENTER)
+    send_kmls()
     return HttpResponse(status=204)
 
 

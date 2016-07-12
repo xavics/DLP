@@ -38,8 +38,8 @@ myServices.factory('Transport', ['$resource', function($resource) {
     });
 }]);
 
-myServices.factory('CityByName', ['$resource', function($resource) {
-    return $resource('/api/cities/?name=:name', {'name': '@name'}, {
+myServices.factory('CityByPlaceId', ['$resource', function($resource) {
+    return $resource('/api/cities/?place_id=:place_id&time=time', {'place_id': '@place_id', 'time': '@time'}, {
     });
 }]);
 
@@ -49,12 +49,22 @@ myServices.factory('TransportByLc', ['$resource', function($resource) {
         });
 }]);
 
-
 myServices.factory('UpdateDp', function($http) {
  return{
     dp : function() {
         return $http({
             url: '/update_droppoints',
+            method: 'GET'
+        })
+    }
+ }
+});
+
+myServices.factory('UpdateLc', function($http) {
+ return{
+    lc : function() {
+        return $http({
+            url: '/update_logistic_centers',
             method: 'GET'
         })
     }

@@ -20,6 +20,7 @@ STATUS_PACKAGE = (
 
 class City(models.Model):
     name = models.CharField(max_length=100)
+    place_id = models.CharField(max_length=100)
     lat = models.FloatField(default='0')
     lng = models.FloatField(default='0')
 

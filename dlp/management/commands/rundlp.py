@@ -4,8 +4,10 @@ import re
 from django.core.management.base import BaseCommand, CommandError
 
 from DLP.settings import PROJECT_ROOT
+from dlp.galaxy_comunication.galaxy_comunication import send_kmls
 from dlp.kml_manager.kml_generator import create_logisticcenters_list, \
-    create_droppoints_list, create_layouts_list
+    create_droppoints_list, create_layouts_list, create_kml_folders, \
+    remove_kml_folders
 
 PATTERN_IP = "^([m01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]" + \
              "\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." + \
@@ -25,9 +27,6 @@ def write_ip(ip_galaxy, site_url):
 
 
 class Command(BaseCommand):
-    PATH_TMP = os.path.join(PROJECT_ROOT, "dlp/static/kmls/tmp/")
-    PATH_PERSISTENT = os.path.join(PROJECT_ROOT,
-                                   "dlp/static/kmls/persistent/")
     help = 'Set the <ip> of the galaxy Liquid system.'
 
     def add_arguments(self, parser):
@@ -50,14 +49,12 @@ class Command(BaseCommand):
                 write_ip(parsed_ip, site_url)
                 self.stdout.write(self.style.SUCCESS(
                     'Successfully changed the ip to "%s"' % parsed_ip))
-                # Erasing the files and Databases with KMl and
-                # other dynamic information created during the FAED run.
-                self.create_system_files()
-                os.system("rm -r " + self.PATH_TMP + "*")
-                os.system("rm -r " + self.PATH_PERSISTENT + "*")
-                # self.clear_databases()
-                # Creating the KMl files with the information of the Database
+                self.create_kmls_directories()
+                # Remove possible KML in galaxy sending kmls.txt empty
+                send_kmls()
+                # Create Static KML
                 self.create_base_kml()
+                # Run the system
                 os.system("bash rundlp " + app_ip)
             else:
                 self.stdout.write(
@@ -66,21 +63,10 @@ class Command(BaseCommand):
         except:
             raise CommandError('FAED cannot be raised')
 
-    # def clear_databases(self):
-    #     self.stdout.write("Deleting data from Kml and Incidences ...")
-    #     try:
-    #         Kml.objects.all().delete()
-    #         Incidence.objects.all().delete()
-    #         sync_kmls_file()
-    #         sync_kmls_to_galaxy()
-    #     except Exception:
-    #         self.stdout.write(self.style.error("Error deleting data from" +
-    #                                            " the tables."))
-
-    def create_system_files(self):
-        self.stdout.write("Creating startUp files...")
-        os.system("mkdir -p " + self.PATH_TMP)
-        os.system("mkdir -p " + self.PATH_PERSISTENT)
+    def create_kmls_directories(self):
+        self.stdout.write("Creating kmls folders")
+        remove_kml_folders()
+        create_kml_folders()
 
     def create_base_kml(self):
         create_logisticcenters_list()

@@ -5,6 +5,7 @@ import os
 import requests
 import json
 import simpy
+
 from celery.utils.log import get_task_logger
 
 from DLP.celery import app
@@ -12,7 +13,7 @@ from DLP.settings import BASE_DIR
 from dlp.apps import get_site_url
 from dlp.galaxy_comunication.galaxy_comunication import send_kmls
 from dlp.kml_manager.kml_generator import create_kml, create_transports_list, \
-    create_packages_list
+    create_packages_list, create_delivers
 from dlp.models import Package, LogisticCenter, DropPoint, Drone, Transport
 from dlp.routes_manager.routes_generator import get_drone_steps, Point
 
@@ -52,7 +53,8 @@ def manage_all_packets():
     logger.info("Searching for packages pending to send")
     create_transports_list()
     create_packages_list()
-    # send_kmls()
+    create_delivers()
+    send_kmls()
     packages = Package.objects.filter(status=2)
     for package in packages:
         drones_availability(package)
@@ -107,8 +109,8 @@ def final_transport(drone_id, package_id, transport_id):
     drone = Drone.objects.get(id=drone_id)
     drone.is_transporting = 0
     drone.save()
-    delete_kml(transport_id, package_id)
+    delete_kml(transport_id)
 
 
-def delete_kml(transport_id, package_id):
+def delete_kml(transport_id):
     os.remove(kml_tmp_folder + "Transport{}.kml".format(transport_id))

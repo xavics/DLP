@@ -1,0 +1,21 @@
+<h3>Save {{ city.name }} into the database</h3>
+<div class="vertical grid-block">
+    <div class="grid-block">
+       <h4>Pressing save you will save {{ city.name }} to the database</h4>
+    </div>
+    <div class="grid-block">
+        <h5>{{ 'NAME' | translate }} <small>{{ city.name }}</small></h5>
+    </div>
+    <div class="grid-block">
+        <h5>{{ 'LATITUDE' | translate }} <small>{{ city.lat }}</small></h5>
+    </div>
+    <div class="grid-block">
+        <h5>{{ 'LONGITUDE' | translate }} <small>{{ city.lng }}</small></h5>
+    </div>
+    <div class="grid-block">
+        <a ng-click="save()" class="success hollow button">
+            <i class="fa fa-floppy-o" aria-hidden="true"></i> {{ 'SAVE' | translate }}</a>
+        <a ng-click="cancel()" class="warning hollow button">
+            <i class="fa fa-floppy-o" aria-hidden="true"></i> {{ 'CANCEL' | translate }}</a>
+    </div>
+</div>

@@ -1,8 +1,8 @@
 /**
  * Created by xavi on 15/06/16.
  */
-angular.module('DLPApp').controller('ManageDroppointCntrll',['$scope', 'Droppoint', '$modal', '$log',
-    function ($scope, Droppoint, $modal, $log){
+angular.module('DLPApp').controller('ManageDroppointCntrll',['$scope', 'Droppoint', '$modal', '$log', 'UpdateDp',
+    function ($scope, Droppoint, $modal, $log, UpdateDp){
         $scope.droppoint = Droppoint.get({id: $scope.droppoint_id}, function(result) {
             $scope.droppoint_backup = angular.copy(result);
             $scope.add_marker_droppoint($scope.$parent.center.id, result.id, result.lat, result.lng)
@@ -27,6 +27,7 @@ angular.module('DLPApp').controller('ManageDroppointCntrll',['$scope', 'Droppoin
                 .then(function(result){
                     var index_deleted = $scope.$parent.center.droppoints.indexOf($scope.droppoint_id)
                     $scope.$parent.center.droppoints.splice(index_deleted, 1)
+                    UpdateDp.dp()
                 })
         };
 
@@ -35,6 +36,7 @@ angular.module('DLPApp').controller('ManageDroppointCntrll',['$scope', 'Droppoin
                 .then(function(result){
                     $scope.droppoint_backup = angular.copy(result);
                     $scope.changeMode()
+                    UpdateDp.dp()
                 })
         };
 

@@ -1,22 +1,33 @@
 import os
-from dlp.models import *
-from dlp.apps import get_site_url
+from os import listdir
+from os.path import isfile, join
+
 import logging
 from itertools import chain
 import datetime
 import time
 
+from dlp.models import *
+from dlp.apps import get_site_url
+
+
 logger = logging.getLogger(__name__)
+
+# Paths
 templates_path = os.path.dirname(__file__) + "/templates/"
+kmls_path = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "..")) + "/static/kmls/"
 kmls_tmp_path = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "..")) + "/static/kmls/tmp/"
 kmls_persistent_path = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "..")) + "/static/kmls/persistent/"
 kmls_updates_path = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "..")) + "/static/kmls/updates/"
-kmls_url = get_site_url() + "static/kmls/tmp/"
+kmls_delivers_path = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "..")) + "/static/kmls/delivers/"
+kmls_tmp_url = get_site_url() + "static/kmls/tmp/"
+kmls_delivers_url = get_site_url() + "static/kmls/delivers/"
 kmls_update_url = get_site_url() + "static/kmls/persistent/"
-# kmls_tmp_url = get_site_url() + "static/kmls/tmp/"
 
 # Model name variables
 DROPPOINT = "DropPoint"
@@ -24,9 +35,12 @@ LOGISTICCENTER = "LogisticCenter"
 LAYOUT = "Layout"
 PACKAGE = "Package"
 TRANSPORT = "Transport"
+
+# Folder KML
 PERSISTENT = "persistent"
 TMP = "tmp"
 UPDATES = "updates"
+DELIVERS = "delivers"
 
 
 def create_kml(template_name, kml_name, variables, directory):
@@ -40,6 +54,8 @@ def create_kml(template_name, kml_name, variables, directory):
         temp = open(os.path.join(kmls_persistent_path, kml_name), "w")
     elif directory == UPDATES:
         temp = open(os.path.join(kmls_updates_path, kml_name), "w")
+    else:
+        temp = open(os.path.join(kmls_delivers_path, kml_name), "w")
     temp.write(kml)
     temp.close()
 
@@ -57,7 +73,7 @@ def create_list_test(model):
         create_kml("document.txt", model + ".kml",
                    create_items_networklink(
                        Transport.objects.filter(is_active=1), model),
-                   PERSISTENT)
+                   DELIVERS)
     elif model == LOGISTICCENTER:
         create_kml("document.txt", model + ".kml",
                    create_items_placemark(LogisticCenter.objects.all(), model),
@@ -77,7 +93,7 @@ def create_list_test(model):
                        Package.objects.filter(status=0).exclude(
                            date_delivered__lte=(
                                datetime.datetime.now() - datetime.timedelta(
-                                   seconds=45)))), model), PERSISTENT)
+                                   seconds=45)))), model), DELIVERS)
     else:
         logger.error("Bad model: {}".format(model))
 
@@ -89,8 +105,16 @@ def create_updates(model):
     else:
         variables = create_items_placemark(DropPoint.objects.all(), model)
         variables['targetHref'] = kmls_update_url + model + ".kml"
-    create_kml("update_document.txt", "update_" + model + ".kml", variables,
-               UPDATES)
+    name = "update_" + model + "_" + str(
+        int(time.mktime(datetime.datetime.now().timetuple()))) + ".kml"
+    create_kml("update_document.txt", name, variables, UPDATES)
+
+
+def create_delivers():
+    delivers = [u for u in listdir(kmls_delivers_path) if
+                isfile(join(kmls_delivers_path, u))]
+    variables = create_items_networklink(delivers, DELIVERS, True)
+    create_kml("document.txt", "delivers.kml", variables, PERSISTENT)
 
 
 def placemark_variables(item):
@@ -111,10 +135,15 @@ def style_variables(item):
             'scale': 1}
 
 
-def networklink_variables(item):
-    return {'name': "Transport" + str(item.id),
-            'href': kmls_url + item.__class__.__name__ + str(item.id) + ".kml",
-            'refreshInterval': 1}
+def networklink_variables(item, deliver=False):
+    if deliver:
+        return {'name': item,
+                'href': kmls_delivers_url + item}
+    else:
+        return {'name': "Transport" + str(item.id),
+                'href': kmls_tmp_url + item.__class__.__name__ +
+                        str(item.id) + ".kml",
+                'refreshInterval': 1}
 
 
 def layout_variables(item):
@@ -141,11 +170,16 @@ def create_items_layouts(items, model):
     return {'id': model, 'items': items_str}
 
 
-def create_items_networklink(items, model):
+def create_items_networklink(items, model, deliver=False):
     items_str = ""
+    if deliver:
+        template = "networklink_simple.kml"
+    else:
+        template = "networklink_refresh.kml"
     for item in items:
-        items_str += str(fill_template("networklink_refresh.kml",
-                                       networklink_variables(item))) + "\n"
+        items_str += str(fill_template(template,
+                                       networklink_variables(item,
+                                                             deliver))) + "\n"
     return {'id': model, 'items': items_str}
 
 
@@ -172,6 +206,22 @@ def create_transports_list():
 def create_packages_list():
     logger.info("Creating Packages list")
     create_list_test(PACKAGE)
+
+
+def remove_updates():
+    os.system("rm -r " + kmls_updates_path + "*")
+
+
+def remove_kml_folders():
+    os.system("rm -r " + kmls_path + "*")
+
+
+def create_kml_folders():
+    os.system("mkdir " + kmls_path)
+    os.system("mkdir " + kmls_tmp_path)
+    os.system("mkdir " + kmls_persistent_path)
+    os.system("mkdir " + kmls_updates_path)
+    os.system("mkdir " + kmls_delivers_path)
 
 
 '''
