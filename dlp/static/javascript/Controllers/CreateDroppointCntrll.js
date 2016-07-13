@@ -6,7 +6,6 @@ angular.module('DLPApp').controller('CreateDroppointCntrll',['$scope', 'Droppoin
         $scope.newDroppoint = new Droppoint()
         $scope.newDroppoint.logistic_center = $scope.center.id;
         $scope.newDroppoint.style_url = 1;
-        $scope.newDroppoint.is_available = 1;
         $scope.$watch('newCoords.lat', function() {
             $scope.newDroppoint.lat = $scope.newCoords.lat;
         });
@@ -20,7 +19,6 @@ angular.module('DLPApp').controller('CreateDroppointCntrll',['$scope', 'Droppoin
                     $scope.newDroppoint = new Droppoint()
                     $scope.newDroppoint.logistic_center = $scope.center.id;
                     $scope.newDroppoint.style_url = 1;
-                    $scope.newDroppoint.is_available = 1;
                     UpdateDp.dp()
                 })
         };

@@ -20,7 +20,7 @@ PATTERN_IPADDR = "^([m01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?" + \
 
 def write_ip(ip_galaxy, site_url):
     f = open(os.path.join(PROJECT_ROOT, 'ipsettings'), 'w')
-    line = ip_galaxy + "," + site_url
+    line = "{lg_ip},{site_url}".format(lg_ip=ip_galaxy, site_url=site_url)
     print line
     f.write(line)
     f.close()
@@ -45,7 +45,7 @@ class Command(BaseCommand):
                     app_ip = "127.0.0.1:8000"
                 else:
                     app_ip = options['addrport']
-                site_url = "http://" + app_ip + "/"
+                site_url = "http://{ip}/".format(ip=app_ip)
                 write_ip(parsed_ip, site_url)
                 self.stdout.write(self.style.SUCCESS(
                     'Successfully changed the ip to "%s"' % parsed_ip))
@@ -55,7 +55,7 @@ class Command(BaseCommand):
                 # Create Static KML
                 self.create_base_kml()
                 # Run the system
-                os.system("bash rundlp " + app_ip)
+                os.system("bash rundlp {ip}".format(ip=app_ip))
             else:
                 self.stdout.write(
                     self.style.error(
@@ -64,8 +64,9 @@ class Command(BaseCommand):
             raise CommandError('FAED cannot be raised')
 
     def create_kmls_directories(self):
-        self.stdout.write("Creating kmls folders")
+        self.stdout.write("Erasing old KMl folders")
         remove_kml_folders()
+        self.stdout.write("Creating new KMl folders")
         create_kml_folders()
 
     def create_base_kml(self):
@@ -73,5 +74,5 @@ class Command(BaseCommand):
         create_droppoints_list()
         create_layouts_list()
         # self.stdout.write("Creating Weather Kml...")
-        # generate_weather(BASE_DIR + "/faed_management/static/kml/")
+        # generate_weather()
         self.stdout.write("KMLs files done")

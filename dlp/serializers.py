@@ -23,7 +23,7 @@ class TransportSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Transport
         fields = (
-            'id', 'is_active', 'package', 'logistic_center', 'drone', 'step',
+            'id', 'status', 'package', 'logistic_center', 'drone', 'step',
             'max_steps')
 
 
@@ -33,7 +33,7 @@ class PackageSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Package
         fields = (
-            'id', 'name', 'dropPoint', 'transport', 'style_url')
+            'id', 'name', 'drop_point', 'transport', 'style_url')
 
 
 class DroneSerializer(serializers.ModelSerializer):
@@ -42,7 +42,7 @@ class DroneSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Drone
         fields = (
-            'id', 'model', 'plate', 'is_transporting', 'battery_life',
+            'id', 'model', 'plate', 'status', 'battery_life',
             'logistic_center', 'style_url', 'transports')
 
 
@@ -53,7 +53,7 @@ class DropPointSerializer(serializers.ModelSerializer):
         model = models.DropPoint
         fields = (
             'id', 'name', 'description', 'lat', 'lng', 'alt',
-            'is_available', 'style_url', 'logistic_center', 'packages')
+            'style_url', 'logistic_center', 'packages')
 
 
 class LogisticCenterSerializer(serializers.ModelSerializer):

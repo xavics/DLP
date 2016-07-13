@@ -6,7 +6,7 @@ angular.module('DLPApp').controller('ManageTransportsCntrll',['$scope', '$interv
         var stop;
         var transports = TransportByLc.get({
             logistic_center: $scope.$parent.center.id,
-            is_active: 1,
+            status: 1,
             time: Date.now()
         }, function () {
             $scope.transports = transports.results;
@@ -16,7 +16,7 @@ angular.module('DLPApp').controller('ManageTransportsCntrll',['$scope', '$interv
         var callAtInterval = function() {
             TransportByLc.get({
                 logistic_center: $scope.$parent.center.id,
-                is_active: 1,
+                status: 1,
                 time: Date.now()
             },function (result){
                 for(var i=0; i<$scope.transports.length; i++){

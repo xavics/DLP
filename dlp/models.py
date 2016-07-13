@@ -2,27 +2,12 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-ACTIVE = 1
-DISABLED = 0
-STATUS = (
-    (ACTIVE, 'Active'),
-    (DISABLED, 'Disabled'))
-
-PENDING = 2
-SENDING = 1
-SENT = 0
-STATUS_PACKAGE = (
-    (PENDING, 'Pending'),
-    (SENDING, 'Sending'),
-    (SENT, 'Sent')
-)
+from dlp import mixins
 
 
-class City(models.Model):
+class City(mixins.GeoSimple, models.Model):
     name = models.CharField(max_length=100)
     place_id = models.CharField(max_length=100)
-    lat = models.FloatField(default='0')
-    lng = models.FloatField(default='0')
 
     def __unicode__(self):
         return str(self.name)
@@ -38,13 +23,10 @@ class StyleURL(models.Model):
         return str(self.name)
 
 
-class LogisticCenter(models.Model):
+class LogisticCenter(mixins.GeoComplex, models.Model):
     name = models.CharField(max_length=50, null=True)
     address = models.CharField(max_length=50)
     description = models.TextField()
-    lat = models.FloatField()
-    lng = models.FloatField()
-    alt = models.FloatField()
     radius = models.FloatField()
     style_url = models.ForeignKey(StyleURL)
     city = models.ForeignKey(City, related_name='logistic_centers')
@@ -53,13 +35,9 @@ class LogisticCenter(models.Model):
         return str(self.name)
 
 
-class DropPoint(models.Model):
+class DropPoint(mixins.GeoComplex, models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField()
-    lat = models.FloatField()
-    lng = models.FloatField()
-    alt = models.FloatField()
-    is_available = models.IntegerField(default=0, choices=STATUS)
     style_url = models.ForeignKey(StyleURL)
     logistic_center = models.ForeignKey(LogisticCenter,
                                         related_name='droppoints')
@@ -69,9 +47,18 @@ class DropPoint(models.Model):
 
 
 class Drone(models.Model):
+    class DroneStatus(object):
+        DELIVERING = 1
+        WAITING = 0
+        CHOICES = (
+            (DELIVERING, 'Delivering'),
+            (WAITING, 'Waiting'),
+        )
+
     model = models.CharField(max_length=50)
     plate = models.CharField(max_length=50)
-    is_transporting = models.IntegerField(default=0, choices=STATUS)
+    status = models.IntegerField(
+        default=DroneStatus.WAITING, choices=DroneStatus.CHOICES)
     battery_life = models.PositiveSmallIntegerField(default=100)
     logistic_center = models.ForeignKey(LogisticCenter, related_name='drones')
     style_url = models.ForeignKey(StyleURL)
@@ -81,15 +68,35 @@ class Drone(models.Model):
 
 
 class Package(models.Model):
+    class PackageStatus(object):
+        PENDING = 2
+        SENDING = 1
+        SENT = 0
+        CHOICES = (
+            (PENDING, 'Pending'),
+            (SENDING, 'Sending'),
+            (SENT, 'Sent'),
+        )
+
     name = models.CharField(max_length=50)
-    dropPoint = models.ForeignKey(DropPoint, related_name='packages')
-    status = models.IntegerField(default=2, choices=STATUS_PACKAGE)
+    drop_point = models.ForeignKey(DropPoint, related_name='packages')
+    status = models.IntegerField(
+        default=PackageStatus.PENDING, choices=PackageStatus.CHOICES)
     style_url = models.ForeignKey(StyleURL)
     date_delivered = models.DateTimeField(null=True, blank=True)
 
 
 class Transport(models.Model):
-    is_active = models.IntegerField(default=1, choices=STATUS)
+    class TransportStatus(object):
+        ACTIVE = 1
+        FINISHED = 0
+        CHOICES = (
+            (ACTIVE, 'Active'),
+            (FINISHED, 'Finished'),
+        )
+
+    status = models.IntegerField(
+        default=TransportStatus.ACTIVE, choices=TransportStatus.CHOICES)
     package = models.ForeignKey(Package, related_name='transport')
     logistic_center = models.ForeignKey(LogisticCenter,
                                         related_name='transports')

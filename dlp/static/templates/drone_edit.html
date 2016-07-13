@@ -9,7 +9,7 @@
         <th style="width: 15%;">{{ 'PLATE' | translate }}</th>
         <td style="width: 30%;"><input type="text" style="height: 25px; max-width: 160px; margin: 0 !important;" ng-model="drone.plate" value="{{ drone.plate }}"></td>
         <th style="width: 25%;">{{ 'ISTRANSPORTING' | translate }}</th>
-        <td style="width: 10%;">{{ drone.is_transporting }}</td>
+        <td style="width: 10%;">{{ drone.status }}</td>
         <td rowspan="2" class="centered_td" style="width: 15%;">
             <h1>
                 <a ng-click="update_drone()" class="default">

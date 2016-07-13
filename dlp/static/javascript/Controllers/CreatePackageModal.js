@@ -4,7 +4,7 @@
 angular.module('DLPApp').controller('CreatePackageModal',['$scope', '$modalInstance', 'droppoint', 'Package',
     function ($scope, $modalInstance, droppoint, Package){
         $scope.newPackage = new Package();
-        $scope.newPackage.dropPoint = droppoint.id;
+        $scope.newPackage.drop_point = droppoint.id;
         $scope.newPackage.style_url = 1;
         $scope.save = function () {
             $scope.newPackage.$save()

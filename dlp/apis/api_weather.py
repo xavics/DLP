@@ -1,15 +1,14 @@
-from faed_management_tool.settings import WEATHER_API_KEY
 import json
 import requests
 import os
-from kmls_management.models import Kml
-from faed_management.static.py_func.sendtoLG import get_server_ip
-from kmls_management.kml_generator import manage_kml, meteo_kml, weather_info
+
+from DLP.settings import WEATHER_API_KEY
+from dlp.models import City
 
 lleida = "3118514"
 
 
-def get_weather(city_id, units):
+def get_weather_by_id(city_id, units):
     params = {'id': city_id, 'units': units, 'APPID': WEATHER_API_KEY}
     try:
         url = 'http://api.openweathermap.org/data/2.5/weather'
@@ -19,8 +18,19 @@ def get_weather(city_id, units):
         pass
 
 
-def generate_weather_image(path, ip=None):
-    json_data = get_weather(lleida, "metric")
+def get_weather_by_geo(city):
+    params = {'lat': city.lat, 'lon': city.lng, 'units': "metric",
+              'APPID': WEATHER_API_KEY}
+    try:
+        url = 'http://api.openweathermap.org/data/2.5/weather'
+        response = requests.get(url=url, params=params)
+        return response.text
+    except KeyError:
+        pass
+
+
+def generate_weather_image(city):
+    json_data = get_weather_by_geo(City.objects.get(id=city))
     data = json_loads_byteified(json_data)
     generate_html(
         path, data['weather'][0]['description'],

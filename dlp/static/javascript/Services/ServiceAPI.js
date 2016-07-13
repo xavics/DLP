@@ -44,29 +44,31 @@ myServices.factory('CityByPlaceId', ['$resource', function($resource) {
 }]);
 
 myServices.factory('TransportByLc', ['$resource', function($resource) {
-    return $resource('/api/transports/?logistic_center=:logistic_center&is_active=:is_active&time=time',
-        {'logistic_center': '@logistic_center', is_active: '@is_active', 'time': '@time'}, {
+    return $resource('/api/transports/?logistic_center=:logistic_center&status=:status&time=time',
+        {'logistic_center': '@logistic_center', status: '@status', 'time': '@time'}, {
         });
 }]);
 
-myServices.factory('UpdateDp', function($http) {
+myServices.factory('UpdateDp', ['$http', '$cacheFactory', function($http, $cacheFactory) {
  return{
     dp : function() {
+        $cacheFactory.get('$http').remove('/update_droppoints')
         return $http({
             url: '/update_droppoints',
             method: 'GET'
         })
     }
  }
-});
+}]);
 
-myServices.factory('UpdateLc', function($http) {
+myServices.factory('UpdateLc', ['$http', '$cacheFactory', function($http, $cacheFactory) {
  return{
     lc : function() {
+        $cacheFactory.get('$http').remove('/update_logistic_centers')
         return $http({
             url: '/update_logistic_centers',
             method: 'GET'
         })
     }
  }
-});
+}]);

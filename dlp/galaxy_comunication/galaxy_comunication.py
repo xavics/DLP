@@ -1,41 +1,40 @@
 from os import listdir, system
-from os.path import isfile, join, dirname, abspath
+from os.path import isfile, join
 
+from DLP.settings import STATIC_ROOT
 from dlp.apps import get_site_url, get_galaxy_ip
 
-persistent_path = abspath(
-    join(dirname(__file__), "..")) + "/static/kmls/persistent/"
-updates_path = abspath(
-    join(dirname(__file__), "..")) + "/static/kmls/updates/"
-kmls_path = abspath(
-    join(dirname(__file__), "..")) + "/static/kmls/kmls.txt"
-kmls_url = get_site_url() + "static/kmls/persistent/"
-kmls_url_upd = get_site_url() + "static/kmls/updates/"
+PERSISTENT_PATH = join(STATIC_ROOT, "kmls/persistent/")
+UPDATES_PATH = join(STATIC_ROOT, "kmls/updates/")
+KMLS_PATH = join(STATIC_ROOT, "kmls/kmls.txt")
+KMLS_URL = "{site_url}{r_path}".format(
+    site_url=get_site_url(), r_path="static/kmls/persistent/")
+KMLS_URL_UPDATE = "{site_url}{r_path}".format(
+    site_url=get_site_url(), r_path="static/kmls/updates/")
 GALAXY_IP = get_galaxy_ip()
 
 
 def sync_kmls_to_galaxy():
     server_path = "/var/www/html"
-    print "sshpass -p 'lqgalaxy' scp " + kmls_path + " lg@" + GALAXY_IP +\
-          ":" + server_path
+    print "sending..."
+    print "sshpass -p 'lqgalaxy' scp {kmls_path} lg@{lg_ip}:{lg_path}".format(
+            kmls_path=KMLS_PATH, lg_ip=GALAXY_IP, lg_path=server_path)
     system(
-        "sshpass -p 'lqgalaxy' scp " + kmls_path + " lg@" + GALAXY_IP +
-        ":" + server_path)
-    # os.system(
-    #     "sshpass -p 'lqgalaxy' scp " + file_path_slave + " lg@" + GALAXY_IP +
-    #     ":" + server_path)
+        "sshpass -p 'lqgalaxy' scp {kmls_path} lg@{lg_ip}:{lg_path}".format(
+            kmls_path=KMLS_PATH, lg_ip=GALAXY_IP, lg_path=server_path))
+    # File path slave for Logos needed
 
 
 def create_kml_file():
-    files = [f for f in listdir(persistent_path) if
-             isfile(join(persistent_path, f))]
-    updates = [u for u in listdir(updates_path) if
-               isfile(join(updates_path, u))]
-    kml_file = open(kmls_path, 'w')
+    files = [f for f in listdir(PERSISTENT_PATH) if
+             isfile(join(PERSISTENT_PATH, f))]
+    updates = [u for u in listdir(UPDATES_PATH) if
+               isfile(join(UPDATES_PATH, u))]
+    kml_file = open(KMLS_PATH, 'w')
     for kml in files:
-        kml_file.write(kmls_url + kml + "\n")
+        kml_file.write("{url}{kml}\n".format(url=KMLS_URL, kml=kml))
     for kml in updates:
-        kml_file.write(kmls_url_upd + kml + "\n")
+        kml_file.write("{url}{kml}\n".format(url=KMLS_URL_UPDATE, kml=kml))
     kml_file.close()
     # sync_kmls_slave_file()
 

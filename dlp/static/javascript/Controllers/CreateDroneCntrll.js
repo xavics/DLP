@@ -4,7 +4,6 @@
 angular.module('DLPApp').controller('CreateDroneCntrll',['$scope', 'Drone',
     function ($scope, Drone){
         $scope.newDrone = new Drone()
-        $scope.newDrone.is_transporting = 0;
         $scope.newDrone.battery_life = 100;
         $scope.newDrone.logistic_center = $scope.center.id;
         $scope.newDrone.style_url = 1;

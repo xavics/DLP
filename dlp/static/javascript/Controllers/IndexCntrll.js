@@ -5,35 +5,26 @@ angular.module('DLPApp').controller('IndexCntrll',['$scope', '$http', '$statePar
     'uiGmapIsReady', 'City', 'CityByPlaceId', 'LogisticCenter', '$timeout', 'FoundationApi',
     function($scope, $http, $stateParams, $state, $translate, uiGmapGoogleMapApi, uiGmapIsReady, City, CityByPlaceId,
              LogisticCenter, $timeout, FoundationApi){
-        window.alert("Param: " + $stateParams.city)
         var city_str = $stateParams.city;
         $scope.logistic_centers = [];
         $scope.lc = [];
-        if (isNaN(city_str)) {
-            window.alert("Correct way! ")
-            $scope.main_city = CityByPlaceId.get({place_id: city_str, time: Date.now()},
-                function () {
-                    $scope.main_city = $scope.main_city.results[0];
-                    window.alert($scope.main_city)
-                    $scope.main_city.logistic_centers.forEach(get_logistic_centers);
-                    $scope.map = { center: { latitude: $scope.main_city.lat, longitude: $scope.main_city.lng }, zoom: 14,
-                        options: { maxZoom: 18, minZoom: 11 },
-                        events: {
-                            click: function (map, eventNmae, args) {
-                                $scope.$apply(function() {
-                                    latLng = args[0].latLng
-                                    $scope.openMarker(latLng.lat(), latLng.lng())
-                                });
-                            }
-                        },
-                        markers: []};
-                    //prepare_map($scope.main_city.lat, $scope.main_city.lng)
-                })
-        }
-        else{
-            window.alert("Is going here maybe?")
-            $scope.main_city = City.get({id:city_str});
-        }
+        $scope.main_city = CityByPlaceId.get({place_id: city_str, time: Date.now()},
+        function () {
+            $scope.main_city = $scope.main_city.results[0];
+            $scope.main_city.logistic_centers.forEach(get_logistic_centers);
+            $scope.map = { center: { latitude: $scope.main_city.lat, longitude: $scope.main_city.lng }, zoom: 14,
+                options: { maxZoom: 18, minZoom: 11 },
+                events: {
+                    click: function (map, eventNmae, args) {
+                        $scope.$apply(function() {
+                            latLng = args[0].latLng
+                            $scope.openMarker(latLng.lat(), latLng.lng())
+                        });
+                    }
+                },
+                markers: []};
+            //prepare_map($scope.main_city.lat, $scope.main_city.lng)
+        })
         $scope.changeLanguage = function (key) {
             $translate.use(key);
         };

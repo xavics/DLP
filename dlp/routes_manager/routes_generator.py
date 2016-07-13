@@ -2,9 +2,9 @@ import math
 import geopy
 from geopy.distance import VincentyDistance
 
-vertical_speed = 50  # Drone Speed (m/s)
-horizontal_speed = 50  # Drone Speed (m/s)
-flying_altitude = 400  # Minimum altitude
+VERTICAL_SPEED = 50  # Drone Speed (m/s)
+HORIZONTAL_SPEED = 50  # Drone Speed (m/s)
+FLYING_ALTITUDE = 400  # Minimum altitude
 
 
 class Point(object):
@@ -44,37 +44,38 @@ def get_drone_steps(origin, destiny):
     dist = geopy.distance.distance(
         geo_point_origin, geo_point_destiny
     ).meters
-    total_steps = int(dist // horizontal_speed)
-    extra_step = (dist % horizontal_speed) * horizontal_speed
+    total_steps = int(dist // HORIZONTAL_SPEED)
+    extra_step = (dist % HORIZONTAL_SPEED) * HORIZONTAL_SPEED
     bearing = \
         calculate_initial_compass_bearing(geo_point_origin, geo_point_destiny)
     actual_point = Point(origin.lat, origin.lng, origin.alt)
     steps = []
-    while actual_point.alt != flying_altitude:
+    while actual_point.alt != FLYING_ALTITUDE:
         steps.append(
             Point(actual_point.lat, actual_point.lng, actual_point.alt))
-        actual_point.alt += vertical_speed
-        if actual_point.alt >= flying_altitude:
-            actual_point.alt = flying_altitude
+        actual_point.alt += VERTICAL_SPEED
+        if actual_point.alt >= FLYING_ALTITUDE:
+            actual_point.alt = FLYING_ALTITUDE
             steps.append(
                 Point(actual_point.lat, actual_point.lng, actual_point.alt))
     for i in range(total_steps):
-        destination = VincentyDistance(meters=horizontal_speed) \
-            .destination(geopy.Point(actual_point.lat, actual_point.lng),
-                         bearing)
+        destination = VincentyDistance(
+            meters=HORIZONTAL_SPEED).destination(
+            geopy.Point(actual_point.lat, actual_point.lng), bearing)
         actual_point.lat = destination.latitude
         actual_point.lng = destination.longitude
         steps.append(
             Point(actual_point.lat, actual_point.lng, actual_point.alt))
     if extra_step:
-        destination = VincentyDistance(meters=extra_step) \
-            .destination(geopy.Point(actual_point.lat, actual_point.lng),
-                         bearing)
-        actual_point.lat, actual_point.lng = destination.latitude, destination.longitude
+        destination = VincentyDistance(
+            meters=extra_step).destination(
+            geopy.Point(actual_point.lat, actual_point.lng), bearing)
+        actual_point.lat, actual_point.lng = \
+            destination.latitude, destination.longitude
         steps.append(
             Point(actual_point.lat, actual_point.lng, actual_point.alt))
     while actual_point.alt != destiny.alt:
-        actual_point.alt -= vertical_speed
+        actual_point.alt -= VERTICAL_SPEED
         if actual_point.alt <= destiny.alt:
             actual_point.alt = destiny.alt
             steps.append(

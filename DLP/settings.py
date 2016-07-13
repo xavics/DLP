@@ -37,8 +37,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# WEATHER_API_KEY = os.environ['WEATHER_API_KEY']
+# API Keys needed to export to environment
+WEATHER_API_KEY = os.environ['WEATHER_API_KEY']
 MAPS_API_KEY = os.environ['MAPS_API_KEY']
+
+
 os.environ["CELERY_LOADER"] = "django"
 
 # Application definition

@@ -11,4 +11,4 @@ class CityFilter(filters.FilterSet):
 class TransportFilter(filters.FilterSet):
     class Meta:
         model = Transport
-        fields = ['logistic_center', 'is_active']
+        fields = ['logistic_center', 'status']

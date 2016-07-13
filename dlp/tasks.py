@@ -1,25 +1,25 @@
 from __future__ import absolute_import
 
 import datetime
+import json
 import os
 import requests
-import json
-import simpy
 
+import simpy
 from celery.utils.log import get_task_logger
 
 from DLP.celery import app
 from DLP.settings import BASE_DIR
 from dlp.apps import get_site_url
 from dlp.galaxy_comunication.galaxy_comunication import send_kmls
-from dlp.kml_manager.kml_generator import create_kml, create_transports_list, \
+from dlp.kml_manager.kml_generator import create_transports_list, \
     create_packages_list, create_delivers
-from dlp.models import Package, LogisticCenter, DropPoint, Drone, Transport
+from dlp.models import Package, LogisticCenter, Drone, Transport
 from dlp.routes_manager.routes_generator import get_drone_steps, Point
 
 logger = get_task_logger(__name__)
-kml_tmp_folder = os.path.join(BASE_DIR + "/dlp/static/kmls/tmp/")
-send_position_url = get_site_url() + "receive_position"
+KML_TMP_FOLDER = os.path.join(BASE_DIR + "/dlp/static/kmls/tmp/")
+POSITION_URL = get_site_url() + "receive_position"
 
 
 class DroneTransport(object):
@@ -31,7 +31,7 @@ class DroneTransport(object):
         self.action = self.env.process(self.run())
 
     def run(self):
-        logger.info(send_position_url)
+        logger.info(POSITION_URL)
         for position in self.positions:
             yield self.env.process(self.send_data(1.0, position))
         self.positions.reverse()
@@ -41,7 +41,7 @@ class DroneTransport(object):
 
     def send_data(self, duration, position):
         print('sending data...')
-        requests.post(send_position_url,
+        requests.post(POSITION_URL,
                       data={'id_transport': self.id_transport,
                             'lat': position['lat'], 'lng': position['lng'],
                             'alt': position['alt']})
@@ -55,20 +55,21 @@ def manage_all_packets():
     create_packages_list()
     create_delivers()
     send_kmls()
-    packages = Package.objects.filter(status=2)
+    packages = Package.objects.filter(status=Package.PackageStatus.PENDING)
     for package in packages:
         drones_availability(package)
 
 
 def drones_availability(package):
-    droppoint = package.dropPoint
+    droppoint = package.drop_point
     lc = LogisticCenter.objects.get(id=droppoint.logistic_center_id)
     drones = Drone.objects.filter(
-        logistic_center_id=droppoint.logistic_center_id, is_transporting=0)
+        logistic_center_id=droppoint.logistic_center_id,
+        status=Drone.DroneStatus.WAITING)
     for drone in drones:
-        package.status = 1
+        package.status = Package.PackageStatus.SENDING
         package.save()
-        drone.is_transporting = 1
+        drone.status = Drone.DroneStatus.DELIVERING
         drone.save()
         origin = Point(lc.lat, lc.lng, lc.alt)
         destiny = Point(droppoint.lat, droppoint.lng, droppoint.alt)
@@ -100,17 +101,17 @@ def send_package(drone_id, package_id, transport_id, json_pos):
 
 def final_transport(drone_id, package_id, transport_id):
     package = Package.objects.get(id=package_id)
-    package.status = 0
+    package.status = Package.PackageStatus.SENT
     package.date_delivered = datetime.datetime.now()
     package.save()
     transport = Transport.objects.get(id=transport_id)
-    transport.is_active = 0
+    transport.status = Transport.TransportStatus.FINISHED
     transport.save()
     drone = Drone.objects.get(id=drone_id)
-    drone.is_transporting = 0
+    drone.status = Drone.DroneStatus.WAITING
     drone.save()
     delete_kml(transport_id)
 
 
 def delete_kml(transport_id):
-    os.remove(kml_tmp_folder + "Transport{}.kml".format(transport_id))
+    os.remove(KML_TMP_FOLDER + "Transport{}.kml".format(transport_id))
