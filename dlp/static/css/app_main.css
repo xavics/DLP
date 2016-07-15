@@ -1,5 +1,5 @@
 .custom_tab {
-    width: 24%;
+    width: 25%;
     margin: 0;
 }
 
@@ -82,6 +82,16 @@ html, body, #map_canvas {
     max-height: 4rem;
 }
 
+
+.f-dropdown li a{
+    color: #555555 !important;
+}
+
+
+.tab-content{
+    max-height: 500px;
+    overflow-y: auto
+}
 
 /************************
     Welcome Page

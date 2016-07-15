@@ -42,25 +42,8 @@
         </div>
         <div class="grid-block">
             <div class="form-group">
-                <label>{{ 'RADIUS' | translate }}</label>
-                <input type="text" ng-model="newCenter.radius" placeholder="{{ 'RADIUS' | translate }}">
-            </div>
-        </div>
-    </div>
-    <div class="grid-block medium-up-2">
-        <div class="grid-block">
-            <div class="form-group">
-                <label>{{ 'CITY' | translate }}</label>
-                <select ng-model="newCenter.city">
-                    <option value="{{ main_city.id }}" selected>{{ main_city.name }}</option>
-{#                    <option value="{{ city.id }}" ng-repeat="city in cities_list">{{ city.name }}</option>#}
-                </select>
-            </div>
-        </div>
-        <div class="grid-block">
-            <div class="form-group">
                 <label>#Style URL#</label>
-                <input type="text" ng-model="newCenter.style_url" placeholder="Something">
+                <input type="number" ng-model="newCenter.style_url" placeholder="Something">
             </div>
         </div>
     </div>

@@ -10,8 +10,9 @@
             </a>
             <div style="display: table-cell; vertical-align: middle;  padding-left: 10px;">
                 <div class="inline-label" style="margin-bottom: 0 !important;">
-                    <input type="search" value="{{ main_city.name }}" style="height: 14px">
-                    <a href="#" class="button">Search</a>
+                    <input type="text" ng-model="main_city" placeholder="City" typeahead="location as location.name for location in getLocation($viewValue)" class="form-control">
+                    <a ng-click="reload_city(main_city.place_id)" class="button">{{ 'SELECT' | translate }}</a>
+                    <!--typeahead-on-select-->
                 </div>
             </div>
         </div>

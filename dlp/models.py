@@ -15,8 +15,10 @@ class City(mixins.GeoSimple, models.Model):
 
 class StyleURL(models.Model):
     name = models.CharField(max_length=50)
-    maps_url = models.CharField(max_length=50)
-    earth_url = models.CharField(max_length=50)
+    dp_maps_url = models.CharField(max_length=50)
+    dp_earth_url = models.CharField(max_length=50)
+    lc_maps_url = models.CharField(max_length=50)
+    lc_earth_url = models.CharField(max_length=50)
     scale = models.FloatField()
 
     def __unicode__(self):

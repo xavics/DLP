@@ -11,17 +11,15 @@ KMLS_URL = "{site_url}{r_path}".format(
     site_url=get_site_url(), r_path="static/kmls/persistent/")
 KMLS_URL_UPDATE = "{site_url}{r_path}".format(
     site_url=get_site_url(), r_path="static/kmls/updates/")
-GALAXY_IP = get_galaxy_ip()
 
 
 def sync_kmls_to_galaxy():
     server_path = "/var/www/html"
-    print "sending..."
     print "sshpass -p 'lqgalaxy' scp {kmls_path} lg@{lg_ip}:{lg_path}".format(
-            kmls_path=KMLS_PATH, lg_ip=GALAXY_IP, lg_path=server_path)
+            kmls_path=KMLS_PATH, lg_ip=get_galaxy_ip(), lg_path=server_path)
     system(
         "sshpass -p 'lqgalaxy' scp {kmls_path} lg@{lg_ip}:{lg_path}".format(
-            kmls_path=KMLS_PATH, lg_ip=GALAXY_IP, lg_path=server_path))
+            kmls_path=KMLS_PATH, lg_ip=get_galaxy_ip(), lg_path=server_path))
     # File path slave for Logos needed
 
 

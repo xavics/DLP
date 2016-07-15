@@ -10,7 +10,7 @@ angular.module('DLPApp').controller('WelcomeCntrll',['$scope', '$http', '$state'
             {'name': 'logo2', 'init': 'static/images/logos/parc-logo-trans.png', 'hover': 'static/images/logos/parc-logo.jpg'},
             {'name': 'logo3', 'init': 'static/images/logos/lleidadrone-logo-trans.png', 'hover': 'static/images/logos/lleidadrone-logo.png'},
             {'name': 'logo4', 'init': 'static/images/logos/CataloniaSmartDrones-logo.png', 'hover': 'static/images/logos/CataloniaSmartDrones-logo-solid.png'},
-            {'name': 'logo5', 'init': 'static/images/logos/hemav-academics.png', 'hover': 'static/images/logos/hemav-academics-solid.png'},
+            {'name': 'logo5', 'init': 'static/images/logos/hemav-academics1.png', 'hover': 'static/images/logos/hemav-academics-solid1.png'},
         ];
         $scope.alert = {show: false, type: 'alert', msg: 'ERROR_MESSAGE_1' };
         var timeout;

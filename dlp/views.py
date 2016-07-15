@@ -69,8 +69,9 @@ class CityViewSet(viewsets.ModelViewSet):
     model = City
     queryset = City.objects.all()
     serializer_class = CitySerializer
-    filter_backends = (filters.DjangoFilterBackend,)
+    filter_backends = (filters.DjangoFilterBackend,filters.SearchFilter)
     filter_class = CityFilter
+    search_fields = ('^name',)
 
 
 class LogisticCenterViewSet(viewsets.ModelViewSet):

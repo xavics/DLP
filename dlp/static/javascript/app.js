@@ -4,11 +4,11 @@
 var app = angular.module('DLPApp', [
     'ui.router',
     'foundation',
-    'mm.foundation',
     'ngResource',
     'pascalprecht.translate',
     'myServices',
-    'uiGmapgoogle-maps'
+    'uiGmapgoogle-maps',
+    'mm.foundation'
 ]);
 app.config(function ($stateProvider, $urlRouterProvider) {
     // For any unmatched url, send to /route1

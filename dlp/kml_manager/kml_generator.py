@@ -104,11 +104,11 @@ def get_document_name(model):
 def create_updates(model):
     if model == LOGISTICCENTER:
         variables = create_items_placemark(LogisticCenter.objects.all(), model)
-        variables['targetHref'] = "{url}{modal}.kml".format(
+        variables['targetHref'] = "{url}{model}.kml".format(
             url=KMLS_UPDATE_URL, model=model)
     else:
         variables = create_items_placemark(DropPoint.objects.all(), model)
-        variables['targetHref'] = "{url}{modal}.kml".format(
+        variables['targetHref'] = "{url}{model}.kml".format(
             url=KMLS_UPDATE_URL, model=model)
     name = "update_{model}_{time}.kml".format(
         model=model, time=int(time.mktime(datetime.datetime.now().timetuple()))
@@ -137,11 +137,14 @@ def placemark_variables(item):
 
 
 def style_variables(item):
+    st_url = item.style_url.dp_earth_url if \
+        item.__class__.__name__ == "DropPoint" \
+        else item.style_url.lc_earth_url
     return {
         'id': "style_{model}{id}".format(
             model=item.__class__.__name__, id=item.id),
         'icon': "{site_url}{st_url}".format(
-            site_url=get_site_url(), st_url=item.style_url.earth_url),
+            site_url=get_site_url(), st_url=st_url),
         'scale': 1}
 
 
@@ -168,18 +171,18 @@ def layout_variables(item):
 def create_items_placemark(items, model):
     items_str = ""
     for item in items:
-        items_str.join("{var}\n".format(
-            var=fill_template("style.kml", style_variables(item))))
-        items_str.join("{var}\n".format(
-            var=fill_template("placemark.kml", placemark_variables(item))))
+        items_str += "{var}\n".format(
+            var=fill_template("style.kml", style_variables(item)))
+        items_str += "{var}\n".format(
+            var=fill_template("placemark.kml", placemark_variables(item)))
     return {'id': model, 'items': items_str}
 
 
 def create_items_layouts(items, model):
     items_str = ""
     for item in items:
-        items_str.join("{var}\n".format(
-            var=fill_template("layout.kml", layout_variables(item))))
+        items_str += "{var}\n".format(
+            var=fill_template("layout.kml", layout_variables(item)))
     return {'id': model, 'items': items_str}
 
 
@@ -188,9 +191,9 @@ def create_items_networklink(items, model, deliver=False):
         else "networklink_refresh.kml"
     items_str = ""
     for item in items:
-        items_str.join("{var}\n".format(
+        items_str += "{var}\n".format(
             var=str(fill_template(template, networklink_variables(item,
-                                                                  deliver)))))
+                                                                  deliver))))
     return {'id': model, 'items': items_str}
 
 
