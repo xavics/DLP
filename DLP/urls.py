@@ -38,7 +38,7 @@ urlpatterns = [
     url(r'^update_logistic_centers', views.update_logistic_centers),
     url(r'^update_droppoints', views.update_droppoints),
     url(r'^api/', include(router.urls)),
+    url(r'^refreshweather/$', views.refresh_weather),
     # url(r'^api-auth/',
     #     include('rest_framework.urls', namespace='rest_framework')),
-    # url(r'^refreshweather/$', views.refresh_weather),
 ]

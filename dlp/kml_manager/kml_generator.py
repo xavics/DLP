@@ -30,12 +30,16 @@ LOGISTICCENTER = "LogisticCenter"
 LAYOUT = "Layout"
 PACKAGE = "Package"
 TRANSPORT = "Transport"
+WEATHER = "Weather"
 
 # Folder KML
 PERSISTENT = "persistent"
 TMP = "tmp"
 UPDATES = "updates"
 DELIVERS = "delivers"
+
+# MAIN KML
+MAIN_KML = "document.txt"
 
 
 def create_kml(template_name, kml_name, variables, directory):
@@ -65,26 +69,26 @@ def fill_template(template_name, variables):
 
 def create_list_test(model):
     if model == TRANSPORT:
-        create_kml("document.txt", get_document_name(model),
+        create_kml(MAIN_KML, get_document_name(model),
                    create_items_networklink(
                        Transport.objects.filter(
                            status=Transport.TransportStatus.ACTIVE
                        ), model),
                    DELIVERS)
     elif model == LOGISTICCENTER:
-        create_kml("document.txt", get_document_name(model),
+        create_kml(MAIN_KML, get_document_name(model),
                    create_items_placemark(LogisticCenter.objects.all(), model),
                    PERSISTENT)
     elif model == DROPPOINT:
-        create_kml("document.txt", get_document_name(model),
+        create_kml(MAIN_KML, get_document_name(model),
                    create_items_placemark(DropPoint.objects.all(), model),
                    PERSISTENT)
     elif model == LAYOUT:
-        create_kml("document.txt", get_document_name(model),
+        create_kml(MAIN_KML, get_document_name(model),
                    create_items_layouts(Layouts.objects.all(), model),
                    PERSISTENT)
     elif model == PACKAGE:
-        create_kml("document.txt", get_document_name(model),
+        create_kml(MAIN_KML, get_document_name(model),
                    create_items_placemark(chain(
                        Package.objects.filter(
                            status=Package.PackageStatus.SENDING),
@@ -120,7 +124,7 @@ def create_delivers():
     delivers = [u for u in os.listdir(KMLS_DELIVERS_PATH) if
                 os.path.isfile(os.path.join(KMLS_DELIVERS_PATH, u))]
     variables = create_items_networklink(delivers, DELIVERS, True)
-    create_kml("document.txt", "delivers.kml", variables, PERSISTENT)
+    create_kml(MAIN_KML, "delivers.kml", variables, PERSISTENT)
 
 
 def placemark_variables(item):
@@ -195,6 +199,23 @@ def create_items_networklink(items, model, deliver=False):
             var=str(fill_template(template, networklink_variables(item,
                                                                   deliver))))
     return {'id': model, 'items': items_str}
+
+
+def create_weather_kml(image_path, name, directory):
+    items = [Layouts(name=name, url=image_path, size_x=0.4, size_y=0.1,
+                     screen_x=0, screen_y=0.05, overlay_x=0, overlay_y=0)]
+    if directory == PERSISTENT:
+        create_kml(MAIN_KML, name, create_items_layouts(items, WEATHER),
+                   directory)
+    else:
+        upd_name = "update_{model}_{time}.kml".format(
+            model=name,
+            time=int(time.mktime(datetime.datetime.now().timetuple()))
+        )
+        variables = create_items_layouts(items, WEATHER)
+        variables['targetHref'] = "{url}{model}.kml".format(
+            url=KMLS_UPDATE_URL, model=WEATHER)
+        create_kml("update_document.txt", upd_name, variables, directory)
 
 
 def create_droppoints_list():
