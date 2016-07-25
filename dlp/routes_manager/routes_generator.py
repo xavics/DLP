@@ -45,7 +45,7 @@ def get_drone_steps(origin, destiny):
         geo_point_origin, geo_point_destiny
     ).meters
     total_steps = int(dist // HORIZONTAL_SPEED)
-    extra_step = (dist % HORIZONTAL_SPEED) * HORIZONTAL_SPEED
+    extra_step = dist % HORIZONTAL_SPEED
     bearing = \
         calculate_initial_compass_bearing(geo_point_origin, geo_point_destiny)
     actual_point = Point(origin.lat, origin.lng, origin.alt)
@@ -66,7 +66,7 @@ def get_drone_steps(origin, destiny):
         actual_point.lng = destination.longitude
         steps.append(
             Point(actual_point.lat, actual_point.lng, actual_point.alt))
-    if extra_step:
+    if extra_step != 0:
         destination = VincentyDistance(
             meters=extra_step).destination(
             geopy.Point(actual_point.lat, actual_point.lng), bearing)

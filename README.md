@@ -11,6 +11,7 @@ git clone https://github.com/xavics/DLP
 Install dependencies:
 
 ```
+apt-get install cutycapt
 apt-get install nodejs-legacy npm
 npm install -g bower
 

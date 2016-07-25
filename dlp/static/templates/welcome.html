@@ -30,14 +30,47 @@
                 {{ 'WELCOME' | translate }} <b>Drone Logistics Platform</b>
             </div>
             <div class="card-section">
-                <h4>{{ 'SELECT_CITY' | translate }}</h4>
-                <form>
-                    <span class="inline-label">
-                        <input id="autocomplete_google" type="text" ng-model="city.name" placeholder="Search a city" autocomplete="off" >
-                        <a ng-click="accessDLP()" class="button">Access</a>
-                    </span>
-                </form>
-                <alert ng-show="alert.show" type="alert.type" close="closeAlert()">{{ alert.msg | translate }}</alert>
+                <div class="grid-block vertical" style="overflow: hidden;">
+                    <div class="grid-block">
+                        <div class="grid-block">
+                            <h4 style="text-align: center; width: 100%; cursor: pointer" ng-click="changeTab()">{{ 'SELECT_CITY' | translate }}</h4>
+                        </div>
+                        <div class="grid-block">
+                            <h4 style="text-align: center; width: 100%; cursor: pointer" ng-click="changeTab()">{{ 'ADD_CITY' | translate }}</h4>
+                        </div>
+                    </div>
+                    <form ng-hide="select">
+                        <div class="row">
+                            <div class="large-12 columns">
+                                <div class="row collapse">
+                                    <div class="small-10 columns">
+                                        <input id="autocomplete_google" type="text" ng-model="city.name" placeholder="Search a city" autocomplete="off" >
+                                    </div>
+                                    <div class="small-2 columns">
+                                        <a ng-click="saveCity()" style="width: 100%" class="button success">Add</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <form ng-show="select">
+                        <div class="row">
+                            <div class="large-12 columns">
+                                <div class="row collapse">
+                                    <div class="small-10 columns">
+                                        <select style="color: black;" ng-model="place_id">
+                                            <option style="color: black;" ng-repeat="opt in cities_list" ng-value="opt.place_id">{{ opt.name }}</option>
+                                        </select>
+                                    </div>
+                                    <div class="small-2 columns">
+                                        <a ng-click="accessDLP()" style="width: 100%" class="button">Access</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <alert ng-show="alert.show" type="alert.type" close="closeAlert()">{{ alert.msg | translate }}</alert>
+                </div>
             </div>
         </div>
     </div>

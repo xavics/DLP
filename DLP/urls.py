@@ -23,12 +23,13 @@ from dlp import models, views
 
 router = DefaultRouter()
 router.register(r'cities', views.CityViewSet)
-router.register(r'logisticcenters', views.LogisticCenterViewSet)
+router.register(r'styleurls', views.StyleURLViewSet)
+router.register(r'definedstyles', views.DefinedStyleViewSet)
 router.register(r'droppoints', views.DropPointViewSet)
 router.register(r'drones', views.DroneViewSet)
 router.register(r'packages', views.PackageViewSet)
 router.register(r'transports', views.TransportViewSet)
-router.register(r'styleurls', views.StyleURLViewSet)
+router.register(r'logisticcenters', views.LogisticCenterViewSet)
 
 
 urlpatterns = [

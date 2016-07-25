@@ -8,9 +8,9 @@ fi
 echo "runserver will run on $ip"
 gnome-terminal --title="Django Server" --disable-factory -e "python manage.py runserver $ip" & t1=$!
 gnome-terminal --title="Redis Server" --disable-factory -e "redis-server" & t2=$!
-gnome-terminal --title="Worker 1" --disable-factory -e "python manage.py celeryd --verbosity=2 --loglevel=DEBUG" & t3=$!
-gnome-terminal --title="Worker 2" --disable-factory -e "python manage.py celeryd --verbosity=2 --loglevel=DEBUG" & t4=$!
-gnome-terminal --title="CeleryBeat" --disable-factory -e "python manage.py celerybeat --verbosity=2 --loglevel=DEBUG" & t5=$!
+gnome-terminal --title="Worker 1" --disable-factory -e "python manage.py celeryd" & t3=$!
+gnome-terminal --title="Worker 2" --disable-factory -e "python manage.py celeryd" & t4=$!
+gnome-terminal --title="CeleryBeat" --disable-factory -e "python manage.py celerybeat" & t5=$!
 echo "$t1 , $t2 , $t3 , $t4 , $t5"
 echo -n "If you want to close DLP press 'y' > "
 read text

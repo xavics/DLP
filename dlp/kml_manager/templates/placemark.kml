@@ -5,5 +5,7 @@
                 <Point>
                     <altitudeMode>relativeToGround</altitudeMode>
                     <coordinates>{lng},{lat},{alt}</coordinates>
+                    <altitudeMode>relativeToGround</altitudeMode>
+                    <extrude>1</extrude>
                 </Point>
             </Placemark>

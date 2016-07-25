@@ -17,12 +17,17 @@ KMLS_TMP_PATH = os.path.join(STATIC_ROOT, "kmls/tmp/")
 KMLS_PERSISTENT_PATH = os.path.join(STATIC_ROOT, "kmls/persistent/")
 KMLS_UPDATES_PATH = os.path.join(STATIC_ROOT, "kmls/updates/")
 KMLS_DELIVERS_PATH = os.path.join(STATIC_ROOT, "kmls/delivers/")
+KMLS_SLAVE_PATH = os.path.join(STATIC_ROOT, "kmls/slave/")
+KMLS_SLAVE_PERS_PATH = os.path.join(STATIC_ROOT, "kmls/slave/persistent/")
+KMLS_SLAVE_UPDATES_PATH = os.path.join(STATIC_ROOT, "kmls/slave/updates/")
 KMLS_TMP_URL = "{site_url}{r_path}".format(
     site_url=get_site_url(), r_path="static/kmls/tmp/")
 KMLS_DELIVERS_URL = "{site_url}{r_path}".format(
     site_url=get_site_url(), r_path="static/kmls/delivers/")
 KMLS_UPDATE_URL = "{site_url}{r_path}".format(
     site_url=get_site_url(), r_path="static/kmls/persistent/")
+KMLS_SLAVE_UPDATE_URL = "{site_url}{r_path}".format(
+    site_url=get_site_url(), r_path="static/kmls/slave/persistent/")
 
 # Model name variables
 DROPPOINT = "DropPoint"
@@ -37,6 +42,8 @@ PERSISTENT = "persistent"
 TMP = "tmp"
 UPDATES = "updates"
 DELIVERS = "delivers"
+SLAVE = "Slave"
+SLAVE_UPDATES = "Slave_Updates"
 
 # MAIN KML
 MAIN_KML = "document.txt"
@@ -51,8 +58,12 @@ def create_kml(template_name, kml_name, variables, directory):
         temp = open(os.path.join(KMLS_TMP_PATH, kml_name), "w")
     elif directory == PERSISTENT:
         temp = open(os.path.join(KMLS_PERSISTENT_PATH, kml_name), "w")
+    elif directory == SLAVE:
+        temp = open(os.path.join(KMLS_SLAVE_PERS_PATH, kml_name), "w")
     elif directory == UPDATES:
         temp = open(os.path.join(KMLS_UPDATES_PATH, kml_name), "w")
+    elif directory == SLAVE_UPDATES:
+        temp = open(os.path.join(KMLS_SLAVE_UPDATES_PATH, kml_name), "w")
     else:
         temp = open(os.path.join(KMLS_DELIVERS_PATH, kml_name), "w")
     temp.write(kml)
@@ -86,7 +97,7 @@ def create_list_test(model):
     elif model == LAYOUT:
         create_kml(MAIN_KML, get_document_name(model),
                    create_items_layouts(Layouts.objects.all(), model),
-                   PERSISTENT)
+                   SLAVE)
     elif model == PACKAGE:
         create_kml(MAIN_KML, get_document_name(model),
                    create_items_placemark(chain(
@@ -140,15 +151,24 @@ def placemark_variables(item):
             'lat': item.lat, 'lng': item.lng, 'alt': item.alt}
 
 
+def get_style(item):
+    print item.__class__.__name__
+    if item.__class__.__name__ == "DropPoint":
+        style_url = item.logistic_center.defined_style.dp.earth_url
+    elif item.__class__.__name__ == "LogisticCenter":
+        style_url = item.defined_style.lc.earth_url
+    else:
+        style_url = item.style_url.earth_url
+    return style_url
+
+
 def style_variables(item):
-    st_url = item.style_url.dp_earth_url if \
-        item.__class__.__name__ == "DropPoint" \
-        else item.style_url.lc_earth_url
+    style = get_style(item)
     return {
         'id': "style_{model}{id}".format(
             model=item.__class__.__name__, id=item.id),
         'icon': "{site_url}{st_url}".format(
-            site_url=get_site_url(), st_url=st_url),
+            site_url=get_site_url(), st_url=style),
         'scale': 1}
 
 
@@ -204,17 +224,17 @@ def create_items_networklink(items, model, deliver=False):
 def create_weather_kml(image_path, name, directory):
     items = [Layouts(name=name, url=image_path, size_x=0.4, size_y=0.1,
                      screen_x=0, screen_y=0.05, overlay_x=0, overlay_y=0)]
-    if directory == PERSISTENT:
+    if directory == SLAVE:
         create_kml(MAIN_KML, name, create_items_layouts(items, WEATHER),
                    directory)
     else:
         upd_name = "update_{model}_{time}.kml".format(
-            model=name,
+            model="Weather",
             time=int(time.mktime(datetime.datetime.now().timetuple()))
         )
         variables = create_items_layouts(items, WEATHER)
         variables['targetHref'] = "{url}{model}.kml".format(
-            url=KMLS_UPDATE_URL, model=WEATHER)
+            url=KMLS_SLAVE_UPDATE_URL, model=WEATHER)
         create_kml("update_document.txt", upd_name, variables, directory)
 
 
@@ -244,9 +264,7 @@ def create_packages_list():
 
 
 def remove_update(name):
-    # os.system("find {path} -type f -name '*{name}*' -delete".format(
-    #     path=KMLS_UPDATES_PATH, name=name))
-    print("find {path} -type f -name '*{name}*' -delete".format(
+    os.system("find {path} -type f -name '*{name}*' -delete".format(
         path=KMLS_UPDATES_PATH, name=name))
 
 
@@ -264,6 +282,9 @@ def create_kml_folders():
     os.system("mkdir {path}".format(path=KMLS_PERSISTENT_PATH))
     os.system("mkdir {path}".format(path=KMLS_UPDATES_PATH))
     os.system("mkdir {path}".format(path=KMLS_DELIVERS_PATH))
+    os.system("mkdir {path}".format(path=KMLS_SLAVE_PATH))
+    os.system("mkdir {path}".format(path=KMLS_SLAVE_PERS_PATH))
+    os.system("mkdir {path}".format(path=KMLS_SLAVE_UPDATES_PATH))
 
 
 '''

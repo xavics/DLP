@@ -14,12 +14,17 @@ from dlp.apps import get_site_url
 from dlp.galaxy_comunication.galaxy_comunication import send_kmls
 from dlp.kml_manager.kml_generator import create_transports_list, \
     create_packages_list, create_delivers
-from dlp.models import Package, LogisticCenter, Drone, Transport
+from dlp.models import Package, LogisticCenter, Drone, Transport, StyleURL
 from dlp.routes_manager.routes_generator import get_drone_steps, Point
 
 logger = get_task_logger(__name__)
 KML_TMP_FOLDER = os.path.join(BASE_DIR + "/dlp/static/kmls/tmp/")
 POSITION_URL = get_site_url() + "receive_position"
+
+# Package Stiles id
+PENDING_STYLE = 1
+SENDING_STYLE = 2
+SENT_STYLE = 3
 
 
 class DroneTransport(object):
@@ -68,6 +73,7 @@ def drones_availability(package):
         status=Drone.DroneStatus.WAITING)
     for drone in drones:
         package.status = Package.PackageStatus.SENDING
+        package.style_url = StyleURL.objects.get(id=SENDING_STYLE)
         package.save()
         drone.status = Drone.DroneStatus.DELIVERING
         drone.save()
@@ -102,6 +108,7 @@ def send_package(drone_id, package_id, transport_id, json_pos):
 def final_transport(drone_id, package_id, transport_id):
     package = Package.objects.get(id=package_id)
     package.status = Package.PackageStatus.SENT
+    package.style_url = StyleURL.objects.get(id=SENT_STYLE)
     package.date_delivered = datetime.datetime.now()
     package.save()
     transport = Transport.objects.get(id=transport_id)

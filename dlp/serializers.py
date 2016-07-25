@@ -16,8 +16,17 @@ class StyleURLSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.StyleURL
         fields = (
-            'id', 'name', 'dp_earth_url', 'dp_maps_url', 'lc_earth_url',
-            'lc_maps_url', 'scale')
+            'id', 'name', 'earth_url', 'maps_url', 'scale')
+
+
+class DefinedStyleSerializer(serializers.ModelSerializer):
+    dp = StyleURLSerializer(many=False, read_only=True)
+    lc = StyleURLSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = models.DefinedStyle
+        fields = (
+            'id', 'name', 'dp', 'lc')
 
 
 class TransportSerializer(serializers.ModelSerializer):
@@ -54,16 +63,15 @@ class DropPointSerializer(serializers.ModelSerializer):
         model = models.DropPoint
         fields = (
             'id', 'name', 'description', 'lat', 'lng', 'alt',
-            'style_url', 'logistic_center', 'packages')
+            'logistic_center', 'packages')
 
 
 class LogisticCenterSerializer(serializers.ModelSerializer):
     droppoints = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     drones = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    style_url = StyleURLSerializer(many=False, read_only=True)
 
     class Meta:
         model = models.LogisticCenter
         fields = (
             'id', 'name', 'address', 'description', 'lat', 'lng',
-            'alt', 'radius', 'style_url', 'city', 'droppoints', 'drones')
+            'alt', 'radius', 'defined_style', 'city', 'droppoints', 'drones')

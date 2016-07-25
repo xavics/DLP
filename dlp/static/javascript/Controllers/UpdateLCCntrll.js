@@ -3,7 +3,6 @@
  */
 angular.module('DLPApp').controller('UpdateLCCntrll',['$scope', 'LogisticCenter', 'City', 'UpdateLc',
     function ($scope, LogisticCenter, City, UpdateLc){
-        $scope.cities_list = City.get();
         $scope.center_backup = angular.copy($scope.$parent.center);
         $scope.update_center = function(){
             $scope.center.$update()
@@ -20,7 +19,7 @@ angular.module('DLPApp').controller('UpdateLCCntrll',['$scope', 'LogisticCenter'
             $scope.$parent.center.alt = angular.copy($scope.center_backup.alt);
             $scope.$parent.center.radius = angular.copy($scope.center_backup.radius);
             $scope.$parent.center.city = angular.copy($scope.center_backup.city);
-            // $scope.$parent.center.style_url = angular.copy($scope.center_backup.name);
+            $scope.$parent.center.defined_style = angular.copy($scope.center_backup.defined_style);
             $scope.$parent.modify_mode_lc('Default');
             UpdateLc.lc()
         }

@@ -21,8 +21,8 @@ myServices.factory('Droppoint', ['$resource', function($resource) {
     });
 }]);
 
-myServices.factory('City', ['$resource', function($resource) {
-    return $resource('/api/cities/:id', {'id': '@id'}, {
+myServices.factory('City', ['$resource', '$cacheFactory', function($resource) {
+    return $resource('/api/cities/:id/?time=time', {'id': '@id', 'time': '@time'}, {
     });
 }]);
 
@@ -49,10 +49,17 @@ myServices.factory('TransportByLc', ['$resource', function($resource) {
         });
 }]);
 
+myServices.factory('DefinedStyle', ['$resource', function($resource) {
+    return $resource('/api/definedstyles/:id/', {'id': '@id'}, {
+        'update': { method:'PUT' }
+    });
+}]);
+
+
 myServices.factory('UpdateDp', ['$http', '$cacheFactory', function($http, $cacheFactory) {
  return{
     dp : function() {
-        $cacheFactory.get('$http').remove('/update_droppoints')
+        $cacheFactory.get('$http').remove('/update_droppoints');
         return $http({
             url: '/update_droppoints',
             method: 'GET'
@@ -68,6 +75,21 @@ myServices.factory('UpdateLc', ['$http', '$cacheFactory', function($http, $cache
         return $http({
             url: '/update_logistic_centers',
             method: 'GET'
+        })
+    }
+ }
+}]);
+
+myServices.factory('RefreshWeather', ['$http', '$cacheFactory', function($http, $cacheFactory) {
+ return{
+    refresh : function(city) {
+        $cacheFactory.get('$http').remove('/refreshweather')
+        return $http({
+            url: '/refreshweather',
+            method: 'GET',
+            params: {
+                city: city
+            }
         })
     }
  }

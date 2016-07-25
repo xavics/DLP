@@ -9,13 +9,13 @@ from DLP.settings import MAPS_API_KEY
 from dlp.apis.api_weather import generate_weather_image
 from dlp.apps import get_site_url
 from dlp.galaxy_comunication.galaxy_comunication import send_kmls
-from dlp.kml_manager.kml_generator import create_updates, TMP, \
-    LOGISTICCENTER, DROPPOINT, remove_update, PERSISTENT, KMLS_PERSISTENT_PATH, \
-    UPDATES, create_weather_kml, WEATHER
-from dlp.serializers import *
-from models import *
-from filters import *
 from dlp.kml_manager import kml_generator
+from dlp.kml_manager.kml_generator import create_updates, TMP, \
+    LOGISTICCENTER, DROPPOINT, remove_update, create_weather_kml, WEATHER, \
+    SLAVE, KMLS_SLAVE_PERS_PATH, SLAVE_UPDATES
+from dlp.serializers import *
+from filters import *
+from models import *
 
 '''
 Base view
@@ -40,7 +40,7 @@ def receive_position(request):
     alt = request.POST.get('alt')
     variables = {
         'id': "Transport{id}".format(id=id_trans),
-        'icon': "{url}static/images/galaxy_icons/drone_icon.png".format(
+        'icon': "{url}static/images/galaxy_icons/drone.png".format(
             url=get_site_url()),
         'name': "Transport {id}".format(id=id_trans),
         'description': "Drone transporting packet.",
@@ -85,16 +85,16 @@ City id get it from the request
 '''
 
 
+@csrf_exempt
 def refresh_weather(request):
-    remove_update(WEATHER)
     city_id = request.GET.get("city")
     image_path = generate_weather_image(city_id)
     kml_name = "Weather.kml"
-    create_weather_kml(
-        image_path, kml_name, UPDATES
-    ) if is_inside_folder(
-        kml_name, KMLS_PERSISTENT_PATH
-    ) else create_weather_kml(image_path, kml_name, PERSISTENT)
+    if is_inside_folder(kml_name, KMLS_SLAVE_PERS_PATH):
+        remove_update(WEATHER)
+        create_weather_kml(image_path, kml_name, SLAVE_UPDATES)
+    else:
+        create_weather_kml(image_path, kml_name, SLAVE)
     return HttpResponse(status=204)
 
 
@@ -156,4 +156,11 @@ class StyleURLViewSet(viewsets.ModelViewSet):
     model = StyleURL
     queryset = StyleURL.objects.all()
     serializer_class = StyleURLSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+
+
+class DefinedStyleViewSet(viewsets.ModelViewSet):
+    model = DefinedStyle
+    queryset = DefinedStyle.objects.all()
+    serializer_class = DefinedStyleSerializer
     filter_backends = (filters.DjangoFilterBackend,)

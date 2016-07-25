@@ -17,7 +17,8 @@ app.config(function ($stateProvider, $urlRouterProvider) {
         .state('welcome', {
             url: "/",
             templateUrl: "/static/templates/welcome.html",
-            controller: "WelcomeCntrll"
+            controller: "WelcomeCntrll",
+            cache: false
         })
         .state('main', {
             url: "/dlpView",

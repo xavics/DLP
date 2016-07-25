@@ -2,13 +2,13 @@
  * Created by xavi on 7/06/16.
  */
 angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location', '$scope', '$http', '$stateParams', '$state', '$translate', 'uiGmapGoogleMapApi',
-    'uiGmapIsReady', 'City', 'CityByPlaceId', 'LogisticCenter', '$timeout', 'FoundationApi',
+    'uiGmapIsReady', 'City', 'CityByPlaceId', 'LogisticCenter', '$timeout', 'FoundationApi', 'DefinedStyle',
     function($anchorScroll, $location, $scope, $http, $stateParams, $state, $translate, uiGmapGoogleMapApi, uiGmapIsReady, City, CityByPlaceId,
-             LogisticCenter, $timeout, FoundationApi) {
+             LogisticCenter, $timeout, FoundationApi, DefinedStyle) {
         var city_str = $stateParams.city;
         $scope.lc = [];
         var cities_list = [];
-        City.get({},
+        City.get({time: Date.now()},
             function (data) {
                 data.results.forEach(function(city) {
                     cities_list.push(city);
@@ -114,7 +114,7 @@ angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location',
                 function () {
                     $scope.logistic_centers.push(logistic_center);
                     $scope.lc[logistic_center.id] = false;
-                    $scope.add_marker_center(logistic_center.id, logistic_center.lat, logistic_center.lng, logistic_center.style_url.lc_maps_url)
+                    $scope.add_marker_center(logistic_center.id, logistic_center.lat, logistic_center.lng, logistic_center.defined_style)
                 });
         };
 
@@ -171,42 +171,48 @@ angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location',
             }
         };
 
-        $scope.add_marker_center = function(id, lat, lng, styleURL){
-            var marker = {
-                id: "lc" + id,
-                coords: {
-                    latitude: lat,
-                    longitude: lng
-                },
-                options: {
-                    icon: styleURL
-                },
-                events: {
-                    click: function (marker, eventName, args) {
-                        openCenterInfo(id)
-                    }
-                }
-            };
-            $scope.map.markers.push(marker);
+        $scope.add_marker_center = function(id, lat, lng, defStyle){
+            DefinedStyle.get({id: defStyle},
+                function (result) {
+                    var marker = {
+                        id: "lc" + id,
+                        coords: {
+                            latitude: lat,
+                            longitude: lng
+                        },
+                        options: {
+                            icon: result.lc.maps_url
+                        },
+                        events: {
+                            click: function (marker, eventName, args) {
+                                openCenterInfo(id)
+                            }
+                        }
+                    };
+                    $scope.map.markers.push(marker);
+                });
         };
 
-        $scope.add_marker_droppoint = function(id_center, id, lat, lng, styleURL){
-            var marker = {
-                id: "lc" + id_center + "dp" + id,
-                coords: {
-                    latitude: lat,
-                    longitude: lng
-                },
-                options: {
-                    icon: styleURL
-                },
-                events: {
-                    click: function (marker, eventName, args) {
-                        openDroppointTab(id_center, id)
-                    }
-                }
-            };
-            $scope.map.markers.push(marker);
+        $scope.add_marker_droppoint = function(id_center, id, lat, lng, defStyle){
+            DefinedStyle.get({id: defStyle},
+                function (result) {
+                    var marker = {
+                        id: "lc" + id_center + "dp" + id,
+                        coords: {
+                            latitude: lat,
+                            longitude: lng
+                        },
+                        options: {
+                            icon: result.dp.maps_url
+                        },
+                        events: {
+                            click: function (marker, eventName, args) {
+                                openDroppointTab(id_center, id)
+                            }
+                        }
+                    };
+                    $scope.map.markers.push(marker);
+                });
         };
 
         $scope.newCoords = {lat: 0.0, lng: 0.0}
@@ -256,6 +262,10 @@ angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location',
                 return addresses;
             });
         };
+
+        $scope.returnMain = function(){
+            $state.transitionTo('welcome', null, { reload: true });
+        }
 
 
     }]);

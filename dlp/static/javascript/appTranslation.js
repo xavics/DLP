@@ -17,7 +17,7 @@ angular.module('DLPApp').config(['$translateProvider', function ($translateProvi
         'DROPPOINT': 'Drop point',
         'EDIT': 'Edit',
         'CANCEL': 'Cancel',
-        'CREATE NEW': 'Create new',
+        'CREATE_NEW': 'Create new',
         'SAVE': 'Save',
         'NAME': 'Name',
         'CITY': 'City',
@@ -37,7 +37,12 @@ angular.module('DLPApp').config(['$translateProvider', function ($translateProvi
         'SELECT_CITY': 'Select a city',
         'ERROR_MESSAGE_1': 'Please, select one of the cities available in the dropdown',
         'SEARCH': 'Search',
-        'SELECT': 'Select'
+        'SELECT': 'Select',
+        'REFRESH_WEATHER': 'Refresh weather information',
+        'STYLE': 'Style',
+        'ADD_CITY': 'Add new city',
+        'COORDINATES': 'Coordinates',
+        'INFORMATION_COORD': 'Press the map or left click in the map to get the Coordinates'
     });
 
     $translateProvider.translations('es', {
@@ -55,7 +60,7 @@ angular.module('DLPApp').config(['$translateProvider', function ($translateProvi
         'DROPPOINT': 'Punto de entrega',
         'EDIT': 'Editar',
         'CANCEL': 'Cancelar',
-        'CREATE NEW': 'Crear nuevo',
+        'CREATE_NEW': 'Crear nuevo',
         'SAVE': 'Guardar',
         'NAME': 'Nombre',
         'CITY': 'Ciudad',
@@ -75,7 +80,12 @@ angular.module('DLPApp').config(['$translateProvider', function ($translateProvi
         'SELECT_CITY': 'Selecciona una ciudad',
         'ERROR_MESSAGE_1': 'Por favor, seleccione una de las ciudades disponibles en el desplegable',
         'SEARCH': 'Buscar',
-        'SELECT': 'Seleccionar'
+        'SELECT': 'Seleccionar',
+        'REFRESH_WEATHER': 'Actualizar informacion meteorologica',
+        'STYLE': 'Estilo',
+        'ADD_CITY': 'Añadir ciudad',
+        'COORDINATES': 'Coordinates',
+        'INFORMATION_COORD': 'Presiona o haz clic izquierdo en el mapa para obtener las coordenadas'
     });
 
     $translateProvider.preferredLanguage('en');

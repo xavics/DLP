@@ -93,6 +93,17 @@ html, body, #map_canvas {
     overflow-y: auto
 }
 
+.large_floats{
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 130px;
+}
+
+.no-bottom-margin{
+    margin-bottom: 0 !important;
+}
+
 /************************
     Welcome Page
 *************************/
