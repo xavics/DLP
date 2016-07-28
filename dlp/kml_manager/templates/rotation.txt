@@ -1,0 +1,12 @@
+                <gx:FlyTo>
+                    <gx:duration>{duration}</gx:duration>
+                    <gx:flyToMode>smooth</gx:flyToMode>
+                    <LookAt>
+                        <longitude>{lng}</longitude>
+                        <latitude>{lat}</latitude>
+                        <altitude>{alt}</altitude>
+                        <heading>{heading}</heading>
+                        <range>{range}</range>
+                        <tilt>{tilt}</tilt>
+                    </LookAt>
+                </gx:FlyTo>

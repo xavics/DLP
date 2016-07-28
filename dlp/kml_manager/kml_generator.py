@@ -3,6 +3,7 @@ import logging
 from itertools import chain
 import datetime
 import time
+import numpy
 
 from DLP.settings import STATIC_ROOT
 from dlp.models import *
@@ -48,6 +49,15 @@ SLAVE_UPDATES = "Slave_Updates"
 # MAIN KML
 MAIN_KML = "document.txt"
 
+#TOUR KML
+TOUR_KML = "tour.txt"
+
+
+'''
+    Creates a KML from the templates and the variables to fill it.
+    Then saves it in the assigned path.
+'''
+
 
 def create_kml(template_name, kml_name, variables, directory):
     base = open(os.path.join(TEMPLATES_PATH, template_name), "r")
@@ -68,6 +78,12 @@ def create_kml(template_name, kml_name, variables, directory):
         temp = open(os.path.join(KMLS_DELIVERS_PATH, kml_name), "w")
     temp.write(kml)
     temp.close()
+
+
+'''
+    Fill a template with the variables.
+    returns a String with the template filled
+'''
 
 
 def fill_template(template_name, variables):
@@ -221,6 +237,26 @@ def create_items_networklink(items, model, deliver=False):
     return {'id': model, 'items': items_str}
 
 
+def create_items_rotation(city, range_str, tilt, duration):
+    template = "rotation.txt"
+    items_str = ""
+    variables = {'lng': str(city.lng), 'lat': str(city.lat), 'alt': '0',
+                 'range': range_str, 'tilt': tilt, 'duration': duration}
+    # for i in range(0, 360, 11.25):
+    for i in numpy.linspace(0, 360, num=33):
+        variables['heading'] = str(i)
+        items_str += "{var}\n".format(
+            var=str(fill_template(template, variables)))
+    return {'name': 'rotation', 'items': items_str}
+
+
+def drange(start, stop, step):
+    r = start
+    while r < stop:
+        yield r
+        r += step
+
+
 def create_weather_kml(image_path, name, directory):
     items = [Layouts(name=name, url=image_path, size_x=0.4, size_y=0.1,
                      screen_x=0, screen_y=0.05, overlay_x=0, overlay_y=0)]
@@ -236,6 +272,15 @@ def create_weather_kml(image_path, name, directory):
         variables['targetHref'] = "{url}{model}.kml".format(
             url=KMLS_SLAVE_UPDATE_URL, model=WEATHER)
         create_kml("update_document.txt", upd_name, variables, directory)
+
+
+def create_rotation_kml(city, range_str=5000, tilt=55, duration=5.0):
+    logger.info("Creating rotation kml for {city}".format(city=city))
+    print("Creating rotation kml for {city}".format(city=city))
+    city = City.objects.get(id=city)
+    create_kml(TOUR_KML, get_document_name('rotation'),
+               create_items_rotation(
+                   city, str(range_str), str(tilt), str(duration)), PERSISTENT)
 
 
 def create_droppoints_list():

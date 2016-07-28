@@ -40,6 +40,9 @@ urlpatterns = [
     url(r'^update_droppoints', views.update_droppoints),
     url(r'^api/', include(router.urls)),
     url(r'^refreshweather/$', views.refresh_weather),
+    url(r'^make_rotation/$', views.make_tour),
+    url(r'^play_tour/$', views.play_tour),
+    url(r'^stop_tour/$', views.stop_tour)
     # url(r'^api-auth/',
     #     include('rest_framework.urls', namespace='rest_framework')),
 ]

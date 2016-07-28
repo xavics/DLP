@@ -8,11 +8,12 @@ from rest_framework import viewsets
 from DLP.settings import MAPS_API_KEY
 from dlp.apis.api_weather import generate_weather_image
 from dlp.apps import get_site_url
-from dlp.galaxy_comunication.galaxy_comunication import send_kmls
+from dlp.galaxy_comunication.galaxy_comunication import send_kmls, start_tour, \
+    exit_tour
 from dlp.kml_manager import kml_generator
 from dlp.kml_manager.kml_generator import create_updates, TMP, \
     LOGISTICCENTER, DROPPOINT, remove_update, create_weather_kml, WEATHER, \
-    SLAVE, KMLS_SLAVE_PERS_PATH, SLAVE_UPDATES
+    SLAVE, KMLS_SLAVE_PERS_PATH, SLAVE_UPDATES, create_rotation_kml
 from dlp.serializers import *
 from filters import *
 from models import *
@@ -105,6 +106,27 @@ def is_inside_folder(filename, path):
             return True
     return False
 
+
+'''
+    Tour requests
+'''
+
+
+@csrf_exempt
+def make_tour(request):
+    city_id = request.GET.get("city")
+    create_rotation_kml(city_id)
+    return HttpResponse(status=204)
+
+
+def play_tour(request):
+    start_tour()
+    return HttpResponse(status=204)
+
+
+def stop_tour(request):
+    exit_tour()
+    return HttpResponse(status=204)
 
 '''
 API REST ViewSets

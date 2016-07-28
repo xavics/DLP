@@ -24,7 +24,8 @@ def sync_kmls_to_galaxy():
         kmls_path=KMLS_TXT_PATH, lg_ip=get_galaxy_ip(), lg_path=server_path)
     system(
         "sshpass -p 'lqgalaxy' scp {kmls_path} lg@{lg_ip}:{lg_path}".format(
-            kmls_path=KMLS_TXT_PATH, lg_ip=get_galaxy_ip(), lg_path=server_path))
+            kmls_path=KMLS_TXT_PATH, lg_ip=get_galaxy_ip(),
+            lg_path=server_path))
     system(
         "sshpass -p 'lqgalaxy' scp {kmls_path} lg@{lg_ip}:{lg_path}".format(
             kmls_path=KMLS_SLAVE_TXT_PATH, lg_ip=get_galaxy_ip(),
@@ -57,6 +58,21 @@ def sync_kmls_slave_file():
         kml_file.write("{url}{kml}\n".format(url=KMLS_SLAVE_URL_UPDATE,
                                              kml=kml))
     kml_file.close()
+
+
+def start_tour():
+    message = "echo 'playtour=rotation' > /tmp/query.txt"
+    comunicate(message)
+
+
+def exit_tour():
+    message = "echo 'exittour=rotation' > /tmp/query.txt"
+    comunicate(message)
+
+
+def comunicate(message):
+    system("sshpass -p 'lqgalaxy' ssh lg@{lg_ip} \"{message}\"".format(
+            message=message, lg_ip=get_galaxy_ip()))
 
 
 def send_kmls():
