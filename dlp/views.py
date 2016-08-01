@@ -2,18 +2,19 @@ from os import listdir
 
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
 
 from DLP.settings import MAPS_API_KEY
 from dlp.apis.api_weather import generate_weather_image
-from dlp.apps import get_site_url
+from dlp.file_manager.file_manager import get_site_url
 from dlp.galaxy_comunication.galaxy_comunication import send_kmls, start_tour, \
     exit_tour
-from dlp.kml_manager import kml_generator
 from dlp.kml_manager.kml_generator import create_updates, TMP, \
     LOGISTICCENTER, DROPPOINT, remove_update, create_weather_kml, WEATHER, \
-    SLAVE, KMLS_SLAVE_PERS_PATH, SLAVE_UPDATES, create_rotation_kml
+    SLAVE, KMLS_SLAVE_PERS_PATH, SLAVE_UPDATES, create_rotation_kml, create_kml
+from dlp.file_manager.file_manager import demo
 from dlp.serializers import *
 from filters import *
 from models import *
@@ -49,7 +50,7 @@ def receive_position(request):
         'lng': lng,
         'alt': alt}
     kml_name = "Transport{id}.kml".format(id=id_trans)
-    kml_generator.create_kml("drone_placemark.kml", kml_name, variables, TMP)
+    create_kml("drone_placemark.kml", kml_name, variables, TMP)
     transport = Transport.objects.get(id=id_trans)
     transport.step += 1
     transport.save()
@@ -112,21 +113,36 @@ def is_inside_folder(filename, path):
 '''
 
 
-@csrf_exempt
+@never_cache
 def make_tour(request):
     city_id = request.GET.get("city")
     create_rotation_kml(city_id)
     return HttpResponse(status=204)
 
 
+@never_cache
 def play_tour(request):
-    start_tour()
+    city_id = request.GET.get("city")
+    start_tour(city_id)
     return HttpResponse(status=204)
 
 
+@never_cache
 def stop_tour(request):
-    exit_tour()
+    city_id = request.GET.get("city")
+    exit_tour(city_id)
     return HttpResponse(status=204)
+
+
+'''
+    Demo
+'''
+
+
+def run_demo(request):
+    demo()
+    return HttpResponse(status=204)
+
 
 '''
 API REST ViewSets

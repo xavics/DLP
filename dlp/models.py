@@ -8,6 +8,7 @@ from dlp import mixins
 class City(mixins.GeoSimple, models.Model):
     name = models.CharField(max_length=100)
     place_id = models.CharField(max_length=100)
+    flying_altitude = models.IntegerField(default=400)
 
     def __unicode__(self):
         return str(self.name)

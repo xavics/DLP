@@ -1,8 +1,27 @@
-<div class="grid-block">
-    <div class="grid-block" style="margin: 10px"><h5>Liquid Galaxy Options</h5></div>
-    <div class="align-right grid-block" style="margin: 10px"><h5><a zf-close="" ><i class="fa fa-times" aria-hidden="true"></i></a></h5></div>
+<div class="grid-block" style="padding-left: 5px; padding-right: 5px;">
+    <div class="v-align">
+        <div class="align-center">
+            <div class="grid-block"><a zf-close=""><h5>Liquid Galaxy Options  <i class="fa fa-times" aria-hidden="true"></i></h5></a></div>
+        </div>
+    </div>
 </div>
-<div class="grid-block" style="text-align: right">
-    <a ng-click="refresh_weather(main_city.id)" class="large hollow button">
+<div class="grid-block" style="padding-left: 5px; padding-right: 5px;">
+    <a ng-click="refresh_weather(main_city.id)" class="expand hollow button">
         <i class="fa fa-refresh" aria-hidden="true"></i> {{ 'REFRESH_WEATHER' | translate }}</a>
+</div>
+<div class="grid-block" style="padding-left: 5px; padding-right: 5px;">
+    <a ng-click="play_tour(main_city.id)" class="expand hollow button success">
+        <i class="fa fa-play" aria-hidden="true"></i> {{ 'PLAY_TOUR' | translate }}</a>
+</div>
+<div class="grid-block" style="padding-left: 5px; padding-right: 5px;">
+    <a ng-click="stop_tour(main_city.id)" class="expand hollow button alert">
+        <i class="fa fa-stop" aria-hidden="true"></i> {{ 'STOP_TOUR' | translate }}</a>
+</div>
+<div class="grid-block" style="padding-left: 5px; padding-right: 5px;">
+    <a href="admin" class="expand hollow button info">
+        <i class="fa fa-user-secret" aria-hidden="true"></i> {{ 'ADMINISTRATION' | translate }}</a>
+</div>
+<div class="grid-block" style="padding-left: 5px; padding-right: 5px;">
+    <a ng-click="run_demo()" class="expand hollow button info">
+        <i class="fa fa-desktop" aria-hidden="true"></i> {{ 'DEMO' | translate }}</a>
 </div>

@@ -4,7 +4,6 @@ from geopy.distance import VincentyDistance
 
 VERTICAL_SPEED = 50  # Drone Speed (m/s)
 HORIZONTAL_SPEED = 50  # Drone Speed (m/s)
-FLYING_ALTITUDE = 400  # Minimum altitude
 
 
 class Point(object):
@@ -38,7 +37,7 @@ def calculate_initial_compass_bearing(geo_point_origin, geo_point_destiny):
     return compass_bearing
 
 
-def get_drone_steps(origin, destiny):
+def get_drone_steps(origin, destiny, city):
     geo_point_origin = (origin.lat, origin.lng)
     geo_point_destiny = (destiny.lat, destiny.lng)
     dist = geopy.distance.distance(
@@ -50,12 +49,12 @@ def get_drone_steps(origin, destiny):
         calculate_initial_compass_bearing(geo_point_origin, geo_point_destiny)
     actual_point = Point(origin.lat, origin.lng, origin.alt)
     steps = []
-    while actual_point.alt != FLYING_ALTITUDE:
+    while actual_point.alt != city.flying_altitude:
         steps.append(
             Point(actual_point.lat, actual_point.lng, actual_point.alt))
         actual_point.alt += VERTICAL_SPEED
-        if actual_point.alt >= FLYING_ALTITUDE:
-            actual_point.alt = FLYING_ALTITUDE
+        if actual_point.alt >= city.flying_altitude:
+            actual_point.alt = city.flying_altitude
             steps.append(
                 Point(actual_point.lat, actual_point.lng, actual_point.alt))
     for i in range(total_steps):

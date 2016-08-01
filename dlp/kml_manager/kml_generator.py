@@ -7,7 +7,7 @@ import numpy
 
 from DLP.settings import STATIC_ROOT
 from dlp.models import *
-from dlp.apps import get_site_url
+from dlp.file_manager.file_manager import get_site_url
 
 logger = logging.getLogger(__name__)
 
@@ -247,7 +247,8 @@ def create_items_rotation(city, range_str, tilt, duration):
         variables['heading'] = str(i)
         items_str += "{var}\n".format(
             var=str(fill_template(template, variables)))
-    return {'name': 'rotation', 'items': items_str}
+    return {'name': 'rotation_{city}'.format(city=city.name),
+            'items': items_str}
 
 
 def drange(start, stop, step):
@@ -278,7 +279,8 @@ def create_rotation_kml(city, range_str=5000, tilt=55, duration=5.0):
     logger.info("Creating rotation kml for {city}".format(city=city))
     print("Creating rotation kml for {city}".format(city=city))
     city = City.objects.get(id=city)
-    create_kml(TOUR_KML, get_document_name('rotation'),
+    create_kml(TOUR_KML, get_document_name(
+        'rotation_{city}'.format(city=city.name)),
                create_items_rotation(
                    city, str(range_str), str(tilt), str(duration)), PERSISTENT)
 

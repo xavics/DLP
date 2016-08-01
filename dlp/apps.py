@@ -10,15 +10,15 @@ class DlpConfig(AppConfig):
     verbose_name = 'Drone Logistics Platform'
 
 
-def get_site_url():
-    f = open(os.path.join(BASE_DIR + "/ipsettings"), 'r')
-    ip_config = f.read().split(',')
-    f.close()
-    return ip_config[1]
-
-
-def get_galaxy_ip():
-    f = open(os.path.join(BASE_DIR + "/ipsettings"), 'r')
-    ip_config = f.read().split(',')
-    f.close()
-    return ip_config[0]
+# def get_site_url():
+#     f = open(os.path.join(BASE_DIR + "/ipsettings"), 'r')
+#     ip_config = f.read().split(',')
+#     f.close()
+#     return ip_config[1]
+#
+#
+# def get_galaxy_ip():
+#     f = open(os.path.join(BASE_DIR + "/ipsettings"), 'r')
+#     ip_config = f.read().split(',')
+#     f.close()
+#     return ip_config[0]

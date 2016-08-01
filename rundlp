@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ -z $1 ]; then
-    ip = "127.0.0.1:8000"
+    ip = "0.0.0.0:8000"
 else
     ip=$1
 fi
@@ -11,17 +11,15 @@ gnome-terminal --title="Redis Server" --disable-factory -e "redis-server" & t2=$
 gnome-terminal --title="Worker 1" --disable-factory -e "python manage.py celeryd" & t3=$!
 gnome-terminal --title="Worker 2" --disable-factory -e "python manage.py celeryd" & t4=$!
 gnome-terminal --title="CeleryBeat" --disable-factory -e "python manage.py celerybeat" & t5=$!
-echo "$t1 , $t2 , $t3 , $t4 , $t5"
-echo -n "If you want to close DLP press 'y' > "
-read text
-until [ "$text" == "y" ]
-do
-    echo -n "If you want to close DLP press 'y' > "
-    read text
-done
-pgrep -P $t1 | xargs kill
-pgrep -P $t5 | xargs kill
-pgrep -P $t3 | xargs kill
-pgrep -P $t4 | xargs kill
-pgrep -P $t2 | xargs kill
+echo "#!/bin/bash
+
+#pgrep -P $t1 | xargs kill
+#pgrep -P $t5 | xargs kill
+#pgrep -P $t3 | xargs kill
+#pgrep -P $t4 | xargs kill
+#pgrep -P $t2 | xargs kill
+killall redis-server
+killall gnome-terminal
+" > exitdlp
+echo "To exit run $ exitdlp"
 exit

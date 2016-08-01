@@ -10,7 +10,7 @@ from celery.utils.log import get_task_logger
 
 from DLP.celery import app
 from DLP.settings import BASE_DIR
-from dlp.apps import get_site_url
+from dlp.file_manager.file_manager import get_site_url
 from dlp.galaxy_comunication.galaxy_comunication import send_kmls
 from dlp.kml_manager.kml_generator import create_transports_list, \
     create_packages_list, create_delivers
@@ -77,9 +77,10 @@ def drones_availability(package):
         package.save()
         drone.status = Drone.DroneStatus.DELIVERING
         drone.save()
+        city = droppoint.logistic_center.city
         origin = Point(lc.lat, lc.lng, lc.alt)
         destiny = Point(droppoint.lat, droppoint.lng, droppoint.alt)
-        positions = get_drone_steps(origin, destiny)
+        positions = get_drone_steps(origin, destiny, city)
         json_pos = json.dumps([ob.__dict__ for ob in positions])
         transport = create_transport(package, drone, lc, len(positions) * 2)
         send_package.delay(drone.id, package.id, transport.id, json_pos)

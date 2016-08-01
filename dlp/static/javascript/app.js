@@ -7,6 +7,7 @@ var app = angular.module('DLPApp', [
     'ngResource',
     'pascalprecht.translate',
     'myServices',
+    'myRequests',
     'uiGmapgoogle-maps',
     'mm.foundation'
 ]);

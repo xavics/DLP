@@ -9,7 +9,9 @@ class CitySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.City
         fields = (
-            'id', 'name', 'lat', 'lng', 'place_id', 'logistic_centers')
+            'id', 'name', 'lat', 'lng', 'place_id', 'logistic_centers',
+            'flying_altitude'
+        )
 
 
 class StyleURLSerializer(serializers.ModelSerializer):

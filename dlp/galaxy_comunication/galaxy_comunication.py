@@ -2,9 +2,10 @@ from os import listdir, system
 from os.path import isfile, join
 
 from DLP.settings import STATIC_ROOT
-from dlp.apps import get_site_url, get_galaxy_ip
+from dlp.file_manager.file_manager import get_site_url, get_galaxy_ip
 from dlp.kml_manager.kml_generator import KMLS_PERSISTENT_PATH, \
     KMLS_UPDATES_PATH, KMLS_SLAVE_UPDATES_PATH, KMLS_SLAVE_PERS_PATH
+from dlp.models import City
 
 KMLS_TXT_PATH = join(STATIC_ROOT, "kmls/kmls.txt")
 KMLS_SLAVE_TXT_PATH = join(STATIC_ROOT, "kmls/kmls_4.txt")
@@ -60,13 +61,19 @@ def sync_kmls_slave_file():
     kml_file.close()
 
 
-def start_tour():
-    message = "echo 'playtour=rotation' > /tmp/query.txt"
+def start_tour(city):
+    city_obj = City.objects.get(id=city)
+    message = "echo 'playtour=rotation_{city}' > /tmp/query.txt".format(
+        city=city_obj.name
+    )
     comunicate(message)
 
 
-def exit_tour():
-    message = "echo 'exittour=rotation' > /tmp/query.txt"
+def exit_tour(city):
+    city_obj = City.objects.get(id=city)
+    message = "echo 'exittour=rotation_{city}' > /tmp/query.txt".format(
+        city=city_obj.name
+    )
     comunicate(message)
 
 

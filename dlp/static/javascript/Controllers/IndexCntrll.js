@@ -2,9 +2,9 @@
  * Created by xavi on 7/06/16.
  */
 angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location', '$scope', '$http', '$stateParams', '$state', '$translate', 'uiGmapGoogleMapApi',
-    'uiGmapIsReady', 'City', 'CityByPlaceId', 'LogisticCenter', '$timeout', 'FoundationApi', 'DefinedStyle',
+    'uiGmapIsReady', 'City', 'CityByPlaceId', 'LogisticCenter', '$timeout', 'FoundationApi', 'DefinedStyle', 'Tour',
     function($anchorScroll, $location, $scope, $http, $stateParams, $state, $translate, uiGmapGoogleMapApi, uiGmapIsReady, City, CityByPlaceId,
-             LogisticCenter, $timeout, FoundationApi, DefinedStyle) {
+             LogisticCenter, $timeout, FoundationApi, DefinedStyle, Tour) {
         var city_str = $stateParams.city;
         $scope.lc = [];
         var cities_list = [];
@@ -23,7 +23,8 @@ angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location',
                 },
                 function () {
                     $scope.main_city = $scope.main_city.results[0];
-                    $scope.logistic_centers = []
+                    Tour.create($scope.main_city.id, Date.now());
+                    $scope.logistic_centers = [];
                     $scope.main_city.logistic_centers.forEach(get_logistic_centers);
                     $scope.map = {
                         center: {

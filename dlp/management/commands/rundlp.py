@@ -3,7 +3,7 @@ import re
 
 from django.core.management.base import BaseCommand, CommandError
 
-from DLP.settings import PROJECT_ROOT
+from dlp.file_manager.file_manager import set_network_variables
 from dlp.galaxy_comunication.galaxy_comunication import send_kmls
 from dlp.kml_manager.kml_generator import create_logisticcenters_list, \
     create_droppoints_list, create_layouts_list, create_kml_folders, \
@@ -19,11 +19,7 @@ PATTERN_IPADDR = "^([m01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?" + \
 
 
 def write_ip(ip_galaxy, site_url):
-    f = open(os.path.join(PROJECT_ROOT, 'ipsettings'), 'w')
-    line = "{lg_ip},{site_url}".format(lg_ip=ip_galaxy, site_url=site_url)
-    print line
-    f.write(line)
-    f.close()
+    set_network_variables(site_url, ip_galaxy)
 
 
 class Command(BaseCommand):
@@ -73,6 +69,4 @@ class Command(BaseCommand):
         create_logisticcenters_list()
         create_droppoints_list()
         create_layouts_list()
-        # self.stdout.write("Creating Weather Kml...")
-        # generate_weather()
         self.stdout.write("KMLs files done")

@@ -1,4 +1,4 @@
-# name; state; style_id; Droppoint
+# name; style_url; drop_point
 package 1; 2; 6;
 package 2; 2; 10;
 package 3; 2; 19;

@@ -42,7 +42,11 @@ angular.module('DLPApp').config(['$translateProvider', function ($translateProvi
         'STYLE': 'Style',
         'ADD_CITY': 'Add new city',
         'COORDINATES': 'Coordinates',
-        'INFORMATION_COORD': 'Press the map or left click in the map to get the Coordinates'
+        'INFORMATION_COORD': 'Press the map or left click in the map to get the Coordinates',
+        'PLAY_TOUR': 'Play Tour',
+        'STOP_TOUR': 'Stop Tour',
+        'ADMINISTRATION': 'Administration',
+        'DEMO': 'Demonstration'
     });
 
     $translateProvider.translations('es', {
@@ -85,7 +89,11 @@ angular.module('DLPApp').config(['$translateProvider', function ($translateProvi
         'STYLE': 'Estilo',
         'ADD_CITY': 'Añadir ciudad',
         'COORDINATES': 'Coordinates',
-        'INFORMATION_COORD': 'Presiona o haz clic izquierdo en el mapa para obtener las coordenadas'
+        'INFORMATION_COORD': 'Presiona o haz clic izquierdo en el mapa para obtener las coordenadas',
+        'PLAY_TOUR': 'Empezar Tour',
+        'STOP_TOUR': 'Parar Tour',
+        'ADMINISTRATION': 'Administracion',
+        'DEMO': 'Demostracion'
     });
 
     $translateProvider.preferredLanguage('en');
