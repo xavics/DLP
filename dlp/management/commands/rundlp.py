@@ -38,7 +38,7 @@ class Command(BaseCommand):
             pattern_ipaddr = re.compile(PATTERN_IPADDR)
             if pattern_ip.match(parsed_ip) or pattern_ipaddr.match(parsed_ip):
                 if not options['addrport']:
-                    app_ip = "127.0.0.1:8000"
+                    app_ip = "0.0.0.0:8000"
                 else:
                     app_ip = options['addrport']
                 site_url = "http://{ip}/".format(ip=app_ip)
