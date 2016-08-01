@@ -6,20 +6,18 @@ else
     ip=$1
 fi
 echo "runserver will run on $ip"
-gnome-terminal --title="Django Server" --disable-factory -e "python manage.py runserver $ip" & t1=$!
-gnome-terminal --title="Redis Server" --disable-factory -e "redis-server" & t2=$!
-gnome-terminal --title="Worker 1" --disable-factory -e "python manage.py celeryd" & t3=$!
-gnome-terminal --title="Worker 2" --disable-factory -e "python manage.py celeryd" & t4=$!
-gnome-terminal --title="CeleryBeat" --disable-factory -e "python manage.py celerybeat" & t5=$!
+xterm -e "python manage.py runserver $ip" & t1=$!
+xterm -e "redis-server" & t2=$!
+xterm -e "python manage.py celeryd" & t3=$!
+xterm -e "python manage.py celeryd" & t4=$!
+xterm -e "python manage.py celerybeat" & t5=$!
 echo "#!/bin/bash
 
-#pgrep -P $t1 | xargs kill
-#pgrep -P $t5 | xargs kill
-#pgrep -P $t3 | xargs kill
-#pgrep -P $t4 | xargs kill
-#pgrep -P $t2 | xargs kill
-killall redis-server
-killall gnome-terminal
+pgrep -P $t1 | xargs kill
+pgrep -P $t5 | xargs kill
+pgrep -P $t3 | xargs kill
+pgrep -P $t4 | xargs kill
+pgrep -P $t2 | xargs kill
 " > exitdlp
-echo "To exit run $ exitdlp"
+echo "To exit run $bash exitdlp"
 exit
