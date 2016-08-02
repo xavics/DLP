@@ -6,7 +6,7 @@
         </accordion-heading>
         <div>
             <tabset style="width: 100%;">
-                <tab class="custom_tab" heading="{{ 'LOGISTICCENTER' | translate }}">
+                <tab heading="{{ 'LOGISTICCENTER' | translate }}">
                     <div class="tab-content" ng-switch on="modes.mode_lc">
                           <div class="animate-switch" ng-switch-when="edit">
                               <div ng-include="'/static/templates/logistic_center_edit.html'"></div>
@@ -19,13 +19,13 @@
                           </div>
                     </div>
                 </tab>
-                <tab class="custom_tab" heading="{{ 'DRONES' | translate }}">
+                <tab heading="{{ 'DRONES' | translate }}">
                     <div class="tab-content" ng-include="'/static/templates/drones_view.html'"></div>
                 </tab>
-                <tab class="custom_tab" heading="{{ 'DROPPOINTS' | translate }}">
+                <tab heading="{{ 'DROPPOINTS' | translate }}">
                     <div class="tab-content" ng-include="'/static/templates/droppoints_view.html'"></div>
                 </tab>
-                <tab class="custom_tab" heading="{{ 'TRANSPORTS' | translate }}">
+                <tab heading="{{ 'TRANSPORTS' | translate }}">
                     <div class="tab-content" ng-include="'/static/templates/transports_view.html'"></div>
                 </tab>
             </tabset>

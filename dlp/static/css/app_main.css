@@ -21,15 +21,41 @@ html, body, #map_canvas {
     left: 0;
 }
 
-.panel-left{
-    width:35%;
-    margin:0;
+
+@media (max-width: 900px){
+    .panel-left{
+        width:50%;
+        margin:0;
+    }
+    .panel-right{
+        width:30%;
+        margin:0;
+    }
 }
 
-.panel-right{
-    width:15%;
-    margin:0;
+@media (max-width: 1280px){
+    .panel-left{
+        width:50%;
+        margin:0;
+    }
+    .panel-right{
+        width:30%;
+        margin:0;
+    }
 }
+
+@media (min-width: 1280px){
+    .panel-left{
+        width:40%;
+        margin:0;
+    }
+    .panel-right{
+        width:25%;
+        margin:0;
+    }
+}
+
+
 
 .accordion {
     border: transparent !important;
@@ -70,9 +96,9 @@ html, body, #map_canvas {
     height: 2.825rem;
     position: relative;
     padding: 0 1rem 0 1rem !important;
-    .title-bar.dark{
-        padding: 0 1rem 0 1rem !important;
-    }
+.title-bar.dark{
+    padding: 0 1rem 0 1rem !important;
+}
 }
 
 .logo-image{
@@ -127,7 +153,7 @@ html, body, #map_canvas {
 }
 
 .image-logo{
-    max-width: 300px;
+    max-height: 200px;
 }
 
 #main-card{

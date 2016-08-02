@@ -1,5 +1,5 @@
-<div ng-controller="WelcomeCntrll">
-    <ul data-orbit class="orbit-ul"
+<div ng-controller="WelcomeCntrll" class="grid-frame vertical">
+    <!--  <ul data-orbit class="orbit-ul"
         data-options="animation:slide;
                   pause_on_hover:false;
                   animation_speed:500;
@@ -13,64 +13,47 @@
         </li>
         <li class="orbit-item orbit-item-1">
         </li>
-    </ul>
-    <div class="custom-footer">
-        <div style="display: table; width: 100%; text-align: center">
-            <div style="display:table-row;">
-                <div class="centered_table_cell" ng-repeat="logo in logos">
-                    <img ng-src="{{ logo.name }}" class="image-logo" ng-init="logo.name=logo.init" ng-mouseover="logo.name=logo.hover" ng-mouseout="logo.name=logo.init" />
+    </ul>-->
+    <div class="align-center grid-block">
+        <div class="v-align">
+            <div id="main-card" class="dark card" style="max-width: 600px">
+                <img class="hide-for-small-only" src="static/images/logos/dlp.png">
+                <div class="card-divider">
+                    {{ 'WELCOME' | translate }} <b>Drone Logistics Platform</b>
                 </div>
+                <tabset>
+                    <tab heading="{{ 'SELECT_CITY' | translate }}">
+                        <form>
+                            <label>{{ 'SELECT_CITY' | translate }}
+                                <span class="inline-label">
+                                        <select style="color: black;" ng-model="city.place_id">
+                                            <option style="color: black;" ng-repeat="opt in cities_list" ng-value="opt.place_id">{{ opt.name }}</option>
+                                        </select>
+                                        <a ng-click="accessDLP()" class="button">{{ 'ACCESS' | translate }}</a>
+                                    </span>
+                                    <alert ng-show="alert.show" type="alert.type" close="closeAlert()">{{ alert.msg | translate }}</alert>
+                            </label>
+                        </form>
+                    </tab>
+                    <tab heading="{{ 'ADD_CITY' | translate }}">
+                        <form ng-controller="test1">
+                            <label>{{ 'ADD_CITY' | translate }}
+                                <span class="inline-label">
+                                    <input id="autocomplete_google" type="text" ng-model="city.name" placeholder="Search a city" autocomplete="off" >
+                                    <a ng-click="saveCity()" class="button success">{{ 'ADD' | translate }}</a>
+                                </span>
+                                <alert ng-show="alert.show" type="alert.type" close="closeAlert()">{{ alert.msg | translate }}</alert>
+                            </label>
+                        </form>
+                    </tab>
+                </tabset>
             </div>
         </div>
     </div>
-    <div class="centered_class">
-        <div id="main-card" class="dark card">
-            <img class="dlp-box-img" src="static/images/logos/dlp.png">
-            <div class="card-divider">
-                {{ 'WELCOME' | translate }} <b>Drone Logistics Platform</b>
-            </div>
-            <div class="card-section">
-                <div class="grid-block vertical" style="overflow: hidden;">
-                    <div class="grid-block">
-                        <div class="grid-block">
-                            <h4 style="text-align: center; width: 100%; cursor: pointer" ng-click="changeTab()">{{ 'SELECT_CITY' | translate }}</h4>
-                        </div>
-                        <div class="grid-block">
-                            <h4 style="text-align: center; width: 100%; cursor: pointer" ng-click="changeTab()">{{ 'ADD_CITY' | translate }}</h4>
-                        </div>
-                    </div>
-                    <form ng-hide="select">
-                        <div class="row">
-                            <div class="large-12 columns">
-                                <div class="row collapse">
-                                    <div class="small-10 columns">
-                                        <input id="autocomplete_google" type="text" ng-model="city.name" placeholder="Search a city" autocomplete="off" >
-                                    </div>
-                                    <div class="small-2 columns">
-                                        <a ng-click="saveCity()" style="width: 100%" class="button success">Add</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    <form ng-show="select">
-                        <div class="row">
-                            <div class="large-12 columns">
-                                <div class="row collapse">
-                                    <div class="small-10 columns">
-                                        <select style="color: black;" ng-model="place_id">
-                                            <option style="color: black;" ng-repeat="opt in cities_list" ng-value="opt.place_id">{{ opt.name }}</option>
-                                        </select>
-                                    </div>
-                                    <div class="small-2 columns">
-                                        <a ng-click="accessDLP()" style="width: 100%" class="button">Access</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    <alert ng-show="alert.show" type="alert.type" close="closeAlert()">{{ alert.msg | translate }}</alert>
-                </div>
+    <div class="align-center grid-content shrink" style="overflow-x: scroll">
+        <div class="v-align">
+            <div class="small-12 medium-2 large-2" ng-repeat="logo in logos">
+                <img ng-src="{{ logo.name }}" ng-init="logo.name=logo.init"/>
             </div>
         </div>
     </div>

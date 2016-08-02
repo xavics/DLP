@@ -160,7 +160,8 @@ BOWER_INSTALLED_APPS = (
     'angular-foundation#0.8.0',
     'angular-translate#2.11.0',
     'angular-resource#1.4.12',
-    'https://github.com/angular-ui/angular-google-maps.git#2.3.2'
+    'https://github.com/angular-ui/angular-google-maps.git#2.3.2',
+    'foundation-sites'
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'dlp/static')

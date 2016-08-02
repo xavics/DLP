@@ -8,7 +8,7 @@ angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location',
         var city_str = $stateParams.city;
         $scope.lc = [];
         var cities_list = [];
-        City.get({time: Date.now()},
+        City.get({},
             function (data) {
                 data.results.forEach(function(city) {
                     cities_list.push(city);
@@ -17,31 +17,33 @@ angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location',
         );
 
         $scope.reload_city = function (place_id) {
-            $scope.main_city = CityByPlaceId.get({
+            CityByPlaceId.get({
                     place_id: place_id,
                     time: Date.now()
                 },
-                function () {
-                    $scope.main_city = $scope.main_city.results[0];
-                    Tour.create($scope.main_city.id, Date.now());
-                    $scope.logistic_centers = [];
-                    $scope.main_city.logistic_centers.forEach(get_logistic_centers);
-                    $scope.map = {
-                        center: {
-                            latitude: $scope.main_city.lat,
-                            longitude: $scope.main_city.lng
-                        }, zoom: 14,
-                        options: {maxZoom: 18, minZoom: 11},
-                        events: {
-                            click: function (map, eventNmae, args) {
-                                $scope.$apply(function () {
-                                    latLng = args[0].latLng;
-                                    $scope.openMarker(latLng.lat(), latLng.lng())
-                                });
-                            }
-                        },
-                        markers: []
-                    };
+                function (result) {
+                    $scope.main_city = City.get({id: result.results[0].id}, function() {
+                        Tour.create($scope.main_city.id, Date.now());
+                        $scope.logistic_centers = [];
+                        $scope.main_city.logistic_centers.forEach(get_logistic_centers);
+                        $scope.map = {
+                            center: {
+                                latitude: $scope.main_city.lat,
+                                longitude: $scope.main_city.lng
+                            }, zoom: 14,
+                            options: {maxZoom: 18, minZoom: 11},
+                            events: {
+                                click: function (map, eventNmae, args) {
+                                    $scope.$apply(function () {
+                                        latLng = args[0].latLng;
+                                        $scope.openMarker(latLng.lat(), latLng.lng())
+                                    });
+                                }
+                            },
+                            markers: []
+                        };
+                    }
+                    );
                     //prepare_map($scope.main_city.lat, $scope.main_city.lng)
                 })
         };

@@ -1,27 +1,61 @@
-<div class="grid-block" style="padding-left: 5px; padding-right: 5px;">
-    <div class="v-align">
-        <div class="align-center">
-            <div class="grid-block"><a zf-close=""><h5>Liquid Galaxy Options  <i class="fa fa-times" aria-hidden="true"></i></h5></a></div>
+<div class="grid-block align-center" style="padding: 10px; background-color: #4d4d4d">
+    <div class="grid-content">
+        <div class="v-align">
+            <div class="small-8">
+                <h5 style="color: white;">{{ 'CONFIGURATION' | translate }}</h5>
+            </div>
+            <div class="small-4 text-right">
+                <h5><a zf-close="" style="color: white;"><i class="fa fa-times" aria-hidden="true"></i></a></h5>
+            </div>
         </div>
     </div>
 </div>
-<div class="grid-block" style="padding-left: 5px; padding-right: 5px;">
-    <a ng-click="refresh_weather(main_city.id)" class="expand hollow button">
-        <i class="fa fa-refresh" aria-hidden="true"></i> {{ 'REFRESH_WEATHER' | translate }}</a>
-</div>
-<div class="grid-block" style="padding-left: 5px; padding-right: 5px;">
-    <a ng-click="play_tour(main_city.id)" class="expand hollow button success">
-        <i class="fa fa-play" aria-hidden="true"></i> {{ 'PLAY_TOUR' | translate }}</a>
-</div>
-<div class="grid-block" style="padding-left: 5px; padding-right: 5px;">
-    <a ng-click="stop_tour(main_city.id)" class="expand hollow button alert">
-        <i class="fa fa-stop" aria-hidden="true"></i> {{ 'STOP_TOUR' | translate }}</a>
-</div>
-<div class="grid-block" style="padding-left: 5px; padding-right: 5px;">
-    <a href="admin" class="expand hollow button info">
-        <i class="fa fa-user-secret" aria-hidden="true"></i> {{ 'ADMINISTRATION' | translate }}</a>
-</div>
-<div class="grid-block" style="padding-left: 5px; padding-right: 5px;">
-    <a ng-click="run_demo()" class="expand hollow button info">
-        <i class="fa fa-desktop" aria-hidden="true"></i> {{ 'DEMO' | translate }}</a>
+<div class="grid-content small-12">
+    <section class="block-list">
+        <header>Weather</header>
+        <ul>
+            <li>
+                <a ng-click="refresh_weather(main_city.id)" class="expand hollow button">
+                    <i class="fa fa-refresh" aria-hidden="true"></i> {{ 'REFRESH_WEATHER' | translate }}</a>
+            </li>
+        </ul>
+        <header>Tour</header>
+        <ul>
+            <li>
+                <a ng-click="play_tour(main_city.id)" class="expand hollow button success">
+                    <i class="fa fa-play" aria-hidden="true"></i> {{ 'PLAY_TOUR' | translate }}</a>
+            </li>
+            <li>
+                <a ng-click="stop_tour(main_city.id)" class="expand hollow button alert">
+                    <i class="fa fa-stop" aria-hidden="true"></i> {{ 'STOP_TOUR' | translate }}</a>
+            </li>
+
+        </ul>
+        <header>{{ 'ADMINISTRATION' | translate }}</header>
+        <ul>
+            <li>
+                <a href="admin" class="expand hollow button info">
+                    <i class="fa fa-user-secret" aria-hidden="true"></i> {{ 'ADMINISTRATION' | translate }}</a>
+            </li>
+        </ul>
+        <header>{{ 'DEMO' | translate }}</header>
+        <ul>
+            <li>
+                <a ng-click="run_demo()" class="expand hollow button info">
+                    <i class="fa fa-desktop" aria-hidden="true"></i> {{ 'DEMO' | translate }}</a>
+            </li>
+        </ul>
+        <header>{{ 'FLYING_MAX_ALTITUDE' | translate }} {{ 'OF' | translate }}: {{ main_city.name }}</header>
+        <ul>
+            <li>
+                <input type="number" placeholder="Number" ng-model="main_city.flying_altitude">
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <a ng-click="update_city()" class="expand hollow button success">
+                    <i class="fa fa-floppy-o" aria-hidden="true"></i> {{ 'ACTUALIZE' | translate }}</a>
+            </li>
+        </ul>
+    </section>
 </div>

@@ -22,7 +22,8 @@ myServices.factory('Droppoint', ['$resource', function($resource) {
 }]);
 
 myServices.factory('City', ['$resource', '$cacheFactory', function($resource) {
-    return $resource('/api/cities/:id/?time=time', {'id': '@id', 'time': '@time'}, {
+    return $resource('/api/cities/:id/', {'id': '@id'}, {
+        'update': { method:'PUT' }
     });
 }]);
 

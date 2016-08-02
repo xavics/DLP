@@ -46,7 +46,11 @@ angular.module('DLPApp').config(['$translateProvider', function ($translateProvi
         'PLAY_TOUR': 'Play Tour',
         'STOP_TOUR': 'Stop Tour',
         'ADMINISTRATION': 'Administration',
-        'DEMO': 'Demonstration'
+        'DEMO': 'Demonstration',
+        'CONFIGURATION': 'Configuration',
+        'ADD': 'Add',
+        'ACCESS': 'Access',
+        'LOGISTICCENTERS': 'Logistic centers'
     });
 
     $translateProvider.translations('es', {
@@ -93,7 +97,11 @@ angular.module('DLPApp').config(['$translateProvider', function ($translateProvi
         'PLAY_TOUR': 'Empezar Tour',
         'STOP_TOUR': 'Parar Tour',
         'ADMINISTRATION': 'Administracion',
-        'DEMO': 'Demostracion'
+        'DEMO': 'Demostracion',
+        'CONFIGURATION': 'Configuracion',
+        'ADD': 'Añadir',
+        'ACCESS': 'Acceder',
+        'LOGISTICCENTERS': 'Centros Logísticos'
     });
 
     $translateProvider.preferredLanguage('en');

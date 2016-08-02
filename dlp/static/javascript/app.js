@@ -53,6 +53,6 @@ app.config(function($resourceProvider) {
   $resourceProvider.defaults.stripTrailingSlashes = false;
 });
 app.run(function($rootScope){
-    $rootScope.$apply($(document).foundation());
+    //$rootScope.$apply($(document).foundation());
 });
 

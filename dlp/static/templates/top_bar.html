@@ -1,12 +1,15 @@
 <div class="dark title-bar">
     <div class="center title">
-        <a ng-click="returnMain()">Drone Logistics Platform</a>
+        <a ng-click="returnMain()">
+            Drone Logistics Platform
+        </a>
         <!--<img style="max-height: 100%" src="static/images/logos/dlp-trans.png" />-->
     </div>
     <div class="left" style="height: 100%">
         <div style="display: table; height: 100%;">
             <a zf-toggle="LCrepresentation" class="name" style="display: table-cell;vertical-align: middle;">
-                Logistics Centers
+                <span class="show-for-large-only"><i class="fa fa-bars" aria-hidden="true"></i>{{ 'LOGISTICCENTERS' | translate }}</span>
+                <span class="show-for-small"><i class="fa fa-bars" aria-hidden="true"></i></span>
             </a>
             <div style="display: table-cell; vertical-align: middle;  padding-left: 10px;">
                 <div class="inline-label" style="margin-bottom: 0 !important;">
@@ -20,9 +23,9 @@
     <div class="right" style="height: 100%;">
         <div style="display: table; height: 100%; float: right">
             <a zf-toggle="galaxy_panel" class="name" style="display: table-cell;vertical-align: middle; padding: 0 5px;">
-                Liquid Galaxy</a>
-            <a zf-toggle="map_panel" class="name" style="display: table-cell;vertical-align: middle; padding: 0 5px;">
-                Map options</a>
+                {{ 'CONFIGURATION' | translate }}</a>
+            <!--<a zf-toggle="map_panel" class="name" style="display: table-cell;vertical-align: middle; padding: 0 5px;">
+                Map options</a>-->
         </div>
     </div>
 </div>

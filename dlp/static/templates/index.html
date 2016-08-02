@@ -14,17 +14,17 @@
                     <ui-gmap-marker models="map.markers" coords="'coords'"></ui-gmap-marker>
                 </ui-gmap-google-map>
             </div>
-            <div zf-panel="" position="right" zf-ignore-all-close="" id="map_panel" class="panel-right">
+            <!--<div zf-panel="" position="right" zf-ignore-all-close="" id="map_panel" class="panel-right">
                 <div class="vertical grid-block">
                     <div class="grid-block">
                         <a zf-close="" class="close-button">×</a>
                     </div>
                     <div class="vertical grid-block" ng-include="'/static/templates/map_options.html'"></div>
                 </div>
-            </div>
-            <div zf-panel="" position="right" zf-ignore-all-close="" id="galaxy_panel" class="panel-right">
+            </div>-->
+            <zf-panel position="right" zf-ignore-all-close="" id="galaxy_panel" class="panel-right">
                     <div class="vertical grid-block" ng-include="'/static/templates/galaxy_options.html'" ng-controller="GalaxyOptCntrll"></div>
-            </div>
+            </zf-panel>
             <!--
             Idea to make visualization different of accordion, this div will show the information of the selected center choosed
             on the panel, panel will be reduced to 10% and it will be more easy to choose center when one is expanded.
