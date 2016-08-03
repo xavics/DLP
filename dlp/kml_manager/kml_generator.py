@@ -259,8 +259,8 @@ def drange(start, stop, step):
 
 
 def create_weather_kml(image_path, name, directory):
-    items = [Layouts(name=name, url=image_path, size_x=0.4, size_y=0.1,
-                     screen_x=0, screen_y=0.05, overlay_x=0, overlay_y=0)]
+    items = [Layouts(name=name, url=image_path, size_x=0.35, size_y=0.12,
+                     screen_x=0, screen_y=0.9, overlay_x=0, overlay_y=1)]
     if directory == SLAVE:
         create_kml(MAIN_KML, name, create_items_layouts(items, WEATHER),
                    directory)
