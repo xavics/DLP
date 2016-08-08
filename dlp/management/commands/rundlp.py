@@ -22,6 +22,12 @@ def write_ip(ip_galaxy, site_url):
     set_network_variables(site_url, ip_galaxy)
 
 
+def get_ip():
+    f = os.popen('hostname -I')
+    data = f.read().split(' ')
+    return data[0]
+
+
 class Command(BaseCommand):
     help = 'Set the <ip> of the galaxy Liquid system.'
 
@@ -38,13 +44,13 @@ class Command(BaseCommand):
             pattern_ipaddr = re.compile(PATTERN_IPADDR)
             if pattern_ip.match(parsed_ip) or pattern_ipaddr.match(parsed_ip):
                 if not options['addrport']:
-                    app_ip = "0.0.0.0:8000"
+                    app_ip = "{ip}:{port}".format(ip=get_ip(), port=8000)
                 else:
                     app_ip = options['addrport']
                 site_url = "http://{ip}/".format(ip=app_ip)
                 write_ip(parsed_ip, site_url)
                 self.stdout.write(self.style.SUCCESS(
-                    'Successfully changed the ip to "%s"' % parsed_ip))
+                    'Liquid Galaxy is on the ip: "%s"' % parsed_ip))
                 self.create_kmls_directories()
                 # Remove possible KML in galaxy sending kmls.txt empty
                 send_kmls()
@@ -57,7 +63,7 @@ class Command(BaseCommand):
                     self.style.error(
                         'Ip "%s" have an incorrect format' % parsed_ip))
         except:
-            raise CommandError('FAED cannot be raised')
+            raise CommandError('DLP cannot be raised')
 
     def create_kmls_directories(self):
         self.stdout.write("Erasing old KMl folders")

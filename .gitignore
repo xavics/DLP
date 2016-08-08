@@ -7,3 +7,5 @@ celerybeat-schedule
 celerybeat.pid
 
 components/
+config
+dlp/static/kml/

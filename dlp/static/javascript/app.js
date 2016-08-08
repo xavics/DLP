@@ -9,7 +9,8 @@ var app = angular.module('DLPApp', [
     'myServices',
     'myRequests',
     'uiGmapgoogle-maps',
-    'mm.foundation'
+    'mm.foundation',
+    'angular-loading-bar'
 ]);
 app.config(function ($stateProvider, $urlRouterProvider) {
     // For any unmatched url, send to /route1
@@ -50,9 +51,13 @@ app.config(['uiGmapGoogleMapApiProvider', function(uiGmapGoogleMapApiProvider) {
     });
 }]);
 app.config(function($resourceProvider) {
-  $resourceProvider.defaults.stripTrailingSlashes = false;
+    $resourceProvider.defaults.stripTrailingSlashes = false;
 });
 app.run(function($rootScope){
     //$rootScope.$apply($(document).foundation());
 });
+app.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+    cfpLoadingBarProvider.includeSpinner = false;
+    cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
+}]);
 

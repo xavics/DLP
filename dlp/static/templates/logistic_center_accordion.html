@@ -1,18 +1,18 @@
 <div ng-controller="AccordionCntrll">
 <accordion close-others="true">
-    <accordion-group ng-repeat="center in logistic_centers | orderBy: 'id'" id="lc{{ center.id }}" is-open="lc[{{ center.id }}]">
+    <accordion-group ng-repeat="center in logistic_centers | orderBy: 'id'" id="lc{{ center.id }}" is-open="lc[{{ center.id }}]" ng-init="create_mode(center.id)">
         <accordion-heading>
-            {{center.name}} {{ center.id }} <!--{{ $index }}-->
+            {{center.name}}
         </accordion-heading>
         <div>
             <tabset style="width: 100%;">
                 <tab heading="{{ 'LOGISTICCENTER' | translate }}">
-                    <div class="tab-content" ng-switch on="modes.mode_lc">
+                    <div class="tab-content" ng-switch on="get_mode(center.id)">
                           <div class="animate-switch" ng-switch-when="edit">
                               <div ng-include="'/static/templates/logistic_center_edit.html'"></div>
                           </div>
                           <div class="animate-switch" ng-switch-when="delete">
-                              Home Span
+                              <div ng-include="'/static/templates/logistic_center_delete.html'"></div>
                           </div>
                           <div class="animate-switch" ng-switch-default>
                               <div ng-include="'/static/templates/logistic_center_view.html'"></div>

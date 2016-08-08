@@ -1,0 +1,11 @@
+<div class="vertical grid-block wrap" ng-controller="DeleteLCCntrll">
+    <div class="align-center grid-block small-12">
+        <h5>{{ 'DELETE_ALERT' | translate }} {{ 'LOGISTICCENTER' | translate }}?</h5>
+    </div>
+    <div class="grid-block small-12 align-center">
+        <a ng-click="delete()" class="alert hollow button">
+            <i class="fa fa-trash" aria-hidden="true"></i> {{ 'DELETE' | translate }}</a>
+        <a ng-click="cancel()" class="hollow button">
+            <i class="fa fa-ban" aria-hidden="true"></i> {{ 'CANCEL' | translate }}</a>
+    </div>
+</div>

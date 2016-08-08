@@ -3,7 +3,6 @@
  */
 angular.module('DLPApp').controller('WelcomeCntrll',['$scope', '$http', '$state', '$translate', '$timeout', '$log', 'CityByPlaceId', 'City', '$interval',
     function($scope, $http, $state, $translate, $timeout, $log, CityByPlaceId, City, $interval){
-        //$(document).foundation('orbit', 'reflow');
         $scope.city = {name: '', lat: '', lng: '', place_id: ''};
         $scope.place_id = "";
         $scope.select = true;
@@ -16,11 +15,11 @@ angular.module('DLPApp').controller('WelcomeCntrll',['$scope', '$http', '$state'
             }
         );
         $scope.logos = [
-            {'name': 'logo1', 'init': 'static/images/logos/logo-liquidgalaxylab-trans.png', 'hover': 'static/images/logos/logo-liquidgalaxylab.png'},
-            {'name': 'logo2', 'init': 'static/images/logos/parc-logo-trans.png', 'hover': 'static/images/logos/parc-logo.jpg'},
-            {'name': 'logo3', 'init': 'static/images/logos/lleidadrone-logo-trans.png', 'hover': 'static/images/logos/lleidadrone-logo.png'},
-            {'name': 'logo4', 'init': 'static/images/logos/CataloniaSmartDrones-logo.png', 'hover': 'static/images/logos/CataloniaSmartDrones-logo-solid.png'},
-            {'name': 'logo5', 'init': 'static/images/logos/hemav-academics1.png', 'hover': 'static/images/logos/hemav-academics-solid1.png'},
+            {'name': 'logo1', 'init': 'static/images/logos/logo-liquidgalaxylab-trans.png', 'href': 'http://www.liquidgalaxylab.com/'},
+            {'name': 'logo2', 'init': 'static/images/logos/parc-logo-trans.png', 'href': 'http://www.parcteclleida.es/'},
+            {'name': 'logo3', 'init': 'static/images/logos/lleidadrone-logo-trans.png', 'href': 'http://www.lleidadrone.com/'},
+            {'name': 'logo4', 'init': 'static/images/logos/CataloniaSmartDrones-logo.png', 'href': '#/'},
+            {'name': 'logo5', 'init': 'static/images/logos/hemav-academics1.png', 'href': 'http://hemav.com/academics/'},
         ];
         $scope.alert = {show: false, type: 'alert', msg: 'ERROR_MESSAGE_1' };
         var timeout;

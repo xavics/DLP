@@ -51,14 +51,14 @@ export WEATHER_API_KEY=<API_KEY>
 ```
 or
 ```
-python manage.py <galaxy_ip> <server_ip>
+python manage.py rundlp <galaxy_ip> <server_ip>
 ```
 
 It will create 5 terminals: Redis Server, Worker1, Worker2, CeleryBeat, Django Server.
 
-### Exiting server
+### Exit server
 
-`rundlp` will create `exitdlp` on the root of the project.
+`rundlp` will create `exitdlp` in the root of the project.
 
 ```
 bash exitdlp

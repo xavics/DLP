@@ -102,10 +102,7 @@ html, body, #map_canvas {
 }
 
 .logo-image{
-    height: auto;
-    width: 180px;
-    max-width: 180px;
-    max-height: 4rem;
+    max-height: 150px;
 }
 
 
@@ -128,6 +125,21 @@ html, body, #map_canvas {
 
 .no-bottom-margin{
     margin-bottom: 0 !important;
+}
+
+
+.welcome-background{
+    background: url('/static/images/slide/2.jpg') no-repeat center;
+}
+
+.progress_init{
+    margin: 0;
+    padding: 0;
+    height: 0.5rem;
+}
+
+#loading-bar .bar {
+    position: absolute;
 }
 
 /************************

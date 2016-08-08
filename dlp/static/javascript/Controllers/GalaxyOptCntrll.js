@@ -18,7 +18,7 @@ angular.module('DLPApp').controller('GalaxyOptCntrll',['$scope', '$http', 'Refre
         };
         $scope.run_demo = function(){
             Demo.demo()
-        }
+        };
         $scope.update_city = function(){
             $scope.main_city.$update()
         }

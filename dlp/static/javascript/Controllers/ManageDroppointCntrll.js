@@ -6,6 +6,7 @@ angular.module('DLPApp').controller('ManageDroppointCntrll',['$scope', 'Droppoin
         $scope.droppoint = Droppoint.get({id: $scope.droppoint_id}, function(result) {
             $scope.droppoint_backup = angular.copy(result);
             $scope.add_marker_droppoint($scope.$parent.center.id, result.id, result.lat, result.lng, $scope.$parent.center.defined_style)
+            //$scope.progress_init.actual += 1;
         });
 
         $scope.mode = "default";

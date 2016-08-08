@@ -21,8 +21,6 @@ KMLS_SLAVE_URL_UPDATE = "{site_url}{r_path}".format(
 
 def sync_kmls_to_galaxy():
     server_path = "/var/www/html"
-    print "sshpass -p 'lqgalaxy' scp {kmls_path} lg@{lg_ip}:{lg_path}".format(
-        kmls_path=KMLS_TXT_PATH, lg_ip=get_galaxy_ip(), lg_path=server_path)
     system(
         "sshpass -p 'lqgalaxy' scp {kmls_path} lg@{lg_ip}:{lg_path}".format(
             kmls_path=KMLS_TXT_PATH, lg_ip=get_galaxy_ip(),

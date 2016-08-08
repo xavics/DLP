@@ -1,68 +1,60 @@
-<div class="grid-block align-center wrap">
-    <section class="block-list">
-        <header>I'm a Checkbox</header>
-        <ul>
-            <li>
-                <input type="text" id="life">
-                <label for="life">Yeah!</label>
-            </li>
-            <li>
-                <input type="text" id="rad" ng-model="">
-            </li>
-        </ul>
-    </section>
-    <div class="grid-block medium-6 small-12">
-        <dl>
-            <dt>{{ 'NAME' | translate }}</dt>
-            <dd>{{ center.name }}</dd>
-        </dl>
+<form>
+    <div class="grid-block wrap">
+        <div class="small-12 medium-6 grid-content">
+            <label><strong>{{ 'NAME' | translate }}</strong></label>
+            <p>{{ center.name }}</p>
+        </div>
+        <div class="small-12 medium-6 grid-content">
+            <label><strong>{{ 'ADDRESS' | translate }}</strong></label>
+            <p>{{ center.address }}</p>
+        </div>
     </div>
-    <div class="grid-block medium-6 small-12">
-        <dl>
-            <dt>{{ 'ADDRESS' | translate }}</dt>
-            <dd>{{ center.address }}</dd>
-        </dl>
+    <div class="small-12 grid-content">
+        <label><strong>{{ 'DESCRIPTION' | translate }}</strong></label>
+        <p>{{ center.description }}</p>
     </div>
-    <div class="grid-block medium-4 small-12">
-        <dl>
-            <dt>{{ 'LATITUDE' | translate }}</dt>
-            <dd class="large_floats">{{ center.lat }}</dd>
-        </dl>
+    <div class="grid-block wrap">
+        <div class="small-12 grid-content">
+            <h5>
+                {{ 'COORDINATES' | translate }}
+                <span data-tooltip aria-haspopup="true" class="has-tip" title="{{ 'INFORMATION_COORD' | translate }}">
+                    <strong><i class="fa fa-info-circle" aria-hidden="true"></i></strong>
+                </span>
+            </h5>
+        </div>
+        <div class="small-12 medium-6 grid-content">
+            <label><strong>{{ 'LATITUDE' | translate }}</strong></label>
+            <p>{{ center.lat }}</p>
+        </div>
+        <div class="small-12 medium-6 grid-content">
+            <label><strong>{{ 'LONGITUDE' | translate }}</strong></label>
+            <p>{{ center.lng }}</p>
+        </div>
     </div>
-    <div class="grid-block medium-4 small-12">
-        <dl>
-            <dt>{{ 'LONGITUDE' | translate }}</dt>
-            <dd class="large_floats">{{ center.lng }}</dd>
-        </dl>
+    <div class="grid-block wrap">
+        <div class="small-12 medium-6 grid-content">
+            <label><strong>{{ 'ALTITUDE' | translate }}</strong></label>
+            <p>{{ center.alt }}</p>
+        </div>
+        <div class="small-12 medium-6 grid-content">
+            <label><strong>{{ 'STYLE' | translate }}</strong></label>
+            <p>{{ center.defined_style }}</p>
+        </div>
     </div>
-    <div class="grid-block medium-4 small-12">
-        <dl>
-            <dt>{{ 'ALTITUDE' | translate }}</dt>
-            <dd>{{ center.alt }}</dd>
-        </dl>
+    <div class="grid-block wrap">
+        <div class="small-12 medium-6 grid-content">
+            <label><strong>{{ 'DRONES' | translate }}</strong></label>
+            <p>{{ center.drones.length }}</p>
+        </div>
+        <div class="small-12 medium-6 grid-content">
+            <label><strong>{{ 'DROPPOINTS' | translate }}</strong></label>
+            <p>{{ center.droppoints.length }}</p>
+        </div>
     </div>
-    <div class="grid-block medium-6 small-12">
-        <dl>
-            <dt>{{ 'DROPPOINTS' | translate }}</dt>
-            <dd>{{ center.droppoints.length }}</dd>
-        </dl>
-    </div>
-    <div class="grid-block medium-4 small-12">
-        <dl>
-            <dt>{{ 'DRONES' | translate }}</dt>
-            <dd>{{ center.drones.length }}</dd>
-        </dl>
-    </div>
-    <div class="grid-block medium-12 small-12">
-        <dl>
-            <dt>{{ 'DESCRIPTION' | translate }}</dt>
-            <dd>{{ center.description }}</dd>
-        </dl>
-    </div>
-    <div class="grid-block small-12">
-        <a ng-click="modify_mode_lc('edit')" class="large hollow button">
+    <div class="small-12 grid-content">
+        <a ng-click="modify_mode_lc(center.id, 'edit')" class="large hollow button">
             <i class="fa fa-pencil-square" aria-hidden="true"></i> {{ 'EDIT' | translate }}</a>
-        <a ng-click="modify_mode_lc('edit')" class="large alert hollow button">
+        <a ng-click="modify_mode_lc(center.id, 'delete')" class="large alert hollow button">
             <i class="fa fa-trash" aria-hidden="true"></i> {{ 'DELETE' | translate }}</a>
     </div>
-</div>
+</form>

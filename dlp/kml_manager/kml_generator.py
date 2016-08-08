@@ -168,7 +168,6 @@ def placemark_variables(item):
 
 
 def get_style(item):
-    print item.__class__.__name__
     if item.__class__.__name__ == "DropPoint":
         style_url = item.logistic_center.defined_style.dp.earth_url
     elif item.__class__.__name__ == "LogisticCenter":

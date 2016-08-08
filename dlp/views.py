@@ -54,6 +54,7 @@ def receive_position(request):
     transport = Transport.objects.get(id=id_trans)
     transport.step += 1
     transport.save()
+    # server sent event
     return HttpResponse(status=204)
 
 

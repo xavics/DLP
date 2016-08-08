@@ -2,18 +2,6 @@ import models
 from rest_framework import serializers
 
 
-class CitySerializer(serializers.ModelSerializer):
-    logistic_centers = serializers.PrimaryKeyRelatedField(
-        many=True, read_only=True)
-
-    class Meta:
-        model = models.City
-        fields = (
-            'id', 'name', 'lat', 'lng', 'place_id', 'logistic_centers',
-            'flying_altitude'
-        )
-
-
 class StyleURLSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.StyleURL
@@ -69,7 +57,7 @@ class DropPointSerializer(serializers.ModelSerializer):
 
 
 class LogisticCenterSerializer(serializers.ModelSerializer):
-    droppoints = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    droppoints = DropPointSerializer(many=True, read_only=True)
     drones = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
@@ -77,3 +65,15 @@ class LogisticCenterSerializer(serializers.ModelSerializer):
         fields = (
             'id', 'name', 'address', 'description', 'lat', 'lng',
             'alt', 'radius', 'defined_style', 'city', 'droppoints', 'drones')
+
+
+class CitySerializer(serializers.ModelSerializer):
+    logistic_centers = LogisticCenterSerializer(
+        many=True, read_only=True)
+
+    class Meta:
+        model = models.City
+        fields = (
+            'id', 'name', 'lat', 'lng', 'place_id', 'logistic_centers',
+            'flying_altitude'
+        )

@@ -19,5 +19,5 @@ pgrep -P $t3 | xargs kill
 pgrep -P $t4 | xargs kill
 pgrep -P $t2 | xargs kill
 " > exitdlp
-echo "To exit run $bash exitdlp"
+echo "To exit run: bash exitdlp"
 exit

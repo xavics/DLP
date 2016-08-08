@@ -23,8 +23,8 @@ angular.module('DLPApp').controller('ManageTransportsCntrll',['$scope', '$interv
                     var modified = false;
                     for(var k=0; k<result.results.length; k++){
                         if($scope.transports[i].id == result.results[k].id){
-                            $scope.transports[i].step = result.results[k].step
-                            result.results.splice(k, 1)
+                            $scope.transports[i].step = result.results[k].step;
+                            result.results.splice(k, 1);
                             modified = true
                         }
                     }
@@ -38,7 +38,7 @@ angular.module('DLPApp').controller('ManageTransportsCntrll',['$scope', '$interv
                     }
                 }
             })
-        }
+        };
 
         $scope.stopInterval = function() {
           if (angular.isDefined(stop)) {

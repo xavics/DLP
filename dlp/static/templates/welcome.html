@@ -1,22 +1,7 @@
 <div ng-controller="WelcomeCntrll" class="grid-frame vertical">
-    <!--  <ul data-orbit class="orbit-ul"
-        data-options="animation:slide;
-                  pause_on_hover:false;
-                  animation_speed:500;
-                  navigation_arrows:false;
-                  bullets:false;
-                  slide_number: true;
-                  next_on_click: true">
-        <li class="orbit-item orbit-item-2">
-        </li>
-        <li class="orbit-item orbit-item-3">
-        </li>
-        <li class="orbit-item orbit-item-1">
-        </li>
-    </ul>-->
-    <div class="align-center grid-block">
+    <div class="align-center grid-block welcome-background">
         <div class="v-align">
-            <div id="main-card" class="dark card" style="max-width: 600px">
+            <div id="main-card" class="dark card" style="max-width: 600px; background-color: white;">
                 <img class="hide-for-small-only" src="static/images/logos/dlp.png">
                 <div class="card-divider">
                     {{ 'WELCOME' | translate }} <b>Drone Logistics Platform</b>
@@ -31,7 +16,7 @@
                                         </select>
                                         <a ng-click="accessDLP()" class="button">{{ 'ACCESS' | translate }}</a>
                                     </span>
-                                    <alert ng-show="alert.show" type="alert.type" close="closeAlert()">{{ alert.msg | translate }}</alert>
+                                <alert ng-show="alert.show" type="alert.type" close="closeAlert()">{{ alert.msg | translate }}</alert>
                             </label>
                         </form>
                     </tab>
@@ -50,10 +35,12 @@
             </div>
         </div>
     </div>
-    <div class="align-center grid-content shrink" style="overflow-x: scroll">
+    <div class="align-center grid-content shrink" style="overflow-x: auto">
         <div class="v-align">
             <div class="small-12 medium-2 large-2" ng-repeat="logo in logos">
-                <img ng-src="{{ logo.name }}" ng-init="logo.name=logo.init"/>
+                <a href="{{ logo.href }}">
+                    <img ng-src="{{ logo.init }}" class="logo-image"/>
+                </a>
             </div>
         </div>
     </div>

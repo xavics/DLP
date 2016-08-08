@@ -1,96 +1,73 @@
-<div class="vertical grid-block" ng-controller="CreateLCCntrll">
-    <div class="grid-block">
-        <div class="grid-block">
-            <div class="form-group" style="padding-right: 5px">
-                <label>{{ 'NAME' | translate }}
-                    <input class="no-bottom-margin" type="text" ng-model="newCenter.name" placeholder="{{ 'NAME' | translate }}">
-                </label>
-                <div data-alert class="alert-box alert" ng-show="errors.name.show">
-                    <strong>{{ errors.name.field | translate }} </strong>{{ errors.name.text }}
-                    <a ng-click="closeAlert('name')" class="close">&times;</a>
-                </div>
+<form ng-controller="CreateLCCntrll">
+    <div class="grid-block wrap">
+        <div class="small-12 medium-6 grid-content">
+            <label>{{ 'NAME' | translate }}</label>
+            <input class="no-bottom-margin" type="text" ng-model="newCenter.name" placeholder="{{ 'NAME' | translate }}">
+            <div data-alert class="alert-box alert" ng-show="errors.name.show">
+                <strong>{{ errors.name.field | translate }} </strong>{{ errors.name.text }}
+                <a ng-click="closeAlert('name')" class="close">&times;</a>
             </div>
         </div>
-        <div class="grid-block">
-            <div class="form-group" style="padding-right: 5px">
-                <label>{{ 'ADDRESS' | translate }}
-                    <input class="no-bottom-margin" type="text" ng-model="newCenter.address" placeholder="{{ 'ADDRESS' | translate }}">
-                </label>
-                <div data-alert class="alert-box alert" ng-show="errors.address.show">
-                    <strong>{{ errors.address.field | translate }} </strong>{{ errors.address.text }}
-                    <a ng-click="closeAlert('address')" class="close">&times;</a>
-                </div>
+        <div class="small-12 medium-6 grid-content">
+            <label>{{ 'ADDRESS' | translate }}</label>
+            <input class="no-bottom-margin" type="text" ng-model="newCenter.address" placeholder="{{ 'ADDRESS' | translate }}">
+            <div data-alert class="alert-box alert" ng-show="errors.address.show">
+                <strong>{{ errors.address.field | translate }} </strong>{{ errors.address.text }}
+                <a ng-click="closeAlert('address')" class="close">&times;</a>
             </div>
         </div>
     </div>
-    <div class="grid-block">
-        <div class="form-group" style="padding-right: 5px">
-            <label>{{ 'DESCRIPTION' | translate }}
-                <textarea class="no-bottom-margin" ng-model="newCenter.description" placeholder="{{ 'DESCRIPTION' | translate }}" rows="3"></textarea>
-            </label>
-            <div data-alert class="alert-box alert" ng-show="errors.description.show">
-                <strong>{{ errors.description.field | translate }} </strong>{{ errors.description.text }}
-                <a ng-click="closeAlert('description')" class="close">&times;</a>
-            </div>
+    <div class="small-12 grid-content">
+        <label>{{ 'DESCRIPTION' | translate }}</label>
+        <textarea class="no-bottom-margin" ng-model="newCenter.description" placeholder="{{ 'DESCRIPTION' | translate }}" rows="3"></textarea>
+        <div data-alert class="alert-box alert" ng-show="errors.description.show">
+            <strong>{{ errors.description.field | translate }} </strong>{{ errors.description.text }}
+            <a ng-click="closeAlert('description')" class="close">&times;</a>
         </div>
     </div>
-    <div class="grid-block">
-        <fieldset style="width: 100%">
-            <legend>
+    <div class="grid-block wrap">
+        <div class="small-12 grid-content">
+            <h5>
                 {{ 'COORDINATES' | translate }}
-                <span data-tooltip aria-haspopup="true" class="has-tip" title="{{ 'INFORMATION_COORD' | translate }}">
-                    <strong><i class="fa fa-info-circle" aria-hidden="true"></i></strong>
-                </span>
-            </legend>
-            <div class="grid-block">
-                <div class="grid-block">
-                    <div class="form-group" style="padding-right: 5px">
-                        <label>{{ 'LATITUDE' | translate }}
-                            <input class="no-bottom-margin" type="number" ng-model="newCenter.lat" placeholder="{{ 'LATITUDE' | translate }}">
-                        </label>
-                        <div data-alert class="alert-box alert" ng-show="errors.lat.show">
-                            <strong>{{ errors.lat.field | translate }} </strong>{{ errors.lat.text }}
-                            <a ng-click="closeAlert('lat')" class="close">&times;</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="grid-block">
-                    <div class="form-group" style="padding-right: 5px">
-                        <label>{{ 'LONGITUDE' | translate }}
-                            <input class="no-bottom-margin" type="number" ng-model="newCenter.lng" placeholder="{{ 'LONGITUDE' | translate }}">
-                        </label>
-                        <div data-alert class="alert-box alert" ng-show="errors.lng.show">
-                            <strong>{{ errors.lng.field | translate }} </strong>{{ errors.lng.text }}
-                            <a ng-click="closeAlert('lng')" class="close">&times;</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </fieldset>
-    </div>
-    <div class="grid-block">
-        <div class="grid-block">
-            <div class="form-group" style="padding-right: 5px">
-                <label>{{ 'ALTITUDE' | translate }}
-                    <input class="no-bottom-margin" type="number" ng-model="newCenter.alt" placeholder="{{ 'ALTITUDE' | translate }}">
-                </label>
-                <div data-alert class="alert-box alert" ng-show="errors.alt.show">
-                    <strong>{{ errors.alt.field | translate }} </strong>{{ errors.alt.text }}
-                    <a ng-click="closeAlert('alt')" class="close">&times;</a>
-                </div>
+            </h5>
+        </div>
+        <div class="small-12 grid-content">
+            <h5><small>{{ 'INFORMATION_COORD' | translate }}</small></h5>
+        </div>
+        <div class="small-12 medium-6 grid-content">
+            <label>{{ 'LATITUDE' | translate }}</label>
+            <input class="no-bottom-margin" type="number" ng-model="newCenter.lat" placeholder="{{ 'LATITUDE' | translate }}">
+            <div data-alert class="alert-box alert" ng-show="errors.lat.show">
+                <strong>{{ errors.lat.field | translate }} </strong>{{ errors.lat.text }}
+                <a ng-click="closeAlert('lat')" class="close">&times;</a>
             </div>
         </div>
-        <div class="grid-block">
-            <div class="form-group" style="padding-right: 5px">
-                <label>{{ 'STYLE' | translate }}
-                    <select class="no-bottom-margin" ng-model="newCenter.defined_style">
-                        <option style="background-color: {{ opt.name }}" ng-repeat="opt in def_style" ng-value="opt.id">{{ opt.name }}</option>
-                    </select>
-                </label>
-                <div data-alert class="alert-box alert" ng-show="errors.defined_style.show">
-                    <strong>{{ errors.defined_style.field | translate }} </strong>{{ errors.defined_style.text }}
-                    <a ng-click="closeAlert('defined_style')" class="close">&times;</a>
-                </div>
+        <div class="small-12 medium-6 grid-content">
+            <label>{{ 'LONGITUDE' | translate }}</label>
+            <input class="no-bottom-margin" type="number" ng-model="newCenter.lng" placeholder="{{ 'LONGITUDE' | translate }}">
+            <div data-alert class="alert-box alert" ng-show="errors.lng.show">
+                <strong>{{ errors.lng.field | translate }} </strong>{{ errors.lng.text }}
+                <a ng-click="closeAlert('lng')" class="close">&times;</a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-block wrap">
+        <div class="small-12 medium-6 grid-content">
+            <label>{{ 'ALTITUDE' | translate }}</label>
+            <input class="no-bottom-margin" type="number" ng-model="newCenter.alt" placeholder="{{ 'ALTITUDE' | translate }}">
+            <div data-alert class="alert-box alert" ng-show="errors.alt.show">
+                <strong>{{ errors.alt.field | translate }} </strong>{{ errors.alt.text }}
+                <a ng-click="closeAlert('alt')" class="close">&times;</a>
+            </div>
+        </div>
+        <div class="small-12 medium-6 grid-content">
+            <label>{{ 'STYLE' | translate }}</label>
+            <select class="no-bottom-margin" ng-model="newCenter.defined_style">
+                <option style="background-color: {{ opt.name }}" ng-repeat="opt in def_style" ng-value="opt.id">{{ opt.name }}</option>
+            </select>
+            <div data-alert class="alert-box alert" ng-show="errors.defined_style.show">
+                <strong>{{ errors.defined_style.field | translate }} </strong>{{ errors.defined_style.text }}
+                <a ng-click="closeAlert('defined_style')" class="close">&times;</a>
             </div>
         </div>
     </div>
@@ -100,4 +77,4 @@
                 <i class="fa fa-floppy-o" aria-hidden="true"></i> {{ 'SAVE' | translate }}</a>
         </div>
     </div>
-</div>
+</form>

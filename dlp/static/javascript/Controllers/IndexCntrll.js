@@ -2,12 +2,25 @@
  * Created by xavi on 7/06/16.
  */
 angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location', '$scope', '$http', '$stateParams', '$state', '$translate', 'uiGmapGoogleMapApi',
-    'uiGmapIsReady', 'City', 'CityByPlaceId', 'LogisticCenter', '$timeout', 'FoundationApi', 'DefinedStyle', 'Tour',
+    'uiGmapIsReady', 'City', 'CityByPlaceId', 'LogisticCenter', '$timeout', 'FoundationApi', 'DefinedStyle', 'Tour', '$interval', 'RefreshWeather',
     function($anchorScroll, $location, $scope, $http, $stateParams, $state, $translate, uiGmapGoogleMapApi, uiGmapIsReady, City, CityByPlaceId,
-             LogisticCenter, $timeout, FoundationApi, DefinedStyle, Tour) {
+             LogisticCenter, $timeout, FoundationApi, DefinedStyle, Tour, $interval, RefreshWeather) {
         var city_str = $stateParams.city;
         $scope.lc = [];
         var cities_list = [];
+        var stop;
+        $scope.newCoords = {lat: 0.0, lng: 0.0};
+        //$scope.progress_init = {actual: 0, max: 1};
+        $scope.select_coords = {active: false, deactivate: function(){
+            $scope.newCoords = {lat: 0.0, lng: 0.0};
+            $scope.select_coords.active = false;
+            var result = $scope.map.markers.findIndex(function( obj ) {
+                return obj.id == "latLngMk";
+            });
+            if(result != -1) {
+                $scope.map.markers.splice(result, 1);
+            }
+        }};
         City.get({},
             function (data) {
                 data.results.forEach(function(city) {
@@ -23,26 +36,30 @@ angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location',
                 },
                 function (result) {
                     $scope.main_city = City.get({id: result.results[0].id}, function() {
-                        Tour.create($scope.main_city.id, Date.now());
-                        $scope.logistic_centers = [];
-                        $scope.main_city.logistic_centers.forEach(get_logistic_centers);
-                        $scope.map = {
-                            center: {
-                                latitude: $scope.main_city.lat,
-                                longitude: $scope.main_city.lng
-                            }, zoom: 14,
-                            options: {maxZoom: 18, minZoom: 11},
-                            events: {
-                                click: function (map, eventNmae, args) {
-                                    $scope.$apply(function () {
-                                        latLng = args[0].latLng;
-                                        $scope.openMarker(latLng.lat(), latLng.lng())
-                                    });
-                                }
-                            },
-                            markers: []
-                        };
-                    }
+                            //$scope.progress_init.actual = 0;
+                            Tour.create($scope.main_city.id, Date.now());
+                            stop = $interval(function(){callAtInterval($scope.main_city.id)}, 900000, false);
+                            $scope.logistic_centers = [];
+                            $scope.main_city.logistic_centers.forEach(get_logistic_centers);
+                            $scope.map = {
+                                center: {
+                                    latitude: $scope.main_city.lat,
+                                    longitude: $scope.main_city.lng
+                                }, zoom: 14,
+                                options: {maxZoom: 18, minZoom: 11},
+                                events: {
+                                    click: function (map, eventName, args) {
+                                        $scope.$apply(function () {
+                                            if($scope.select_coords.active) {
+                                                latLng = args[0].latLng;
+                                                $scope.openMarker(latLng.lat(), latLng.lng())
+                                            }
+                                        });
+                                    }
+                                },
+                                markers: []
+                            };
+                        }
                     );
                     //prepare_map($scope.main_city.lat, $scope.main_city.lng)
                 })
@@ -112,9 +129,11 @@ angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location',
             $translate.use(key);
         };
         $scope.left_menu = false;
-        get_logistic_centers = function(item){
+
+        var get_logistic_centers = function(item){
             var logistic_center = LogisticCenter.get({id: item},
                 function () {
+                    //$scope.progress_init.max += logistic_center.droppoints.length;
                     $scope.logistic_centers.push(logistic_center);
                     $scope.lc[logistic_center.id] = false;
                     $scope.add_marker_center(logistic_center.id, logistic_center.lat, logistic_center.lng, logistic_center.defined_style)
@@ -149,6 +168,7 @@ angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location',
 
         var openCenterInfo = function (index) {
             FoundationApi.publish('LCrepresentation', 'open');
+
             //$scope.lc[index] = !$scope.lc[index];
             $scope.lc[index] = true;
         };
@@ -170,7 +190,7 @@ angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location',
             } else {
                 // call $anchorScroll() explicitly,
                 // since $location.hash hasn't changed
-                $anchorScroll();
+                //$anchorScroll();
             }
         };
 
@@ -217,8 +237,6 @@ angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location',
                     $scope.map.markers.push(marker);
                 });
         };
-
-        $scope.newCoords = {lat: 0.0, lng: 0.0}
 
         $scope.openMarker = function(lat, lng){
             var marker = {
@@ -268,7 +286,22 @@ angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location',
 
         $scope.returnMain = function(){
             $state.transitionTo('welcome', null, { reload: true });
-        }
+        };
 
+        var callAtInterval = function(city) {
+            RefreshWeather.refresh(city, Date.now());
+        };
+
+        $scope.stopInterval = function() {
+            if (angular.isDefined(stop)) {
+                $interval.cancel(stop);
+                stop = undefined;
+            }
+        };
+
+        $scope.$on('$destroy', function() {
+            // Make sure that the interval is destroyed too
+            $scope.stopInterval();
+        });
 
     }]);
