@@ -3,12 +3,12 @@
  */
 angular.module('DLPApp').controller('ManageDroppointCntrll',['$scope', 'Droppoint', '$modal', '$log', 'UpdateDp',
     function ($scope, Droppoint, $modal, $log, UpdateDp){
-        $scope.droppoint = Droppoint.get({id: $scope.droppoint_id}, function(result) {
-            $scope.droppoint_backup = angular.copy(result);
-            $scope.add_marker_droppoint($scope.$parent.center.id, result.id, result.lat, result.lng, $scope.$parent.center.defined_style)
-            //$scope.progress_init.actual += 1;
-        });
-
+        //$scope.droppoint = Droppoint.get({id: $scope.droppoint_id}, function(result) {
+        //    $scope.droppoint_backup = angular.copy(result);
+        //    $scope.add_marker_droppoint($scope.$parent.center.id, result.id, result.lat, result.lng, $scope.$parent.center.defined_style);
+        //});
+        $scope.droppoint_backup = angular.copy($scope.droppoint);
+        $scope.add_marker_droppoint($scope.$parent.center.id, $scope.droppoint.id, $scope.droppoint.lat, $scope.droppoint.lng, $scope.$parent.center.defined_style);
         $scope.mode = "default";
 
         $scope.changeMode = function(mode){

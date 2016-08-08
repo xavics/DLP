@@ -10,7 +10,6 @@ angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location',
         var cities_list = [];
         var stop;
         $scope.newCoords = {lat: 0.0, lng: 0.0};
-        //$scope.progress_init = {actual: 0, max: 1};
         $scope.select_coords = {active: false, deactivate: function(){
             $scope.newCoords = {lat: 0.0, lng: 0.0};
             $scope.select_coords.active = false;
@@ -130,14 +129,10 @@ angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location',
         };
         $scope.left_menu = false;
 
-        var get_logistic_centers = function(item){
-            var logistic_center = LogisticCenter.get({id: item},
-                function () {
-                    //$scope.progress_init.max += logistic_center.droppoints.length;
-                    $scope.logistic_centers.push(logistic_center);
-                    $scope.lc[logistic_center.id] = false;
-                    $scope.add_marker_center(logistic_center.id, logistic_center.lat, logistic_center.lng, logistic_center.defined_style)
-                });
+        var get_logistic_centers = function(logistic_center){
+            $scope.logistic_centers.push(logistic_center);
+            $scope.lc[logistic_center.id] = false;
+            $scope.add_marker_center(logistic_center.id, logistic_center.lat, logistic_center.lng, logistic_center.defined_style)
         };
 
         $scope.openAccordion = function() {
