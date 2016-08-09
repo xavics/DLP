@@ -35,7 +35,6 @@ angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location',
                 },
                 function (result) {
                     $scope.main_city = City.get({id: result.results[0].id}, function() {
-                            //$scope.progress_init.actual = 0;
                             Tour.create($scope.main_city.id, Date.now());
                             stop = $interval(function(){callAtInterval($scope.main_city.id)}, 900000, false);
                             $scope.logistic_centers = [];
@@ -120,7 +119,7 @@ angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location',
 
             // echo the nearest city
             if( cities_list[ closest].place_id != $scope.main_city.place_id ){
-                $scope.reload_city(cities_list[ closest].place_id);
+                $scope.change_city(cities_list[ closest].place_id);
             }
         };
 
@@ -298,5 +297,9 @@ angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location',
             // Make sure that the interval is destroyed too
             $scope.stopInterval();
         });
+
+        $scope.change_city = function(location_id){
+            $state.go('main', {'city': location_id})
+        }
 
     }]);

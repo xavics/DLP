@@ -32,7 +32,7 @@
         </div>
     </accordion-group>
     <accordion-group>
-        <accordion-heading>
+        <accordion-heading ng-click="select_coords.active = true;">
             {{ 'CREATE_NEW' | translate }} {{ 'LOGISTICCENTER' | translate}}
         </accordion-heading>
             <div ng-include="'/static/templates/logistic_center_create.html'"></div>

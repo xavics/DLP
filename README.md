@@ -20,6 +20,14 @@ npm install -g bower
 apt-get install python-pip redis-server
 pip install -r requeriments.txt
 
+```
+
+For install the next dependencies you will need two API keys.
+[More info](#environment-variables)
+
+```
+
+export WEATHER_API_KEY=<API_KEY>
 export MAPS_API_KEY=<API_KEY>
 python manage.py bower install
 python manage.py collectstatic
@@ -30,7 +38,8 @@ python manage.py collectstatic
 run script in folder `galaxy_files`
 
 ```
-bash galaxy_files/copy_files.sh <galaxy_ip>
+cd galaxy_files
+bash copy_files.sh <galaxy_ip>
 ```
 
 ## How to run

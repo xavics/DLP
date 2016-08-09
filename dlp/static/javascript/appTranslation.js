@@ -50,7 +50,8 @@ angular.module('DLPApp').config(['$translateProvider', function ($translateProvi
         'CONFIGURATION': 'Configuration',
         'ADD': 'Add',
         'ACCESS': 'Access',
-        'LOGISTICCENTERS': 'Logistic centers'
+        'LOGISTICCENTERS': 'Logistic centers',
+        'INFO_DELETE_LC': 'Deleting this Logistic Center all Drop Points and Drones related with it will be deleted too.'
     });
 
     $translateProvider.translations('es', {
@@ -101,7 +102,8 @@ angular.module('DLPApp').config(['$translateProvider', function ($translateProvi
         'CONFIGURATION': 'Configuracion',
         'ADD': 'Añadir',
         'ACCESS': 'Acceder',
-        'LOGISTICCENTERS': 'Centros Logísticos'
+        'LOGISTICCENTERS': 'Centros Logísticos',
+        'INFO_DELETE_LC': 'Eliminando este Centro Logistico, los puntos de entrega i los drones relacionados con el tambien van a ser eliminados'
     });
 
     $translateProvider.preferredLanguage('en');

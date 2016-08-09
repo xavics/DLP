@@ -34,7 +34,6 @@ class LogisticCenter(mixins.GeoComplex, models.Model):
     name = models.CharField(max_length=50)
     address = models.CharField(max_length=50)
     description = models.TextField()
-    radius = models.FloatField()
     defined_style = models.ForeignKey(DefinedStyle,
                                       related_name='logistic_center')
     city = models.ForeignKey(City, related_name='logistic_centers')

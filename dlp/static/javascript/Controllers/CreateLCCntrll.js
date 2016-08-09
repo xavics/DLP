@@ -4,9 +4,7 @@
 angular.module('DLPApp').controller('CreateLCCntrll',['$scope', 'LogisticCenter', 'DefinedStyle', 'UpdateLc',
     function ($scope, LogisticCenter, DefinedStyle, UpdateLc){
         var init = function(){
-            $scope.select_coords.active = true;
             $scope.newCenter = new LogisticCenter();
-            $scope.newCenter.radius = 50;
         };
         init();
         DefinedStyle.get({},
@@ -27,21 +25,24 @@ angular.module('DLPApp').controller('CreateLCCntrll',['$scope', 'LogisticCenter'
             'description': {'field': 'DESCRIPTION', 'text': 'REQUIRED', 'show': false},
         };
         $scope.$watch('newCoords.lat', function() {
-            $scope.newCenter.lat = $scope.newCoords.lat;
+            if($scope.newCoords.lat != 0)
+                $scope.center.lat = $scope.newCoords.lat;
         });
         $scope.$watch('newCoords.lng', function() {
-            $scope.newCenter.lng = $scope.newCoords.lng;
+            if($scope.newCoords.lat != 0)
+                $scope.center.lng = $scope.newCoords.lng;
         });
         $scope.create_new_center = function(){
             $scope.newCenter.city = $scope.main_city.id;
             $scope.newCenter.$save().then(
                 function(result){
                     $scope.logistic_centers.push(result);
-                    $scope.newCenter = new LogisticCenter();
-                    UpdateLc.lc()
+                    init();
+                    UpdateLc.lc();
+                    $scope.select_coords.active = false;
                 },
                 function(data){
-                    init();
+                    clean_errors();
                     Object.keys(data.data).forEach(function (key) {
                         $scope.errors[key].show = true;
                         $scope.errors[key].text = data.data[key][0];

@@ -47,6 +47,7 @@ myServices.factory('CityByPlaceId', ['$resource', function($resource) {
 myServices.factory('TransportByLc', ['$resource', function($resource) {
     return $resource('/api/transports/?logistic_center=:logistic_center&status=:status&time=time',
         {'logistic_center': '@logistic_center', status: '@status', 'time': '@time'}, {
+            ignoreLoadingBar: true
         });
 }]);
 

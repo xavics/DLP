@@ -64,7 +64,7 @@ class LogisticCenterSerializer(serializers.ModelSerializer):
         model = models.LogisticCenter
         fields = (
             'id', 'name', 'address', 'description', 'lat', 'lng',
-            'alt', 'radius', 'defined_style', 'city', 'droppoints', 'drones')
+            'alt', 'defined_style', 'city', 'droppoints', 'drones')
 
 
 class CitySerializer(serializers.ModelSerializer):

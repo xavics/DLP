@@ -3,7 +3,6 @@
  */
 angular.module('DLPApp').controller('UpdateLCCntrll',['$scope', 'LogisticCenter', 'City', 'UpdateLc', 'DefinedStyle',
     function ($scope, LogisticCenter, City, UpdateLc, DefinedStyle){
-        $scope.select_coords.active = true;
         DefinedStyle.get({},
             function (data) {
                 $scope.def_style = [];
@@ -31,17 +30,27 @@ angular.module('DLPApp').controller('UpdateLCCntrll',['$scope', 'LogisticCenter'
                 $scope.center.lng = $scope.newCoords.lng;
         });
         $scope.update_center = function(){
-            $scope.center.$update()
-                .then(function(result){
-                    $scope.$parent.modify_mode_lc($scope.center.id, 'default');
-                },
-                function(data){
-                    clean_errors();
-                    Object.keys(data.data).forEach(function (key) {
-                        $scope.errors[key].show = true;
-                        $scope.errors[key].text = data.data[key][0];
-                    });
-                })
+            var update_lc = LogisticCenter.get({id: $scope.center.id}, function(){
+                update_lc.name = $scope.center.name;
+                update_lc.lat = $scope.center.lat;
+                update_lc.alt = $scope.center.alt;
+                update_lc.lng = $scope.center.lng;
+                update_lc.address = $scope.center.address;
+                update_lc.defined_style = $scope.center.defined_style;
+                update_lc.description = $scope.center.description;
+                update_lc.$update()
+                    .then(function(result){
+                            $scope.center_backup = angular.copy($scope.center);
+                            $scope.$parent.modify_mode_lc($scope.center.id, 'default');
+                        },
+                        function(data){
+                            clean_errors();
+                            Object.keys(data.data).forEach(function (key) {
+                                $scope.errors[key].show = true;
+                                $scope.errors[key].text = data.data[key][0];
+                            });
+                        })
+            });
         };
         var clean_errors = function(){
             angular.forEach($scope.errors, function(item){
@@ -58,7 +67,6 @@ angular.module('DLPApp').controller('UpdateLCCntrll',['$scope', 'LogisticCenter'
             $scope.$parent.center.lat = angular.copy($scope.center_backup.lat);
             $scope.$parent.center.lng = angular.copy($scope.center_backup.lng);
             $scope.$parent.center.alt = angular.copy($scope.center_backup.alt);
-            $scope.$parent.center.radius = angular.copy($scope.center_backup.radius);
             $scope.$parent.center.city = angular.copy($scope.center_backup.city);
             $scope.$parent.center.defined_style = angular.copy($scope.center_backup.defined_style);
             $scope.$parent.modify_mode_lc($scope.center.id, 'default');

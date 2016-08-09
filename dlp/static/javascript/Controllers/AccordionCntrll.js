@@ -10,17 +10,17 @@ angular.module('DLPApp').controller('AccordionCntrll',['$scope', '$http', functi
         return $scope.modes[id];
     };
 
-
     $scope.modify_mode_lc = function(id, mode){
         $scope.modes[id] = mode
     };
-    $scope.modify_mode_drones = function(mode){
-        $scope.modes.mode_drone = mode
-    };
-    $scope.modify_mode_droppoints = function(mode){
-        $scope.modes.mode_drone = mode
-    };
-    $scope.modify_mode_transports = function(mode){
-        $scope.modes.mode_drone = mode
-    };
+
+    //$scope.modify_mode_drones = function(mode){
+    //    $scope.modes.mode_drone = mode
+    //};
+    //$scope.modify_mode_droppoints = function(mode){
+    //    $scope.modes.mode_drone = mode
+    //};
+    //$scope.modify_mode_transports = function(mode){
+    //    $scope.modes.mode_drone = mode
+    //};
 }]);

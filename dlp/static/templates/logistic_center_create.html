@@ -26,13 +26,17 @@
         </div>
     </div>
     <div class="grid-block wrap">
-        <div class="small-12 grid-content">
-            <h5>
-                {{ 'COORDINATES' | translate }}
-            </h5>
+        <div class="small-8 grid-content">
+            <h5>{{ 'COORDINATES' | translate }}</h5>
         </div>
-        <div class="small-12 grid-content">
+        <div class="small-8 grid-content">
             <h5><small>{{ 'INFORMATION_COORD' | translate }}</small></h5>
+        </div>
+        <div class="small-4 grid-block align-right wrap">
+            <div class="v-align" style="padding-top: 10px;">
+                <a class="button" ng-hide="select_coords.active" ng-click="select_coords.active = true"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ 'SELECT' | translate }}</a>
+                <a class="alert button" ng-show="select_coords.active" ng-click="select_coords.deactivate()"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ 'UNSELECT' | translate }}</a>
+            </div>
         </div>
         <div class="small-12 medium-6 grid-content">
             <label>{{ 'LATITUDE' | translate }}</label>
