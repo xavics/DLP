@@ -23,22 +23,40 @@ angular.module('DLPApp').controller('ManageDroppointCntrll',['$scope', 'Droppoin
             }
         };
 
+        $scope.$watch('newCoords.lat', function() {
+            if($scope.newCoords.lat != 0)
+                $scope.droppoint.lat = $scope.newCoords.lat;
+        });
+        $scope.$watch('newCoords.lng', function() {
+            if($scope.newCoords.lng != 0)
+                $scope.droppoint.lng = $scope.newCoords.lng;
+        });
+
         $scope.delete_droppoint = function(){
-            $scope.droppoint.$remove()
-                .then(function(result){
-                    var index_deleted = $scope.$parent.center.droppoints.indexOf($scope.droppoint_id)
-                    $scope.$parent.center.droppoints.splice(index_deleted, 1)
-                    UpdateDp.dp()
-                })
+            var delete_droppoint = Droppoint.get({id: $scope.droppoint.id}, function() {
+                delete_droppoint.$remove()
+                    .then(function(result){
+                        var index_deleted = $scope.$parent.center.droppoints.indexOf($scope.droppoint);
+                        $scope.$parent.center.droppoints.splice(index_deleted, 1);
+                        UpdateDp.dp();
+                    })
+            })
         };
 
         $scope.update_droppoint = function(){
-            $scope.droppoint.$update()
-                .then(function(result){
-                    $scope.droppoint_backup = angular.copy(result);
-                    $scope.changeMode()
-                    UpdateDp.dp()
-                })
+            var update_droppoint = Droppoint.get({id: $scope.droppoint.id}, function() {
+                update_droppoint.name = $scope.droppoint.name;
+                update_droppoint.lat = $scope.droppoint.lat;
+                update_droppoint.lng = $scope.droppoint.lng;
+                update_droppoint.alt = $scope.droppoint.alt;
+                update_droppoint.description = $scope.droppoint.description;
+                update_droppoint.$update()
+                    .then(function (result) {
+                        $scope.droppoint_backup = angular.copy(result);
+                        $scope.changeMode();
+                        UpdateDp.dp();
+                    })
+            })
         };
 
         $scope.restore_droppoint = function(){

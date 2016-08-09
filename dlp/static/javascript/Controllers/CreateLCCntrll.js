@@ -26,11 +26,11 @@ angular.module('DLPApp').controller('CreateLCCntrll',['$scope', 'LogisticCenter'
         };
         $scope.$watch('newCoords.lat', function() {
             if($scope.newCoords.lat != 0)
-                $scope.center.lat = $scope.newCoords.lat;
+                $scope.newCenter.lat = $scope.newCoords.lat;
         });
         $scope.$watch('newCoords.lng', function() {
             if($scope.newCoords.lat != 0)
-                $scope.center.lng = $scope.newCoords.lng;
+                $scope.newCenter.lng = $scope.newCoords.lng;
         });
         $scope.create_new_center = function(){
             $scope.newCenter.city = $scope.main_city.id;

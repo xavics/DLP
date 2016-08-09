@@ -59,6 +59,14 @@
         <ul>
             <li>
                 <input type="number" placeholder="Number" ng-model="main_city.flying_altitude">
+                <div data-alert class="alert-box alert" ng-show="alert.error.show">
+                    <strong>{{ 'ERROR' | translate }} </strong>{{ alert.error.text }}
+                    <a ng-click="closeAlert('description')" class="close">&times;</a>
+                </div>
+                <div data-alert class="alert-box success" ng-show="alert.success.show">
+                    <strong>{{ 'SUCCESS' | translate }} </strong>{{ alert.success.text }}
+                    <a ng-click="closeAlert('description')" class="close">&times;</a>
+                </div>
             </li>
         </ul>
         <ul>
