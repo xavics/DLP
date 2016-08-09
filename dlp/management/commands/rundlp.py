@@ -8,6 +8,7 @@ from dlp.galaxy_comunication.galaxy_comunication import send_kmls
 from dlp.kml_manager.kml_generator import create_logisticcenters_list, \
     create_droppoints_list, create_layouts_list, create_kml_folders, \
     remove_kml_folders
+from dlp.models import Package, Transport, Drone
 
 PATTERN_IP = "^([m01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]" + \
              "\\d|25[0-5])\\.([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." + \
@@ -56,6 +57,8 @@ class Command(BaseCommand):
                 send_kmls()
                 # Create Static KML
                 self.create_base_kml()
+                # Remove DB to evade problems in demo.
+                self.reset_db()
                 # Run the system
                 os.system("bash rundlp {ip}".format(ip=app_ip))
             else:
@@ -76,3 +79,10 @@ class Command(BaseCommand):
         create_droppoints_list()
         create_layouts_list()
         self.stdout.write("KMLs files done")
+
+    def reset_db(self):
+        Package.objects.all().delete()
+        Transport.objects.all().delete()
+        for drone in Drone.objects.all():
+            drone.status = Drone.DroneStatus.WAITING
+            drone.save()
