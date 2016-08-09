@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+	<Document id="{id}">
+		<Style id="drone">
+			<IconStyle>
+				<Icon>
+					<href>{icon}</href>
+					<scale>1.0</scale>
+				</Icon>
+			</IconStyle>
+		</Style>
+		<Placemark>
+			<name>{name}</name>
+			<description>{description}</description>
+			<styleUrl>#drone</styleUrl>
+			<Point>
+				<altitudeMode>relativeToGround</altitudeMode>
+				<coordinates>{lng},{lat},{alt}</coordinates>
+			</Point>
+		</Placemark>
+	</Document>
+</kml>
