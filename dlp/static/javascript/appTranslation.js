@@ -51,7 +51,11 @@ angular.module('DLPApp').config(['$translateProvider', function ($translateProvi
         'ADD': 'Add',
         'ACCESS': 'Access',
         'LOGISTICCENTERS': 'Logistic centers',
-        'INFO_DELETE_LC': 'Deleting this Logistic Center all Drop Points and Drones related with it will be deleted too.'
+        'INFO_DELETE_LC': 'Deleting this Logistic Center all Drop Points and Drones related with it will be deleted too.',
+        'ENGLISH': 'English',
+        'SPANISH': 'Spanish',
+        'WEATHER': 'Weather',
+        'FLYING_MAX_ALTITUDE': 'Flying max altitude'
     });
 
     $translateProvider.translations('es', {
@@ -103,8 +107,11 @@ angular.module('DLPApp').config(['$translateProvider', function ($translateProvi
         'ADD': 'Añadir',
         'ACCESS': 'Acceder',
         'LOGISTICCENTERS': 'Centros Logísticos',
-        'INFO_DELETE_LC': 'Eliminando este Centro Logistico, los puntos de entrega i los drones relacionados con el tambien van a ser eliminados'
+        'INFO_DELETE_LC': 'Eliminando este Centro Logistico, los puntos de entrega i los drones relacionados con el tambien van a ser eliminados',
+        'ENGLISH': 'Ingles',
+        'SPANISH': 'Español',
+        'WEATHER': 'Clima',
+        'FLYING_MAX_ALTITUDE': 'Maxima altitud de vuelo'
     });
-
     $translateProvider.preferredLanguage('en');
 }]);

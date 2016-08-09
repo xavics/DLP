@@ -1,12 +1,26 @@
 /**
  * Created by xavi on 12/06/16.
  */
-angular.module('DLPApp').controller('GalaxyOptCntrll',['$scope', '$http', 'RefreshWeather', 'Tour', 'Demo', 'City',
-    function($scope, $http, RefreshWeather, Tour, Demo, City){
+angular.module('DLPApp').controller('GalaxyOptCntrll',['$scope', '$http', 'RefreshWeather', 'Tour', 'Demo', 'City', '$translate', '$state',
+    function($scope, $http, RefreshWeather, Tour, Demo, City, $translate, $state){
         //window.alert($scope.main_city);
         //$scope.actual_city = City.get({id: $scope.main_city.id}, function(result){
         //    window.alert(result)
         //});
+        $scope.languages = [
+        {'name': 'ENGLISH', 'key': 'en', 'selected': $translate.use() == 'en'},
+        {'name': 'SPANISH', 'key': 'es', 'selected': $translate.use() == 'es'}
+        ];
+        var selected = 0;
+        var get_opt_selected = function() {
+            angular.forEach($scope.selected_language, function (item, index) {
+                if (item.selected) {
+                    selected = index;
+                }
+            });
+        };
+        get_opt_selected();
+        $scope.selected_language = $scope.languages[selected].key;
         $scope.refresh_weather = function(city){
             RefreshWeather.refresh(city, Date.now())
         };
@@ -21,5 +35,8 @@ angular.module('DLPApp').controller('GalaxyOptCntrll',['$scope', '$http', 'Refre
         };
         $scope.update_city = function(){
             $scope.main_city.$update()
-        }
+        };
+        $scope.changeLanguage = function (key) {
+            $translate.use(key);
+        };
     }]);

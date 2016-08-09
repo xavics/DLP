@@ -12,14 +12,31 @@
 </div>
 <div class="grid-content small-12">
     <section class="block-list">
-        <header>Weather</header>
+        <header>{{ 'LANGUAGE' | translate }} {{ selected_language }}</header>
+        <ul>
+            <li class="with-dropdown">
+                <select ng-model="selected_language" ng-options="item.key as item.name for item in languages" ng-change="changeLanguage(selected_language)">
+                </select>
+            </li>
+        </ul>
+        <header>{{ 'ADMINISTRATION' | translate }}</header>
+        <ul>
+            <li>
+                <a href="admin" class="expand hollow button info">
+                    <i class="fa fa-user-secret" aria-hidden="true"></i> {{ 'ADMINISTRATION' | translate }}</a>
+            </li>
+        </ul>
+    </section>
+    <h5>{{ main_city.name }}</h5>
+    <section class="block-list">
+        <header>{{ 'WEATHER' | translate }}</header>
         <ul>
             <li>
                 <a ng-click="refresh_weather(main_city.id)" class="expand hollow button">
                     <i class="fa fa-refresh" aria-hidden="true"></i> {{ 'REFRESH_WEATHER' | translate }}</a>
             </li>
         </ul>
-        <header>Tour</header>
+        <header>{{ 'TOUR' | translate }}</header>
         <ul>
             <li>
                 <a ng-click="play_tour(main_city.id)" class="expand hollow button success">
@@ -31,13 +48,6 @@
             </li>
 
         </ul>
-        <header>{{ 'ADMINISTRATION' | translate }}</header>
-        <ul>
-            <li>
-                <a href="admin" class="expand hollow button info">
-                    <i class="fa fa-user-secret" aria-hidden="true"></i> {{ 'ADMINISTRATION' | translate }}</a>
-            </li>
-        </ul>
         <header>{{ 'DEMO' | translate }}</header>
         <ul>
             <li>
@@ -45,7 +55,7 @@
                     <i class="fa fa-desktop" aria-hidden="true"></i> {{ 'DEMO' | translate }}</a>
             </li>
         </ul>
-        <header>{{ 'FLYING_MAX_ALTITUDE' | translate }} {{ 'OF' | translate }}: {{ main_city.name }}</header>
+        <header>{{ 'FLYING_MAX_ALTITUDE' | translate }}</header>
         <ul>
             <li>
                 <input type="number" placeholder="Number" ng-model="main_city.flying_altitude">
