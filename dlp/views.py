@@ -10,7 +10,7 @@ from DLP.settings import MAPS_API_KEY
 from dlp.apis.api_weather import generate_weather_image
 from dlp.file_manager.file_manager import get_site_url
 from dlp.galaxy_comunication.galaxy_comunication import send_kmls, start_tour, \
-    exit_tour
+    exit_tour, fly_to_view
 from dlp.kml_manager.kml_generator import create_updates, TMP, \
     LOGISTICCENTER, DROPPOINT, remove_update, create_weather_kml, WEATHER, \
     SLAVE, KMLS_SLAVE_PERS_PATH, SLAVE_UPDATES, create_rotation_kml, create_kml
@@ -110,7 +110,7 @@ def is_inside_folder(filename, path):
 
 
 '''
-    Tour requests
+    Galaxy requests
 '''
 
 
@@ -132,6 +132,13 @@ def play_tour(request):
 def stop_tour(request):
     city_id = request.GET.get("city")
     exit_tour(city_id)
+    return HttpResponse(status=204)
+
+
+@never_cache
+def fly_to(request):
+    city_id = request.GET.get("city")
+    fly_to_view(city_id)
     return HttpResponse(status=204)
 
 

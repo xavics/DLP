@@ -5,7 +5,7 @@
 			<IconStyle>
 				<Icon>
 					<href>{icon}</href>
-					<scale>1.0</scale>
+					<scale>4.0</scale>
 				</Icon>
 			</IconStyle>
 		</Style>

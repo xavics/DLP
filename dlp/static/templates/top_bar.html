@@ -12,7 +12,7 @@
             </a>
             <div style="display: table-cell; vertical-align: middle;  padding-left: 10px;">
                 <div class="inline-label" style="margin-bottom: 0 !important;">
-                    <input type="text" ng-model="location" placeholder="{{ main_city.name }}" typeahead="location as location.name for location in getLocation($viewValue)" class="form-control">
+                    <input type="text" ng-model="location" placeholder="{{ main_city.name }}" typeahead="location as location.name for location in getLocation($viewValue)" class="form-control" ng-focus="closeCenterInfo()">
                     <!--<a ng-click="reload_city(location.place_id)" class="button">{{ 'SELECT' | translate }}</a>-->
                     <a ng-click="change_city(location.place_id)" class="button">{{ 'SELECT' | translate }}</a>
                     <!--typeahead-on-select-->

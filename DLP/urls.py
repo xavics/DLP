@@ -43,6 +43,7 @@ urlpatterns = [
     url(r'^make_rotation$', views.make_tour),
     url(r'^play_tour$', views.play_tour),
     url(r'^stop_tour$', views.stop_tour),
+    url(r'^fly_to$', views.fly_to),
     url(r'^run_demo', views.run_demo)
     # url(r'^api-auth/',
     #     include('rest_framework.urls', namespace='rest_framework')),

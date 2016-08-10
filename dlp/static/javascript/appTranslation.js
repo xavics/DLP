@@ -55,7 +55,12 @@ angular.module('DLPApp').config(['$translateProvider', function ($translateProvi
         'ENGLISH': 'English',
         'SPANISH': 'Spanish',
         'WEATHER': 'Weather',
-        'FLYING_MAX_ALTITUDE': 'Flying max altitude'
+        'FLYING_MAX_ALTITUDE': 'Flying max altitude',
+        'ERROR': 'Error',
+        'SUCCESS': 'Correcto',
+        'ERROR_UPDATING_FLYING_ALT': 'Flying altitude cannot be updated with this value',
+        'SUCCESS_UPDATING_FLYING_ALT': 'Flying altitude have been updated',
+        'UPDATE': 'Update'
     });
 
     $translateProvider.translations('es', {
@@ -111,7 +116,12 @@ angular.module('DLPApp').config(['$translateProvider', function ($translateProvi
         'ENGLISH': 'Ingles',
         'SPANISH': 'Español',
         'WEATHER': 'Clima',
-        'FLYING_MAX_ALTITUDE': 'Maxima altitud de vuelo'
+        'FLYING_MAX_ALTITUDE': 'Maxima altitud de vuelo',
+        'ERROR': 'Error',
+        'SUCCESS': 'Correcto',
+        'ERROR_UPDATING_FLYING_ALT': 'La altitud de vuelo no ha podido ser actualizada',
+        'SUCCESS_UPDATING_FLYING_ALT': 'La altitud de vuelo ha sido actualizada',
+        'UPDATE': 'Actualizar'
     });
     $translateProvider.preferredLanguage('en');
 }]);

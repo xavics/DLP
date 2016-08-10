@@ -1,13 +1,14 @@
 <div ng-controller="AccordionCntrll">
 <accordion close-others="true">
-    <accordion-group ng-repeat="center in logistic_centers | orderBy: 'id'" id="lc{{ center.id }}" is-open="lc[{{ center.id }}]" ng-init="create_mode(center.id)">
+    <accordion-group ng-repeat="center in logistic_centers | orderBy: 'id'" id="lc{{ center.id }}" is-open="lc[{{ center.id }}]">
         <accordion-heading>
             {{center.name}}
         </accordion-heading>
         <div>
-            <tabset style="width: 100%;">
+            <tabset>
+                <!--
                 <tab heading="{{ 'LOGISTICCENTER' | translate }}">
-                    <div class="tab-content" ng-switch on="get_mode(center.id)">
+                    <div class="tab-content" ng-switch on="get_mode(center.id)" ng-init="create_mode(center.id)">
                           <div class="animate-switch" ng-switch-when="edit">
                               <div ng-include="'/static/templates/logistic_center_edit.html'"></div>
                           </div>
@@ -19,14 +20,18 @@
                           </div>
                     </div>
                 </tab>
-                <tab heading="{{ 'DRONES' | translate }}">
+                <tab heading="{{ 'DRONES' | translate }}" active="tab.active">
                     <div class="tab-content" ng-include="'/static/templates/drones_view.html'"></div>
                 </tab>
-                <tab heading="{{ 'DROPPOINTS' | translate }}">
+                <tab heading="{{ 'DROPPOINTS' | translate }}" active="tab.active">
                     <div class="tab-content" ng-include="'/static/templates/droppoints_view.html'"></div>
                 </tab>
-                <tab heading="{{ 'TRANSPORTS' | translate }}">
+                <tab heading="{{ 'TRANSPORTS' | translate }}" active="tab.active">
                     <div class="tab-content" ng-include="'/static/templates/transports_view.html'"></div>
+                </tab>
+                -->
+                <tab ng-repeat="tab in tabs"  heading="{{ tab.title | translate }}" active="tab.active">
+                    <div ng-include="tab.content"></div>
                 </tab>
             </tabset>
         </div>

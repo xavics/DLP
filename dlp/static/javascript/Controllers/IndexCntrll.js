@@ -2,9 +2,9 @@
  * Created by xavi on 7/06/16.
  */
 angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location', '$scope', '$http', '$stateParams', '$state', '$translate', 'uiGmapGoogleMapApi',
-    'uiGmapIsReady', 'City', 'CityByPlaceId', 'LogisticCenter', '$timeout', 'FoundationApi', 'DefinedStyle', 'Tour', '$interval', 'RefreshWeather',
+    'uiGmapIsReady', 'City', 'CityByPlaceId', 'LogisticCenter', '$timeout', 'FoundationApi', 'DefinedStyle', 'Tour', '$interval', 'RefreshWeather', 'Galaxy',
     function($anchorScroll, $location, $scope, $http, $stateParams, $state, $translate, uiGmapGoogleMapApi, uiGmapIsReady, City, CityByPlaceId,
-             LogisticCenter, $timeout, FoundationApi, DefinedStyle, Tour, $interval, RefreshWeather) {
+             LogisticCenter, $timeout, FoundationApi, DefinedStyle, Tour, $interval, RefreshWeather, Galaxy) {
         var city_str = $stateParams.city;
         $scope.lc = [];
         var cities_list = [];
@@ -36,6 +36,8 @@ angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location',
                 function (result) {
                     $scope.main_city = City.get({id: result.results[0].id}, function() {
                             Tour.create($scope.main_city.id, Date.now());
+                            Galaxy.fly_to($scope.main_city.id, Date.now());
+                            RefreshWeather.refresh($scope.main_city.id, Date.now());
                             stop = $interval(function(){callAtInterval($scope.main_city.id)}, 900000, false);
                             $scope.logistic_centers = [];
                             $scope.main_city.logistic_centers.forEach(get_logistic_centers);
@@ -123,9 +125,6 @@ angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location',
             }
         };
 
-        $scope.changeLanguage = function (key) {
-            $translate.use(key);
-        };
         $scope.left_menu = false;
 
         var get_logistic_centers = function(logistic_center){
@@ -134,9 +133,6 @@ angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location',
             $scope.add_marker_center(logistic_center.id, logistic_center.lat, logistic_center.lng, logistic_center.defined_style)
         };
 
-        $scope.openAccordion = function() {
-
-        };
 
         $scope.selected_center = null;
         $scope.change_center = function(index){
@@ -162,30 +158,11 @@ angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location',
 
         var openCenterInfo = function (index) {
             FoundationApi.publish('LCrepresentation', 'open');
-
-            //$scope.lc[index] = !$scope.lc[index];
             $scope.lc[index] = true;
         };
 
-        var openDroppointTab = function (id_center, id) {
-            FoundationApi.publish('LCrepresentation', 'open');
-            $scope.lc[id_center] = true;
-            var tabName = 'tabDpLc' + id_center;
-            console.log(tabName);
-            //angular.element(document.querySelector(tabName)).active = true;
-            elem = document.getElementById(tabName);
-            //document.getElementById(tabName).setAttribute("active", "true");
-            //$scope.lc[id] = !$scope.lc[id];
-            var newHash = "lc" + id_center + "dp" + id;
-            if ($location.hash() !== newHash) {
-                // set the $location.hash to `newHash` and
-                // $anchorScroll will automatically scroll to it
-                $location.hash(newHash);
-            } else {
-                // call $anchorScroll() explicitly,
-                // since $location.hash hasn't changed
-                //$anchorScroll();
-            }
+        $scope.closeCenterInfo = function () {
+            FoundationApi.publish('LCrepresentation', 'close');
         };
 
         $scope.add_marker_center = function(id, lat, lng, defStyle){
@@ -203,28 +180,6 @@ angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location',
                         events: {
                             click: function (marker, eventName, args) {
                                 openCenterInfo(id)
-                            }
-                        }
-                    };
-                    $scope.map.markers.push(marker);
-                });
-        };
-
-        $scope.add_marker_droppoint = function(id_center, id, lat, lng, defStyle){
-            DefinedStyle.get({id: defStyle},
-                function (result) {
-                    var marker = {
-                        id: "lc" + id_center + "dp" + id,
-                        coords: {
-                            latitude: lat,
-                            longitude: lng
-                        },
-                        options: {
-                            icon: result.dp.maps_url
-                        },
-                        events: {
-                            click: function (marker, eventName, args) {
-                                openDroppointTab(id_center, id)
                             }
                         }
                     };

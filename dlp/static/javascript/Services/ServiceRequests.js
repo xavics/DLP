@@ -93,3 +93,20 @@ myRequests.factory('Demo', ['$http', '$cacheFactory', function($http, $cacheFact
         }
     }
 }]);
+
+
+myRequests.factory('Galaxy', ['$http', '$cacheFactory', function($http, $cacheFactory) {
+    return{
+        fly_to : function(city, time) {
+            $cacheFactory.get('$http').remove('/fly_to');
+            return $http({
+                url: '/run_demo',
+                method: 'GET',
+                params: {
+                    city: city,
+                    time: time
+                }
+            })
+        }
+    }
+}]);

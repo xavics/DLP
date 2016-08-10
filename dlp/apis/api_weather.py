@@ -57,8 +57,9 @@ def generate_html(description, id_icon, lat, lon, temp, temp_max,
 
 
 def generate_image(html_path):
-    image_name = "images/temperature_{time}.png".format(
-        time=int(time.mktime(datetime.datetime.now().timetuple())))
+    # image_name = "images/temperature_{time}.png".format(
+    #     time=int(time.mktime(datetime.datetime.now().timetuple())))
+    image_name = "images/temperature.png"
     image_path = join(STATIC_ROOT, image_name)
     system(
         "cutycapt --url=file:{html} --out={image} --min-width=600 " \
@@ -66,20 +67,15 @@ def generate_image(html_path):
     return join("static", image_name)
 
 
-def can_fly():
-    try:
-        params = {'q': '3118514', 'units': 'metric', 'APPID': WEATHER_API_KEY}
-        url = 'http://api.openweathermap.org/data/2.5/weather'
-        response = requests.get(url=url, params=params)
-        data = json.loads(response.text)
-        if data['wind']['speed'] >= 10.0 or (data['rain']):
-            print data['wind']['speed']
-            print data['rain']
-            return False
-        else:
-            return True
-    except KeyError:
-        pass
+def can_fly(lat, lng):
+    json_data = get_weather_by_geo(lat, lng)
+    data = json_loads_byteified(json_data)
+    if data['wind']['speed'] >= 10.0 or (data['rain']):
+        print data['wind']['speed']
+        print data['rain']
+        return False
+    else:
+        return True
 
 
 # Extracted from

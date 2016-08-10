@@ -10,6 +10,7 @@ from celery.utils.log import get_task_logger
 
 from DLP.celery import app
 from DLP.settings import BASE_DIR
+from dlp.apis.api_weather import can_fly
 from dlp.file_manager.file_manager import get_site_url
 from dlp.galaxy_comunication.galaxy_comunication import send_kmls
 from dlp.kml_manager.kml_generator import create_transports_list, \
@@ -67,24 +68,28 @@ def manage_all_packets():
 
 def drones_availability(package):
     droppoint = package.drop_point
-    lc = LogisticCenter.objects.get(id=droppoint.logistic_center_id)
-    drones = Drone.objects.filter(
-        logistic_center_id=droppoint.logistic_center_id,
-        status=Drone.DroneStatus.WAITING)
-    for drone in drones:
-        package.status = Package.PackageStatus.SENDING
-        package.style_url = StyleURL.objects.get(id=SENDING_STYLE)
-        package.save()
-        drone.status = Drone.DroneStatus.DELIVERING
-        drone.save()
-        city = droppoint.logistic_center.city
-        origin = Point(lc.lat, lc.lng, lc.alt)
-        destiny = Point(droppoint.lat, droppoint.lng, droppoint.alt)
-        positions = get_drone_steps(origin, destiny, city)
-        json_pos = json.dumps([ob.__dict__ for ob in positions])
-        transport = create_transport(package, drone, lc, len(positions) * 2)
-        send_package.delay(drone.id, package.id, transport.id, json_pos)
-        break
+    city = droppoint.logistic_center.city
+    if can_fly(city.lat, city.lng):
+        lc = LogisticCenter.objects.get(id=droppoint.logistic_center_id)
+        drones = Drone.objects.filter(
+            logistic_center_id=droppoint.logistic_center_id,
+            status=Drone.DroneStatus.WAITING)
+        for drone in drones:
+            package.status = Package.PackageStatus.SENDING
+            package.style_url = StyleURL.objects.get(id=SENDING_STYLE)
+            package.save()
+            drone.status = Drone.DroneStatus.DELIVERING
+            drone.save()
+            city = droppoint.logistic_center.city
+            origin = Point(lc.lat, lc.lng, lc.alt)
+            destiny = Point(droppoint.lat, droppoint.lng, droppoint.alt)
+            positions = get_drone_steps(origin, destiny, city)
+            json_pos = json.dumps([ob.__dict__ for ob in positions])
+            transport = create_transport(package, drone, lc, len(positions) * 2)
+            send_package.delay(drone.id, package.id, transport.id, json_pos)
+            break
+    else:
+        logger.info("Weather inestable in {city}").format(city=city.name)
 
 
 def create_transport(package, drone, lc, max_steps):

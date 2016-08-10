@@ -75,9 +75,23 @@ def exit_tour(city):
     comunicate(message)
 
 
+def fly_to_view(city):
+    city_obj = City.objects.get(id=city)
+    message = "echo 'flytoview=<LookAt><longitude>{lng}</longitude>" \
+              "<latitude>{lat}</latitude><altitude>0</altitude>" \
+              "<heading>0</heading>" \
+              "<tilt>55</tilt>" \
+              "<range>5000</range>" \
+              "<altitudeMode>relativeToGround</altitudeMode>" \
+              "<gx:altitudeMode>relativeToSeaFloor</gx:altitudeMode>" \
+              "</LookAt>' > /tmp/query.txt".format(lng=city_obj.lng,
+                                                   lat=city_obj.lat)
+    comunicate(message)
+
+
 def comunicate(message):
     system("sshpass -p 'lqgalaxy' ssh lg@{lg_ip} \"{message}\"".format(
-            message=message, lg_ip=get_galaxy_ip()))
+        message=message, lg_ip=get_galaxy_ip()))
 
 
 def send_kmls():

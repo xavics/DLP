@@ -4,8 +4,8 @@
 angular.module('DLPApp').controller('GalaxyOptCntrll',['$scope', '$http', 'RefreshWeather', 'Tour', 'Demo', 'City', '$translate', '$timeout',
     function($scope, $http, RefreshWeather, Tour, Demo, City, $translate, $timeout){
         $scope.alert = {
-            'error': {'text': 'ERROR_UPDATING_FLYING_ALT', 'show': false},
-            'success': {'text': 'ERROR_UPDATING_FLYING_ALT', 'show': false}
+            'error': {'title': 'ERROR', 'text': 'ERROR_UPDATING_FLYING_ALT', 'show': false},
+            'success': {'title': 'SUCCESS', 'text': 'SUCCESS_UPDATING_FLYING_ALT', 'show': false}
         };
         $scope.closeAlert = function(key) {
             $scope.alert[key].show = false;
