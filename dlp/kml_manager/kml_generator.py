@@ -159,6 +159,8 @@ def placemark_variables(item):
         item.lat = item.drop_point.lat
         item.lng = item.drop_point.lng
         item.alt = item.drop_point.alt
+    if item.__class__.__name__ == DROPPOINT:
+        item.name = ""
     return {'name': item.name,
             'description': "Placemark {model}{id}".format(
                 model=item.__class__.__name__, id=item.id),
@@ -179,12 +181,15 @@ def get_style(item):
 
 def style_variables(item):
     style = get_style(item)
+    scale = 1
+    if item.__class__.__name__ == PACKAGE:
+        scale = 1.4
     return {
         'id': "style_{model}{id}".format(
             model=item.__class__.__name__, id=item.id),
         'icon': "{site_url}{st_url}".format(
             site_url=get_site_url(), st_url=style),
-        'scale': 1}
+        'scale': scale}
 
 
 def networklink_variables(item, deliver=False):
@@ -312,6 +317,12 @@ def create_packages_list():
 def remove_update(name):
     os.system("find {path} -type f -name '*{name}*' -delete".format(
         path=KMLS_UPDATES_PATH, name=name))
+
+
+def reload_persistent_files():
+    os.system("rm -r {path}*".format(path=KMLS_PERSISTENT_PATH))
+    create_droppoints_list()
+    create_logisticcenters_list()
 
 
 def remove_all_updates():

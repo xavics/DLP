@@ -4,7 +4,8 @@ from os.path import isfile, join
 from DLP.settings import STATIC_ROOT
 from dlp.file_manager.file_manager import get_site_url, get_galaxy_ip
 from dlp.kml_manager.kml_generator import KMLS_PERSISTENT_PATH, \
-    KMLS_UPDATES_PATH, KMLS_SLAVE_UPDATES_PATH, KMLS_SLAVE_PERS_PATH
+    KMLS_UPDATES_PATH, KMLS_SLAVE_UPDATES_PATH, KMLS_SLAVE_PERS_PATH, \
+    reload_persistent_files
 from dlp.models import City
 
 KMLS_TXT_PATH = join(STATIC_ROOT, "kmls/kmls.txt")
@@ -59,6 +60,19 @@ def sync_kmls_slave_file():
     kml_file.close()
 
 
+def empty_master_file():
+    kml_file = open(KMLS_TXT_PATH, 'w')
+    kml_file.write("")
+    kml_file.close()
+    # empty_slave_file()
+
+
+def empty_slave_file():
+    kml_file = open(KMLS_SLAVE_TXT_PATH, 'w')
+    kml_file.write("")
+    kml_file.close()
+
+
 def start_tour(city):
     city_obj = City.objects.get(id=city)
     message = "echo 'playtour=rotation_{city}' > /tmp/query.txt".format(
@@ -97,3 +111,9 @@ def comunicate(message):
 def send_kmls():
     create_kml_file()
     sync_kmls_to_galaxy()
+
+
+def send_empty_kmls():
+    empty_master_file()
+    sync_kmls_to_galaxy()
+    reload_persistent_files()

@@ -10,16 +10,25 @@ angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location',
         var cities_list = [];
         var stop;
         $scope.newCoords = {lat: 0.0, lng: 0.0};
-        $scope.select_coords = {active: false, deactivate: function(){
-            $scope.newCoords = {lat: 0.0, lng: 0.0};
-            $scope.select_coords.active = false;
-            var result = $scope.map.markers.findIndex(function( obj ) {
-                return obj.id == "latLngMk";
+        $scope.select_coords = {actives: []};
+        $scope.deactivate_coords = function(id){
+            var active = $scope.select_coords.actives.findIndex(function( obj ) {
+                return obj == id;
             });
-            if(result != -1) {
-                $scope.map.markers.splice(result, 1);
+            if(active != -1) {
+                $scope.select_coords.actives.splice(active, 1);
             }
-        }};
+            if($scope.select_coords.actives.length < 1){
+                var result = $scope.map.markers.findIndex(function( obj ) {
+                    return obj.id == "latLngMk";
+                });
+                if(result != -1) {
+                    $scope.map.markers.splice(result, 1);
+                }
+                $scope.newCoords = {lat: 0.0, lng: 0.0};
+            }
+        };
+
         City.get({},
             function (data) {
                 data.results.forEach(function(city) {
@@ -50,7 +59,7 @@ angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location',
                                 events: {
                                     click: function (map, eventName, args) {
                                         $scope.$apply(function () {
-                                            if($scope.select_coords.active) {
+                                            if($scope.select_coords.actives.length > 0) {
                                                 latLng = args[0].latLng;
                                                 $scope.openMarker(latLng.lat(), latLng.lng())
                                             }

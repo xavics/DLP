@@ -36,9 +36,12 @@
                         <a ng-click="cancel()" class="warning hollow button">
                             <i class="fa fa-ban" aria-hidden="true"></i> {{ 'CANCEL' | translate }}
                         </a>
-                        <a ng-click="change_select()" class="hollow button">
-                            <i class="fa fa-trash" aria-hidden="true"></i> {{ is_selecting }}
-                        </a>
+                    </div>
+                </div>
+                <div class="grid-block">
+                    <div style="text-align: center; width: 100%;">
+                        <a class="button" ng-hide="is_selecting" ng-click="change_selecting()"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ 'SELECT' | translate }}</a>
+                        <a class="alert button" ng-show="is_selecting" ng-click="change_selecting()"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ 'UNSELECT' | translate }}</a>
                     </div>
                 </div>
             </div>

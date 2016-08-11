@@ -10,7 +10,7 @@ from DLP.settings import MAPS_API_KEY
 from dlp.apis.api_weather import generate_weather_image
 from dlp.file_manager.file_manager import get_site_url
 from dlp.galaxy_comunication.galaxy_comunication import send_kmls, start_tour, \
-    exit_tour, fly_to_view
+    exit_tour, fly_to_view, send_empty_kmls
 from dlp.kml_manager.kml_generator import create_updates, TMP, \
     LOGISTICCENTER, DROPPOINT, remove_update, create_weather_kml, WEATHER, \
     SLAVE, KMLS_SLAVE_PERS_PATH, SLAVE_UPDATES, create_rotation_kml, create_kml
@@ -44,6 +44,7 @@ def receive_position(request):
         'id': "Transport{id}".format(id=id_trans),
         'icon': "{url}static/images/galaxy_icons/drone.png".format(
             url=get_site_url()),
+        'scale': 1.5,
         'name': "Transport {id}".format(id=id_trans),
         'description': "Drone transporting packet.",
         'lat': lat,
@@ -139,6 +140,14 @@ def stop_tour(request):
 def fly_to(request):
     city_id = request.GET.get("city")
     fly_to_view(city_id)
+    return HttpResponse(status=204)
+
+
+@never_cache
+def refresh_kmls(request):
+    city_id = request.GET.get("city")
+    send_empty_kmls()
+    create_rotation_kml(city_id)
     return HttpResponse(status=204)
 
 

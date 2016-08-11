@@ -19,11 +19,11 @@
                 </select>
             </li>
         </ul>
-        <header>{{ 'ADMINISTRATION' | translate }}</header>
+        <header>{{ 'KML_MANAGER' | translate }}</header>
         <ul>
             <li>
-                <a href="admin" class="expand hollow button info">
-                    <i class="fa fa-user-secret" aria-hidden="true"></i> {{ 'ADMINISTRATION' | translate }}</a>
+                <a ng-click="refresh_points(main_city.id)" class="expand hollow button">
+                    <i class="fa fa-refresh" aria-hidden="true"></i> {{ 'REFRESH' | translate }}</a>
             </li>
         </ul>
     </section>
@@ -60,11 +60,11 @@
             <li>
                 <input type="number" placeholder="Number" ng-model="main_city.flying_altitude">
                 <div data-alert class="alert-box alert" ng-show="alert.error.show">
-                    <strong>{{ alert.title | translate }} </strong>{{ alert.error.text }}
+                    <strong>{{ alert.title | translate }} </strong>{{ alert.error.text | translate }}
                     <a ng-click="closeAlert('description')" class="close">&times;</a>
                 </div>
                 <div data-alert class="alert-box success" ng-show="alert.success.show">
-                    <strong>{{ alert.title | translate }} </strong>{{ alert.success.text }}
+                    <strong>{{ alert.title | translate }} </strong>{{ alert.success.text | translate }}
                     <a ng-click="closeAlert('description')" class="close">&times;</a>
                 </div>
             </li>

@@ -7,8 +7,6 @@
             <div id="loading-bar-container"></div>
         </div>
         <div class="grid-block" style="overflow: hidden !important;">
-            <a class="button" ng-hide="select_coords.active" ng-click="select_coords.active = true" style="position: absolute; z-index: 1; right: 0; margin-top: 10px;"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ 'SELECT' | translate }}</a>
-            <a class="alert button" ng-show="select_coords.active" ng-click="select_coords.deactivate()" style="position: absolute; z-index: 1; right: 0; margin-top: 10px;"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ 'UNSELECT' | translate }}</a>
             <zf-panel position="left" zf-ignore-all-close="" id="LCrepresentation" class="panel-left">
                 <a zf-close="LCrepresentation" class="close-button">×</a>
                 <div ng-include="'/static/templates/logistic_center_accordion.html'"></div>

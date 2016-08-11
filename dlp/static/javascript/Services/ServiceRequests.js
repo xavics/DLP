@@ -100,7 +100,18 @@ myRequests.factory('Galaxy', ['$http', '$cacheFactory', function($http, $cacheFa
         fly_to : function(city, time) {
             $cacheFactory.get('$http').remove('/fly_to');
             return $http({
-                url: '/run_demo',
+                url: '/fly_to',
+                method: 'GET',
+                params: {
+                    city: city,
+                    time: time
+                }
+            })
+        },
+        refresh_kmls : function(city, time) {
+            $cacheFactory.get('$http').remove('/refresh_kmls');
+            return $http({
+                url: '/refresh_kmls',
                 method: 'GET',
                 params: {
                     city: city,

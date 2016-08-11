@@ -24,14 +24,23 @@ angular.module('DLPApp').controller('CreateLCCntrll',['$scope', 'LogisticCenter'
             'defined_style': {'field': 'STYLE', 'text': 'REQUIRED', 'show': false},
             'description': {'field': 'DESCRIPTION', 'text': 'REQUIRED', 'show': false},
         };
-        $scope.$watch('newCoords.lat', function() {
-            if($scope.newCoords.lat != 0)
+        $scope.is_selecting = false;
+        $scope.$watch('newCoords.lat', function () {
+            if ($scope.is_selecting)
                 $scope.newCenter.lat = $scope.newCoords.lat;
         });
-        $scope.$watch('newCoords.lng', function() {
-            if($scope.newCoords.lat != 0)
+        $scope.$watch('newCoords.lng', function () {
+            if ($scope.is_selecting)
                 $scope.newCenter.lng = $scope.newCoords.lng;
         });
+
+        $scope.change_selecting = function(){
+            $scope.is_selecting = !$scope.is_selecting;
+            if($scope.is_selecting)
+                $scope.select_coords.actives.push("lcnew");
+            else
+                $scope.deactivate_coords("lcnew")
+        };
         $scope.create_new_center = function(){
             $scope.newCenter.city = $scope.main_city.id;
             $scope.newCenter.$save().then(
@@ -39,7 +48,8 @@ angular.module('DLPApp').controller('CreateLCCntrll',['$scope', 'LogisticCenter'
                     $scope.logistic_centers.push(result);
                     init();
                     UpdateLc.lc();
-                    $scope.select_coords.active = false;
+                    if($scope.is_selecting)
+                        $scope.change_selecting();
                 },
                 function(data){
                     clean_errors();

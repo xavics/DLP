@@ -14,8 +14,12 @@ angular.module('DLPApp').controller('UpdateDpCntrll',['$scope', 'Droppoint', '$m
                 $scope.droppoint.lng = $scope.newCoords.lng;
         });
 
-        $scope.change_select = function(){
+        $scope.change_selecting = function(){
             $scope.is_selecting = !$scope.is_selecting;
+            if($scope.is_selecting)
+                $scope.select_coords.actives.push("lc" + $scope.droppoint.id);
+            else
+                $scope.deactivate_coords("lc" + $scope.droppoint.id)
         };
 
         $scope.update_droppoint = function(){
@@ -29,6 +33,8 @@ angular.module('DLPApp').controller('UpdateDpCntrll',['$scope', 'Droppoint', '$m
                     .then(function (result) {
                         $scope.$parent.changeMode();
                         UpdateDp.dp();
+                        if($scope.is_selecting)
+                            $scope.change_selecting();
                     })
             })
         };
@@ -42,6 +48,8 @@ angular.module('DLPApp').controller('UpdateDpCntrll',['$scope', 'Droppoint', '$m
 
         $scope.cancel = function(){
             $scope.restore_droppoint();
+            if($scope.is_selecting)
+                $scope.change_selecting();
             $scope.$parent.changeMode();
         }
     }]);

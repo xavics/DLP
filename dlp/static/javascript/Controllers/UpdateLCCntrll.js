@@ -21,14 +21,23 @@ angular.module('DLPApp').controller('UpdateLCCntrll',['$scope', 'LogisticCenter'
             'description': {'field': 'DESCRIPTION', 'text': 'REQUIRED', 'show': false},
         };
         $scope.center_backup = angular.copy($scope.$parent.center);
-        $scope.$watch('newCoords.lat', function() {
-            if($scope.newCoords.lat != 0)
+        $scope.is_selecting = false;
+        $scope.$watch('newCoords.lat', function () {
+            if ($scope.is_selecting)
                 $scope.center.lat = $scope.newCoords.lat;
         });
-        $scope.$watch('newCoords.lng', function() {
-            if($scope.newCoords.lng != 0)
+        $scope.$watch('newCoords.lng', function () {
+            if ($scope.is_selecting)
                 $scope.center.lng = $scope.newCoords.lng;
         });
+
+        $scope.change_selecting = function(){
+            $scope.is_selecting = !$scope.is_selecting;
+            if($scope.is_selecting)
+                $scope.select_coords.actives.push("dp" + $scope.center.id);
+            else
+                $scope.deactivate_coords("dp" + $scope.center.id)
+        };
         $scope.update_center = function(){
             var update_lc = LogisticCenter.get({id: $scope.center.id}, function(){
                 update_lc.name = $scope.center.name;
@@ -42,6 +51,8 @@ angular.module('DLPApp').controller('UpdateLCCntrll',['$scope', 'LogisticCenter'
                     .then(function(result){
                             $scope.center_backup = angular.copy($scope.center);
                             $scope.$parent.modify_mode_lc($scope.center.id, 'default');
+                            if($scope.is_selecting)
+                                $scope.change_selecting();
                         },
                         function(data){
                             clean_errors();
@@ -70,7 +81,8 @@ angular.module('DLPApp').controller('UpdateLCCntrll',['$scope', 'LogisticCenter'
             $scope.$parent.center.city = angular.copy($scope.center_backup.city);
             $scope.$parent.center.defined_style = angular.copy($scope.center_backup.defined_style);
             $scope.$parent.modify_mode_lc($scope.center.id, 'default');
-            $scope.select_coords.deactivate();
+            if($scope.is_selecting)
+                $scope.change_selecting();
             UpdateLc.lc()
         }
     }]);

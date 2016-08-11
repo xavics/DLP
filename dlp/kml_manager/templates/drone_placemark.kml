@@ -5,8 +5,8 @@
 			<IconStyle>
 				<Icon>
 					<href>{icon}</href>
-					<scale>4.0</scale>
 				</Icon>
+				<scale>{scale}</scale>
 			</IconStyle>
 		</Style>
 		<Placemark>

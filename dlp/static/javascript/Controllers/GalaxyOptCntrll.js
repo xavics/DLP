@@ -1,8 +1,8 @@
 /**
  * Created by xavi on 12/06/16.
  */
-angular.module('DLPApp').controller('GalaxyOptCntrll',['$scope', '$http', 'RefreshWeather', 'Tour', 'Demo', 'City', '$translate', '$timeout',
-    function($scope, $http, RefreshWeather, Tour, Demo, City, $translate, $timeout){
+angular.module('DLPApp').controller('GalaxyOptCntrll',['$scope', '$http', 'RefreshWeather', 'Tour', 'Demo', 'City', '$translate', '$timeout', 'Galaxy',
+    function($scope, $http, RefreshWeather, Tour, Demo, City, $translate, $timeout, Galaxy){
         $scope.alert = {
             'error': {'title': 'ERROR', 'text': 'ERROR_UPDATING_FLYING_ALT', 'show': false},
             'success': {'title': 'SUCCESS', 'text': 'SUCCESS_UPDATING_FLYING_ALT', 'show': false}
@@ -26,6 +26,9 @@ angular.module('DLPApp').controller('GalaxyOptCntrll',['$scope', '$http', 'Refre
         };
         $scope.run_demo = function(){
             Demo.demo()
+        };
+        $scope.refresh_points = function(city){
+            Galaxy.refresh_kmls(city, Date.now());
         };
         $scope.update_city = function(){
             $scope.main_city.$update()

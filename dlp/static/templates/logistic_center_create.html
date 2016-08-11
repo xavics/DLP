@@ -34,8 +34,8 @@
         </div>
         <div class="small-4 grid-block align-right wrap">
             <div class="v-align" style="padding-top: 10px;">
-                <a class="button" ng-hide="select_coords.active" ng-click="select_coords.active = true"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ 'SELECT' | translate }}</a>
-                <a class="alert button" ng-show="select_coords.active" ng-click="select_coords.deactivate()"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ 'UNSELECT' | translate }}</a>
+                <a class="button" ng-hide="is_selecting" ng-click="change_selecting()"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ 'SELECT' | translate }}</a>
+                <a class="alert button" ng-show="is_selecting" ng-click="change_selecting()"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ 'UNSELECT' | translate }}</a>
             </div>
         </div>
         <div class="small-12 medium-6 grid-content">

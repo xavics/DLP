@@ -1,4 +1,6 @@
 import json
+import os
+
 import requests
 from os.path import dirname, join, abspath
 from os import system
@@ -27,27 +29,30 @@ def generate_weather_image(city):
     city = City.objects.get(id=city)
     json_data = get_weather_by_geo(city.lat, city.lng)
     data = json_loads_byteified(json_data)
+    print data
     html_path = generate_html(
-        data['weather'][0]['description'],
+        city.name, data['weather'][0]['description'],
         data['weather'][0]['icon'], data['coord']['lat'],
         data['coord']['lon'], data['main']['temp'],
         data['main']['temp_max'], data['main']['temp_min'],
         data['wind']['speed'], data['clouds']['all'],
-        data['main']['pressure'], data['main']['humidity'])
+        data['main']['pressure'], data['main']['humidity']
+    )
     image_path = generate_image(html_path)
     return image_path
 
 
-def generate_html(description, id_icon, lat, lon, temp, temp_max,
+def generate_html(name, description, id_icon, lat, lon, temp, temp_max,
                   temp_min, wind, cloud, pressure, humidity):
     base = open(TEMPLATE_PATH, "r")
     print "reading"
     string_file = base.read()
     generated_html = string_file.format(
-        icon=str(id_icon), desc=description.title(), lat=str(lat),
+        city=name, icon=str(id_icon), desc=description.title(), lat=str(lat),
         lon=str(lon), temp=str(temp), temp_max=str(temp_max),
         temp_min=str(temp_min), cloud=str(cloud), wind=str(wind),
-        pressure=str(pressure), humidity=str(humidity))
+        pressure=str(pressure), humidity=str(humidity)
+    )
     base.close()
     html_path = join(GENERATED_PATH, "temperature.html")
     temp = open(html_path, "w")
@@ -57,10 +62,10 @@ def generate_html(description, id_icon, lat, lon, temp, temp_max,
 
 
 def generate_image(html_path):
-    # image_name = "images/temperature_{time}.png".format(
-    #     time=int(time.mktime(datetime.datetime.now().timetuple())))
-    image_name = "images/temperature.png"
+    image_name = "images/temperature_{time}.png".format(
+        time=int(time.mktime(datetime.datetime.now().timetuple())))
     image_path = join(STATIC_ROOT, image_name)
+    remove_update_temp(join(STATIC_ROOT, "images"))
     system(
         "cutycapt --url=file:{html} --out={image} --min-width=600 " \
         "--min-height=250".format(html=html_path, image=image_path))
@@ -70,12 +75,19 @@ def generate_image(html_path):
 def can_fly(lat, lng):
     json_data = get_weather_by_geo(lat, lng)
     data = json_loads_byteified(json_data)
+    print data
     if data['wind']['speed'] >= 10.0 or (data['rain']):
         print data['wind']['speed']
         print data['rain']
         return False
     else:
         return True
+
+
+def remove_update_temp(image_path):
+    print image_path
+    os.system("find {path} -type f -name '*{name}*' -delete".format(
+        path=image_path, name="temperature"))
 
 
 # Extracted from

@@ -60,7 +60,10 @@ angular.module('DLPApp').config(['$translateProvider', function ($translateProvi
         'SUCCESS': 'Correcto',
         'ERROR_UPDATING_FLYING_ALT': 'Flying altitude cannot be updated with this value',
         'SUCCESS_UPDATING_FLYING_ALT': 'Flying altitude have been updated',
-        'UPDATE': 'Update'
+        'UPDATE': 'Update',
+        'UNSELECT': 'Unselect',
+        'KML_MANAGER': 'KML Administration',
+        'REFRESH': 'Refresh'
     });
 
     $translateProvider.translations('es', {
@@ -121,7 +124,10 @@ angular.module('DLPApp').config(['$translateProvider', function ($translateProvi
         'SUCCESS': 'Correcto',
         'ERROR_UPDATING_FLYING_ALT': 'La altitud de vuelo no ha podido ser actualizada',
         'SUCCESS_UPDATING_FLYING_ALT': 'La altitud de vuelo ha sido actualizada',
-        'UPDATE': 'Actualizar'
+        'UPDATE': 'Actualizar',
+        'UNSELECT': 'Cancelar',
+        'KML_MANAGER': 'Administracion KML',
+        'REFRESH': 'Actualizar'
     });
     $translateProvider.preferredLanguage('en');
 }]);

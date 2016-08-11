@@ -44,7 +44,8 @@ urlpatterns = [
     url(r'^play_tour$', views.play_tour),
     url(r'^stop_tour$', views.stop_tour),
     url(r'^fly_to$', views.fly_to),
-    url(r'^run_demo', views.run_demo)
+    url(r'^run_demo', views.run_demo),
+    url(r'^refresh_kmls', views.refresh_kmls)
     # url(r'^api-auth/',
     #     include('rest_framework.urls', namespace='rest_framework')),
 ]
