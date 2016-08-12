@@ -75,13 +75,14 @@ def generate_image(html_path):
 def can_fly(lat, lng):
     json_data = get_weather_by_geo(lat, lng)
     data = json_loads_byteified(json_data)
-    print data
-    if data['wind']['speed'] >= 10.0 or (data['rain']):
-        print data['wind']['speed']
-        print data['rain']
-        return False
-    else:
-        return True
+    available = True
+    if "wind" in data:
+        if "speed" in data["wind"]:
+            if data['wind']['speed'] >= 10.0:
+                available = False
+    if "rain" in data:
+        available = False
+    return available
 
 
 def remove_update_temp(image_path):
