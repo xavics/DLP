@@ -53,6 +53,10 @@ angular.module('DLPApp').controller('UpdateLCCntrll',['$scope', 'LogisticCenter'
                             $scope.$parent.modify_mode_lc($scope.center.id, 'default');
                             if($scope.is_selecting)
                                 $scope.change_selecting();
+                            var markerId = "lc" + $scope.center.id
+                            $scope.edit_marker(markerId, result.lat, result.lng);
+                            if($scope.is_selecting)
+                                $scope.change_selecting();
                         },
                         function(data){
                             clean_errors();

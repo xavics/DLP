@@ -1,51 +1,66 @@
-<table style="width: 100%;">
-    <thead>
-    <tr>
-        <th colspan="3"><input type="text" ng-model="droppoint.name" value="{{ droppoint.name }}"></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <th colspan="1">{{ 'LATITUDE' | translate }}</th>
-        <th colspan="1">{{ 'LONGITUDE' | translate }}</th>
-        <th colspan="1">{{ 'ALTITUDE' | translate }}</th>
-    </tr>
-    <tr>
-        <td colspan="1"><input type="text" ng-model="droppoint.lat" value="{{ droppoint.lat }}"></td>
-        <td colspan="1"><input type="text" ng-model="droppoint.lng" value="{{ droppoint.lng }}"></td>
-        <td colspan="1"><input type="text" ng-model="droppoint.alt" value="{{ droppoint.alt }}"></td>
-    </tr>
-    <tr>
-        <th colspan="3">{{ 'DESCRIPTION' | translate }}</th>
-    </tr>
-    <tr>
-        <td colspan="3"><textarea ng-model="droppoint.description" placeholder="{{ droppoint.description }}"></textarea></td>
-    </tr>
-    <tr>
-        <td colspan="3" class="centered_td">
-            <div class="grid-block">
-                <div class="grid-block">
-                    <div style="text-align: center; width: 100%;">
-                        <a ng-click="update_droppoint()" class="success hollow button">
-                            <i class="fa fa-pencil-square" aria-hidden="true"></i> {{ 'SAVE' | translate }}
-                        </a>
-                    </div>
-                </div>
-                <div class="grid-block">
-                    <div style="text-align: center; width: 100%;">
-                        <a ng-click="cancel()" class="warning hollow button">
-                            <i class="fa fa-ban" aria-hidden="true"></i> {{ 'CANCEL' | translate }}
-                        </a>
-                    </div>
-                </div>
-                <div class="grid-block">
-                    <div style="text-align: center; width: 100%;">
-                        <a class="button" ng-hide="is_selecting" ng-click="change_selecting()"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ 'SELECT' | translate }}</a>
-                        <a class="alert button" ng-show="is_selecting" ng-click="change_selecting()"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ 'UNSELECT' | translate }}</a>
-                    </div>
-                </div>
+<form style="border-bottom: #a8c5ff solid 2px;">
+    <div class="grid-block wrap">
+        <div class="small-12 grid-content">
+            <label>{{ 'NAME' | translate }}</label>
+            <input type="text" class="no-bottom-margin"  ng-model="droppoint.name" value="{{ droppoint.name }}" placeholder="{{ 'NAME' | translate }}">
+            <div data-alert class="alert-box alert" ng-show="errors.name.show">
+                <strong>{{ errors.name.field | translate }} </strong>{{ errors.name.text }}
+                <a ng-click="closeAlert('name')" class="close">&times;</a>
             </div>
-        </td>
-    </tr>
-    </tbody>
-</table>
+        </div>
+    </div>
+    <div class="small-12 grid-content">
+        <label>{{ 'DESCRIPTION' | translate }}</label>
+        <textarea ng-model="droppoint.description" class="no-bottom-margin" placeholder="{{ 'DESCRIPTION' | translate }}" rows="3">{{ droppoint.description }}</textarea>
+        <div data-alert class="alert-box alert" ng-show="errors.description.show">
+            <strong>{{ errors.description.field | translate }} </strong>{{ errors.description.text }}
+            <a ng-click="closeAlert('description')" class="close">&times;</a>
+        </div>
+    </div>
+    <div class="grid-block wrap">
+        <div class="small-8 grid-content">
+            <h5>{{ 'COORDINATES' | translate }}</h5>
+        </div>
+        <div class="small-8 grid-content">
+            <h5><small>{{ 'INFORMATION_COORD' | translate }}</small></h5>
+        </div>
+        <div class="small-4 grid-block align-right wrap">
+            <div class="v-align" style="padding-top: 10px;">
+                <a class="button" ng-hide="is_selecting" ng-click="change_selecting()"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ 'SELECT' | translate }}</a>
+                <a class="alert button" ng-show="is_selecting" ng-click="change_selecting()"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ 'UNSELECT' | translate }}</a>
+            </div>
+        </div>
+        <div class="small-12 medium-4 grid-content">
+            <label>{{ 'LATITUDE' | translate }}</label>
+            <input class="no-bottom-margin" type="number" ng-model="droppoint.lat" value="{{ droppoint.lat }}" placeholder="{{ 'LATITUDE' | translate }}">
+            <div data-alert class="alert-box alert" ng-show="errors.lat.show">
+                <strong>{{ errors.lat.field | translate }} </strong>{{ errors.lat.text }}
+                <a ng-click="closeAlert('lat')" class="close">&times;</a>
+            </div>
+        </div>
+        <div class="small-12 medium-4 grid-content">
+            <label>{{ 'LONGITUDE' | translate }}</label>
+            <input class="no-bottom-margin" type="number" ng-model="droppoint.lng" value="{{ droppoint.lng }}" placeholder="{{ 'LONGITUDE' | translate }}">
+            <div data-alert class="alert-box alert" ng-show="errors.lng.show">
+                <strong>{{ errors.lng.field | translate }} </strong>{{ errors.lng.text }}
+                <a ng-click="closeAlert('lng')" class="close">&times;</a>
+            </div>
+        </div>
+        <div class="small-12 medium-4 grid-content">
+            <label>{{ 'ALTITUDE' | translate }}</label>
+            <input class="no-bottom-margin" type="number" ng-model="droppoint.alt" value="{{ droppoint.alt }}" placeholder="{{ 'ALTITUDE' | translate }}">
+            <div data-alert class="alert-box alert" ng-show="errors.alt.show">
+                <strong>{{ errors.alt.field | translate }} </strong>{{ errors.alt.text }}
+                <a ng-click="closeAlert('alt')" class="close">&times;</a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-block wrap">
+        <div class="small-12 grid-content" style="text-align: right; padding-top: 10px;">
+            <a ng-click="update_droppoint()" class="success hollow button">
+                <i class="fa fa-floppy-o" aria-hidden="true"></i> {{ 'SAVE' | translate }}</a>
+            <a ng-click="cancel()" class="warning hollow button">
+                <i class="fa fa-ban" aria-hidden="true"></i> {{ 'CANCEL' | translate }}</a>
+        </div>
+    </div>
+</form>

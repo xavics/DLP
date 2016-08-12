@@ -112,7 +112,7 @@ html, body, #map_canvas {
 
 
 .tab-content{
-    max-height: 500px;
+    max-height: 600px;
     overflow-y: auto
 }
 

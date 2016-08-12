@@ -60,8 +60,8 @@ angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location',
                                     click: function (map, eventName, args) {
                                         $scope.$apply(function () {
                                             if($scope.select_coords.actives.length > 0) {
-                                                latLng = args[0].latLng;
-                                                $scope.openMarker(latLng.lat(), latLng.lng())
+                                                latLng = args[0].latLng.toUrlValue().split(",");
+                                                $scope.openMarker(parseFloat(latLng[0]), parseFloat(latLng[1]))
                                             }
                                         });
                                     }
@@ -226,6 +226,25 @@ angular.module('DLPApp').controller('IndexCntrll',['$anchorScroll', '$location',
             }
             $scope.newCoords.lat = lat;
             $scope.newCoords.lng = lng;
+        };
+
+        $scope.edit_marker = function(id, lat, lng){
+            var result = $scope.map.markers.findIndex(function( obj ) {
+                return obj.id == id;
+            });
+            if(result != -1) {
+                    $scope.map.markers[result].coords.latitude = lat;
+                    $scope.map.markers[result].coords.longitude = lng;
+            }
+        };
+
+        $scope.delete_marker = function(id){
+            var result = $scope.map.markers.findIndex(function( obj ) {
+                return obj.id == id;
+            });
+            if(result != -1) {
+                $scope.map.markers.splice(result, 1);
+            }
         };
 
         $scope.getLocation = function(val) {

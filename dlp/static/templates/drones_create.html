@@ -3,23 +3,34 @@
         <accordion-heading>
             <i class="fa fa-plus" aria-hidden="true"></i> {{ 'CREATE_NEW' | translate }} {{ 'DRONE' | translate }}
         </accordion-heading>
-        <div class="grid-block">
-            <div class="small-12 medium-5 grid-content">
-                <label>
-                    {{ 'PLATE' | translate }}
-                    <input type="text" ng-model="newDrone.plate" placeholder="{{ 'PLATE' | translate }}">
-                </label>
+        <form style="border-bottom: #a8c5ff solid 2px;">
+            <div class="grid-block wrap">
+                <div class="small-12 grid-content">
+                    <h5>{{ 'NEW' | translate }} {{ 'DRONE' | translate }}</h5>
+                </div>
+                <div class="small-12 medium-6 grid-content">
+                    <label>{{ 'PLATE' | translate }}</label>
+                    <input class="no-bottom-margin" type="number" ng-model="newDrone.plate" placeholder="{{ 'PLATE' | translate }}">
+                    <div data-alert class="alert-box alert" ng-show="errors.plate.show">
+                        <strong>{{ errors.plate.field | translate }} </strong>{{ errors.plate.text }}
+                        <a ng-click="closeAlert('plate')" class="close">&times;</a>
+                    </div>
+                </div>
+                <div class="small-12 medium-6 grid-content">
+                    <label>{{ 'MODEL' | translate }}</label>
+                    <input class="no-bottom-margin" type="number" ng-model="newDrone.model" placeholder="{{ 'MODEL' | translate }}">
+                    <div data-alert class="alert-box alert" ng-show="errors.model.show">
+                        <strong>{{ errors.model.field | translate }} </strong>{{ errors.model.text }}
+                        <a ng-click="closeAlert('model')" class="close">&times;</a>
+                    </div>
+                </div>
             </div>
-            <div class="small-12 medium-4 grid-content">
-                <label>
-                    {{ 'MODEL' | translate }}
-                    <input type="text" ng-model="newDrone.model" placeholder="{{ 'MODEL' | translate }}">
-                </label>
+            <div class="grid-block wrap">
+                <div class="grid-content" style="text-align: right; padding-top: 10px; padding-bottom: 10px;">
+                    <a ng-click="create_new_drone()" class="large success hollow button align-right" style="margin: 0">
+                        <i class="fa fa-floppy-o" aria-hidden="true"></i> {{ 'SAVE' | translate }}</a>
+                </div>
             </div>
-            <div class="small-12 medium-3 grid-content" style="text-align: center; position: absolute; bottom: 0;">
-                <a ng-click="create_new_drone()" class="small success hollow button">
-                    <i class="fa fa-floppy-o" aria-hidden="true"></i> {{ 'SAVE' | translate }}</a>
-            </div>
-        </div>
+        </form>
     </accordion-group>
 </accordion>

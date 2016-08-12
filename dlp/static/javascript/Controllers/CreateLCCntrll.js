@@ -46,10 +46,11 @@ angular.module('DLPApp').controller('CreateLCCntrll',['$scope', 'LogisticCenter'
             $scope.newCenter.$save().then(
                 function(result){
                     $scope.logistic_centers.push(result);
-                    init();
                     UpdateLc.lc();
+                    $scope.add_marker_center(result.id, result.lat, result.lng, result.defined_style);
                     if($scope.is_selecting)
                         $scope.change_selecting();
+                    init();
                 },
                 function(data){
                     clean_errors();

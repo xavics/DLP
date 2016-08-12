@@ -67,7 +67,7 @@
         <div class="small-12 medium-6 grid-content">
             <label>{{ 'STYLE' | translate }}</label>
             <select class="no-bottom-margin" ng-model="center.defined_style">
-                <option style="background-color: {{ opt.name }}" ng-repeat="opt in def_style" ng-value="opt.id" ng-selected="center.defined_style == opt.id">{{ opt.id }}</option>
+                <option style="background-color: {{ item.name }}; color: white;" ng-repeat="item in def_style" value="{{ item.id }}"  ng-selected="center.defined_style == center.defined_style">{{ item.name }}</option>
             </select>
             <div data-alert class="alert-box alert" ng-show="errors.defined_style.show">
                 <strong>{{ errors.defined_style.field | translate }} </strong>{{ errors.defined_style.text }}

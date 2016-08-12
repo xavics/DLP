@@ -1,33 +1,33 @@
-<table style="width: 100%;">
-    <thead>
-    <tr>
-        <th colspan="6">{{ 'DRONE' | translate }} {{ drone.id }}</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <th style="width: 15%;">{{ 'PLATE' | translate }}</th>
-        <td style="width: 30%;"><input type="text" style="height: 25px; max-width: 160px; margin: 0 !important;" ng-model="drone.plate" value="{{ drone.plate }}"></td>
-        <th style="width: 25%;">{{ 'ISTRANSPORTING' | translate }}</th>
-        <td style="width: 10%;">{{ drone.status }}</td>
-        <td rowspan="2" class="centered_td" style="width: 15%;">
-            <h1>
-                <a ng-click="update_drone()" class="default">
-                    <i class="fa fa-floppy-o" aria-hidden="true"></i> </a>
-            </h1>
-        </td>
-        <td rowspan="2" class="centered_td" style="width: 15%;">
-            <h1>
-                <a ng-click="changeMode('default')" style="color:orange">
-                    <i class="fa fa-ban" aria-hidden="true"></i> </a>
-            </h1>
-        </td>
-    </tr>
-    <tr>
-        <th style="width: 15%;">{{ 'MODEL' | translate }}</th>
-        <td style="width: 30%;"><input type="text" style="height: 25px; max-width: 160px; margin: 0 !important;" ng-model="drone.model" value="{{ drone.model }}"></td>
-        <th style="width: 25%;">{{ 'BATTERY' | translate }}</th>
-        <td style="width: 10%;">{{ drone.battery_life }}</td>
-    </tr>
-    </tbody>
-</table>
+<form style="border-bottom: #a8c5ff solid 2px;">
+    <div class="grid-block wrap" style="margin-top: 5px;">
+        <div class="small-12 grid-content">
+            <h4>{{ 'DRONE' | translate }} {{ drone.id }}</h4>
+        </div>
+    </div>
+    <div class="grid-block wrap">
+        <div class="small-12 medium-6 grid-content">
+            <label>{{ 'PLATE' | translate }}</label>
+            <input type="text" class="no-bottom-margin"  ng-model="drone.plate" value="{{ drone.plate }}" placeholder="{{ 'PLATE' | translate }}">
+            <div data-alert class="alert-box alert" ng-show="errors.plate.show">
+                <strong>{{ errors.plate.field | translate }} </strong>{{ errors.plate.text }}
+                <a ng-click="closeAlert('plate')" class="close">&times;</a>
+            </div>
+        </div>
+        <div class="small-12 medium-6 grid-content">
+            <label>{{ 'MODEL' | translate }}</label>
+            <input type="text" class="no-bottom-margin"  ng-model="drone.model" value="{{ drone.model }}" placeholder="{{ 'MODEL' | translate }}">
+            <div data-alert class="alert-box alert" ng-show="errors.model.show">
+                <strong>{{ errors.model.field | translate }} </strong>{{ errors.model.text }}
+                <a ng-click="closeAlert('model')" class="close">&times;</a>
+            </div>
+        </div>
+    </div>
+    <div class="grid-block wrap">
+        <div class="small-12 grid-content" style="text-align: right; padding-top: 10px;">
+            <a ng-click="update_drone()" class="success hollow button">
+                <i class="fa fa-floppy-o" aria-hidden="true"></i> {{ 'SAVE' | translate }}</a>
+            <a ng-click="changeMode('default')" class="warning hollow button">
+                <i class="fa fa-ban" aria-hidden="true"></i> {{ 'CANCEL' | translate }}</a>
+        </div>
+    </div>
+</form>

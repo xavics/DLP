@@ -1,22 +1,16 @@
-<table style="width: 100%;">
-    <thead>
-    <tr>
-        <th colspan="6">{{ droppoint.name }}</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <th class="centered_td" colspan="2">{{ 'DELETE_ALERT' | translate }} {{ 'DROPPOINT' | translate }}?</th>
-    </tr>
-    <tr>
-        <td class="right-td">
-            <a ng-click="delete_droppoint()" class="alert hollow button">
-                <i class="fa fa-trash" aria-hidden="true"></i> {{ 'DELETE' | translate }}</a>
-        </td>
-        <td class="left-td">
-            <a ng-click="changeMode('default')" class="default hollow button">
-                <i class="fa fa-ban" aria-hidden="true"></i> {{ 'CANCEL' | translate }}</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<div class="vertical grid-block wrap" style="border-bottom: #a8c5ff solid 2px;">
+    <div class="grid-block wrap" style="margin-top: 5px;">
+        <div class="small-12 grid-content">
+            <h4>{{ droppoint.name }}</h4>
+        </div>
+    </div>
+    <div class="align-center grid-block small-12 wrap">
+        <h5>{{ 'DELETE_ALERT' | translate }} {{ 'DROPPOINT' | translate }}?</h5>
+    </div>
+    <div class="grid-block small-12 align-center">
+        <a ng-click="delete_droppoint()" class="alert hollow button">
+            <i class="fa fa-trash" aria-hidden="true"></i> {{ 'DELETE' | translate }}</a>
+        <a ng-click="changeMode('default')" class="hollow button">
+            <i class="fa fa-ban" aria-hidden="true"></i> {{ 'CANCEL' | translate }}</a>
+    </div>
+</div>

@@ -21,7 +21,21 @@ angular.module('DLPApp').controller('UpdateDpCntrll',['$scope', 'Droppoint', '$m
             else
                 $scope.deactivate_coords("lc" + $scope.droppoint.id)
         };
-
+        $scope.errors = {
+            'name': {'field': 'NAME', 'text': 'REQUIRED', 'show': false},
+            'lat': {'field': 'LATITUDE', 'text': 'REQUIRED', 'show': false},
+            'alt': {'field': 'ALTITUDE', 'text': 'REQUIRED', 'show': false},
+            'lng': {'field': 'LONGITUDE', 'text': 'REQUIRED', 'show': false},
+            'description': {'field': 'DESCRIPTION', 'text': 'REQUIRED', 'show': false},
+        };
+        var clean_errors = function(){
+            angular.forEach($scope.errors, function(item){
+                item.show = false;
+            });
+        };
+        $scope.closeAlert = function(key) {
+            $scope.errors[key].show = false;
+        };
         $scope.update_droppoint = function(){
             var update_droppoint = Droppoint.get({id: $scope.droppoint.id}, function() {
                 update_droppoint.name = $scope.droppoint.name;
@@ -31,11 +45,21 @@ angular.module('DLPApp').controller('UpdateDpCntrll',['$scope', 'Droppoint', '$m
                 update_droppoint.description = $scope.droppoint.description;
                 update_droppoint.$update()
                     .then(function (result) {
-                        $scope.$parent.changeMode();
-                        UpdateDp.dp();
-                        if($scope.is_selecting)
-                            $scope.change_selecting();
-                    })
+                            $scope.$parent.changeMode();
+                            UpdateDp.dp();
+                            var markerId = "lc" + $scope.center.id + "dp" + $scope.droppoint.id;
+                            $scope.edit_marker(markerId, result.lat, result.lng);
+                            if($scope.is_selecting)
+                                $scope.change_selecting();
+                        },
+                        function(data){
+                            clean_errors();
+                            Object.keys(data.data).forEach(function (key) {
+                                $scope.errors[key].show = true;
+                                $scope.errors[key].text = data.data[key][0];
+                            });
+                        }
+                    )
             })
         };
         $scope.restore_droppoint = function(){

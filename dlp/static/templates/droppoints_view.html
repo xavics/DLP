@@ -1,4 +1,4 @@
-<div class="vertical grid-block">
+<div id="DpTab{{ center.id }}" class="vertical grid-block">
     <div class="grid-block" ng-include="'/static/templates/droppoints_create.html'" ng-controller="CreateDroppointCntrll"></div>
     <div class="grid-block" id="lc{{ center.id }}dp{{ droppoint.id }}" ng-repeat="droppoint in center.droppoints" ng-controller="ManageDroppointCntrll" ng-switch on="mode">
         <div style="width: 100%;" ng-switch-when="edit"><div ng-controller="UpdateDpCntrll" ng-include="'/static/templates/droppoint_edit.html'"></div></div>

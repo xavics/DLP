@@ -1,3 +1,20 @@
+<div class="vertical grid-block wrap" style="border-bottom: #a8c5ff solid 2px;">
+    <div class="grid-block wrap" style="margin-top: 5px;">
+        <div class="small-12 grid-content">
+            <h4>{{ 'DRONE' | translate }} {{ drone.id }}</h4>
+        </div>
+    </div>
+    <div class="align-center grid-block small-12 wrap">
+        <h5>{{ 'DELETE_ALERT' | translate }} {{ 'DRONE' | translate }}?</h5>
+    </div>
+    <div class="grid-block small-12 align-center">
+        <a ng-click="delete_drone()" class="alert hollow button">
+            <i class="fa fa-trash" aria-hidden="true"></i> {{ 'DELETE' | translate }}</a>
+        <a ng-click="changeMode('default')" class="hollow button">
+            <i class="fa fa-ban" aria-hidden="true"></i> {{ 'CANCEL' | translate }}</a>
+    </div>
+</div>
+<!--
 <table style="width: 100%;">
     <thead>
     <tr>
@@ -20,3 +37,4 @@
     </tr>
     </tbody>
 </table>
+-->

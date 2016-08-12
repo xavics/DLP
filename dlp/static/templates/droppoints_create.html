@@ -3,46 +3,69 @@
         <accordion-heading>
             <i class="fa fa-plus" aria-hidden="true"></i> {{ 'CREATE_NEW' | translate }} {{ 'DROPPOINT' | translate }}
         </accordion-heading>
-        <div class="grid-block">
-            <form>
-                <div class="row">
-                    <div class="large-12 columns">
-                        <label>{{ 'NAME' | translate }}
-                            <input type="text" ng-model="newDroppoint.name" placeholder="{{ 'NAME' | translate }}" />
-                        </label>
+        <form style="border-bottom: #a8c5ff solid 2px;">
+            <div class="grid-block wrap">
+                <div class="small-12 grid-content">
+                    <label>{{ 'NAME' | translate }}</label>
+                    <input class="no-bottom-margin" type="text" ng-model="newDroppoint.name" placeholder="{{ 'NAME' | translate }}">
+                    <div data-alert class="alert-box alert" ng-show="errors.name.show">
+                        <strong>{{ errors.name.field | translate }} </strong>{{ errors.name.text }}
+                        <a ng-click="closeAlert('name')" class="close">&times;</a>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="large-4 columns">
-                        <label>{{ 'LATITUDE' | translate }}
-                            <input type="number" ng-model="newDroppoint.lat" placeholder="{{ 'LATITUDE' | translate }}" />
-                        </label>
-                    </div>
-                    <div class="large-4 columns">
-                        <label>{{ 'LONGITUDE' | translate }}
-                            <input type="number" ng-model="newDroppoint.lng" placeholder="{{ 'LONGITUDE' | translate }}" />
-                        </label>
-                    </div>
-                    <div class="large-4 columns">
-                        <label>{{ 'ALTITUDE' | translate }}
-                            <input type="number" ng-model="newDroppoint.alt" value="0" placeholder="{{ 'ALTITUDE' | translate }}" />
-                        </label>
+            </div>
+            <div class="small-12 grid-content">
+                <label>{{ 'DESCRIPTION' | translate }}</label>
+                <textarea class="no-bottom-margin" ng-model="newDroppoint.description" placeholder="{{ 'DESCRIPTION' | translate }}" rows="3"></textarea>
+                <div data-alert class="alert-box alert" ng-show="errors.description.show">
+                    <strong>{{ errors.description.field | translate }} </strong>{{ errors.description.text }}
+                    <a ng-click="closeAlert('description')" class="close">&times;</a>
+                </div>
+            </div>
+            <div class="grid-block wrap">
+                <div class="small-8 grid-content">
+                    <h5>{{ 'COORDINATES' | translate }}</h5>
+                </div>
+                <div class="small-8 grid-content">
+                    <h5><small>{{ 'INFORMATION_COORD' | translate }}</small></h5>
+                </div>
+                <div class="small-4 grid-block align-right wrap">
+                    <div class="v-align" style="padding-top: 10px;">
+                        <a class="button" ng-hide="is_selecting" ng-click="change_selecting()"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ 'SELECT' | translate }}</a>
+                        <a class="alert button" ng-show="is_selecting" ng-click="change_selecting()"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ 'UNSELECT' | translate }}</a>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="large-12 columns">
-                        <label>{{ 'DESCRIPTION' | translate }}
-                            <textarea ng-model="newDroppoint.description" placeholder="{{ 'DESCRIPTION' | translate }}"></textarea>
-                        </label>
+                <div class="small-12 medium-4 grid-content">
+                    <label>{{ 'LATITUDE' | translate }}</label>
+                    <input class="no-bottom-margin" type="number" ng-model="newDroppoint.lat" placeholder="{{ 'LATITUDE' | translate }}">
+                    <div data-alert class="alert-box alert" ng-show="errors.lat.show">
+                        <strong>{{ errors.lat.field | translate }} </strong>{{ errors.lat.text }}
+                        <a ng-click="closeAlert('lat')" class="close">&times;</a>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="large-12 columns" style="text-align: right;">
-                        <a ng-click="create_new_droppoint()" class="large success hollow button" style="margin: 0">
-                    <i class="fa fa-floppy-o" aria-hidden="true"></i> {{ 'SAVE' | translate }}</a>
+                <div class="small-12 medium-4 grid-content">
+                    <label>{{ 'LONGITUDE' | translate }}</label>
+                    <input class="no-bottom-margin" type="number" ng-model="newDroppoint.lng" placeholder="{{ 'LONGITUDE' | translate }}">
+                    <div data-alert class="alert-box alert" ng-show="errors.lng.show">
+                        <strong>{{ errors.lng.field | translate }} </strong>{{ errors.lng.text }}
+                        <a ng-click="closeAlert('lng')" class="close">&times;</a>
                     </div>
                 </div>
-            </form>
-        </div>
+                <div class="small-12 medium-4 grid-content">
+                    <label>{{ 'ALTITUDE' | translate }}</label>
+                    <input class="no-bottom-margin" type="number" ng-model="newDroppoint.alt" placeholder="{{ 'ALTITUDE' | translate }}">
+                    <div data-alert class="alert-box alert" ng-show="errors.alt.show">
+                        <strong>{{ errors.alt.field | translate }} </strong>{{ errors.alt.text }}
+                        <a ng-click="closeAlert('alt')" class="close">&times;</a>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-block wrap">
+                <div class="grid-content" style="text-align: right; padding-top: 10px; padding-bottom: 10px;">
+                    <a ng-click="create_new_droppoint()" class="large success hollow button align-right" style="margin: 0">
+                        <i class="fa fa-floppy-o" aria-hidden="true"></i> {{ 'SAVE' | translate }}</a>
+                </div>
+            </div>
+        </form>
     </accordion-group>
 </accordion>
