@@ -216,6 +216,13 @@ li.orbit-item-3
     background-size: cover;
 }
 
+.fontAwesome_input{
+    font-family: FontAwesome !important;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+}
+
 /*.animate-switch-container {*/
 /*position:relative;*/
 /*background:white;*/

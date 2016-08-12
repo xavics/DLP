@@ -1,6 +1,11 @@
 <div id="DpTab{{ center.id }}" class="vertical grid-block">
     <div class="grid-block" ng-include="'/static/templates/droppoints_create.html'" ng-controller="CreateDroppointCntrll"></div>
-    <div class="grid-block" id="lc{{ center.id }}dp{{ droppoint.id }}" ng-repeat="droppoint in center.droppoints" ng-controller="ManageDroppointCntrll" ng-switch on="mode">
+    <form>
+        <div class="grid-block wrap" style="width: 100%;">
+            <input type="text" class="fontAwesome_input" ng-model="searchDP" placeholder="&#xF002;">
+        </div>
+    </form>
+    <div class="grid-block" id="lc{{ center.id }}dp{{ droppoint.id }}" ng-repeat="droppoint in center.droppoints | filter:searchDP" ng-controller="ManageDroppointCntrll" ng-switch on="mode">
         <div style="width: 100%;" ng-switch-when="edit"><div ng-controller="UpdateDpCntrll" ng-include="'/static/templates/droppoint_edit.html'"></div></div>
         <div style="width: 100%;" ng-switch-when="delete"><div ng-include="'/static/templates/droppoint_delete.html'"></div></div>
         <div style="width: 100%;" ng-switch-default><div ng-include="'/static/templates/droppoint_view.html'"></div></div>

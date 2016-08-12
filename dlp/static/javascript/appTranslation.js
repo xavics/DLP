@@ -63,7 +63,9 @@ angular.module('DLPApp').config(['$translateProvider', function ($translateProvi
         'UPDATE': 'Update',
         'UNSELECT': 'Unselect',
         'KML_MANAGER': 'KML Administration',
-        'REFRESH': 'Refresh'
+        'REFRESH': 'Refresh',
+        'WAITING': 'Ready',
+        'DELIVERING': 'Delivering'
     });
 
     $translateProvider.translations('es', {
@@ -127,7 +129,9 @@ angular.module('DLPApp').config(['$translateProvider', function ($translateProvi
         'UPDATE': 'Actualizar',
         'UNSELECT': 'Cancelar',
         'KML_MANAGER': 'Administracion KML',
-        'REFRESH': 'Actualizar'
+        'REFRESH': 'Actualizar',
+        'WAITING': 'Preparado',
+        'DELIVERING': 'En entrega'
     });
     $translateProvider.preferredLanguage('en');
 }]);

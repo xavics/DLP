@@ -1,4 +1,4 @@
 [Network]
-site_host = http://10.160.100.66:8000/
-galaxy_ip = 10.160.102.3
+site_host =
+galaxy_ip =
 
