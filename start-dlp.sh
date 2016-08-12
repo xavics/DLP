@@ -4,5 +4,5 @@
 #!/bin/bash
 
 cd /home/lg/Desktop/lglab/gsoc16/DLP
-source ~/Envs/pilt/bin/activate
+source ~/Envs/dlp/bin/activate
 python manage.py rundlp $1
