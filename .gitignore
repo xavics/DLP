@@ -9,3 +9,4 @@ celerybeat.pid
 components/
 config
 dlp/static/kml/
+wiki_assets/
