@@ -5,6 +5,7 @@ if [ -z $1 ]; then
 else
     ip=$1
 fi
+galaxy_ip=$2
 echo "runserver will run on $ip"
 xterm -e "python manage.py runserver $ip" & t1=$!
 xterm -e "redis-server" & t2=$!
@@ -12,12 +13,13 @@ xterm -e "python manage.py celeryd" & t3=$!
 xterm -e "python manage.py celeryd" & t4=$!
 xterm -e "python manage.py celerybeat" & t5=$!
 echo "#!/bin/bash
-
 pgrep -P $t1 | xargs kill
 pgrep -P $t5 | xargs kill
 pgrep -P $t3 | xargs kill
 pgrep -P $t4 | xargs kill
 pgrep -P $t2 | xargs kill
+ssh lg@$galaxy_ip \"echo '' > /var/www/html/kmls.txt\"
+ssh lg@$galaxy_ip \"echo '' > /var/www/html/kmls_4.txt\"
 " > exitdlp
 echo "To exit run: bash exitdlp"
 exit

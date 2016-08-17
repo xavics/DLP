@@ -6,7 +6,7 @@
 # Path of DLP
 cd /home/lg/Desktop/lglab/gsoc16/DLP
 # Environment of dlp
-workon dlp
+source ~/.virtualenvs/dlp/bin/activate
 # Installing Files to galaxy.
 bash galaxy_files/copy_files.sh $1
 # Running DLP

@@ -60,7 +60,9 @@ class Command(BaseCommand):
                 # Remove DB to evade problems in demo.
                 self.reset_db()
                 # Run the system
-                os.system("bash rundlp {ip}".format(ip=app_ip))
+                os.system("bash rundlp {ip} {galaxy_ip}".format(
+                    ip=app_ip, galaxy_ip=parsed_ip)
+                )
             else:
                 self.stdout.write(
                     self.style.error(
