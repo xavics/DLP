@@ -1,11 +1,15 @@
 #!/bin/bash
 
+path="`dirname \"$0\"`"
+cd $path
+
 LG_IP=$1
 
 if [[ -z "$LG_IP" ]]; then
     echo "Galaxy ip needed"
     exit
 fi
+
 FRAME=$(ssh lg@$LG_IP "bash -s" < get_frame.sh)
 scp tmp_files_galaxy/kml/slave.kml lg@$LG_IP:/var/www/html/kml
 scp tmp_files_galaxy/sync_nlc_4.php lg@$LG_IP:/var/www/html

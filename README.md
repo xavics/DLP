@@ -18,7 +18,7 @@ apt-get install nodejs-legacy npm
 npm install -g bower
 
 apt-get install python-pip redis-server
-pip install -r requeriments.txt
+pip install -r requirements.txt
 
 ```
 
