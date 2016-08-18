@@ -18,8 +18,8 @@ pgrep -P $t5 | xargs kill
 pgrep -P $t3 | xargs kill
 pgrep -P $t4 | xargs kill
 pgrep -P $t2 | xargs kill
-ssh lg@$galaxy_ip \"echo '' > /var/www/html/kmls.txt\"
-ssh lg@$galaxy_ip \"echo '' > /var/www/html/kmls_4.txt\"
+sshpass -p 'lqgalaxy' ssh lg@$galaxy_ip \"echo '' > /var/www/html/kmls.txt\"
+sshpass -p 'lqgalaxy' ssh lg@$galaxy_ip \"echo '' > /var/www/html/kmls_4.txt\"
 " > exitdlp
 echo "To exit run: bash exitdlp"
 exit

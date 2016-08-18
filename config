@@ -1,4 +1,4 @@
 [Network]
-site_host = http://192.168.1.102:8000/
-galaxy_ip = 1.1.1.1
+site_host =
+galaxy_ip =
 
