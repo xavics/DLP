@@ -10,9 +10,9 @@ if [[ -z "$LG_IP" ]]; then
     exit
 fi
 
-FRAME=$(ssh lg@$LG_IP "bash -s" < get_frame.sh)
-scp tmp_files_galaxy/kml/slave.kml lg@$LG_IP:/var/www/html/kml
-scp tmp_files_galaxy/sync_nlc_4.php lg@$LG_IP:/var/www/html
-scp tmp_files_galaxy/myplaces.kml lg@$LG_IP:\$HOME
-ssh lg@$LG_IP "scp \$HOME/myplaces.kml $FRAME:\$HOME/earth/kml/slave/"
-ssh lg@$LG_IP "rm myplaces.kml"
+FRAME=$(sshpass -p 'lqgalaxy' ssh lg@$LG_IP "bash -s" < get_frame.sh)
+sshpass -p 'lqgalaxy' scp tmp_files_galaxy/kml/slave.kml lg@$LG_IP:/var/www/html/kml
+sshpass -p 'lqgalaxy' scp tmp_files_galaxy/sync_nlc_4.php lg@$LG_IP:/var/www/html
+sshpass -p 'lqgalaxy' scp tmp_files_galaxy/myplaces.kml lg@$LG_IP:\$HOME
+sshpass -p 'lqgalaxy' ssh lg@$LG_IP "scp \$HOME/myplaces.kml $FRAME:\$HOME/earth/kml/slave/"
+sshpass -p 'lqgalaxy' ssh lg@$LG_IP "rm myplaces.kml"
