@@ -8,10 +8,14 @@ import datetime
 import time
 
 from DLP.settings import WEATHER_API_KEY, STATIC_ROOT
+from dlp.file_manager.file_manager import set_temperature_availability, \
+    has_temperature_availability, get_temperature_availability
 from dlp.models import City
 
-TEMPLATE_PATH = abspath(join(dirname(__file__), "templates/temperature.html"))
+TEMPLATE_PATH = abspath(join(dirname(__file__), "templates"))
 GENERATED_PATH = abspath(join(dirname(__file__), "generated"))
+ALLOW = "Allow"
+DENY = "Deny"
 
 
 def get_weather_by_geo(lat, lng):
@@ -29,29 +33,46 @@ def generate_weather_image(city):
     city = City.objects.get(id=city)
     json_data = get_weather_by_geo(city.lat, city.lng)
     data = json_loads_byteified(json_data)
-    print data
-    html_path = generate_html(
-        city.name, data['weather'][0]['description'],
-        data['weather'][0]['icon'], data['coord']['lat'],
-        data['coord']['lon'], data['main']['temp'],
-        data['main']['temp_max'], data['main']['temp_min'],
-        data['wind']['speed'], data['clouds']['all'],
-        data['main']['pressure'], data['main']['humidity']
-    )
+    can_fly(city.name, city.lat, city.lng)
+    if get_temperature_availability(city.name) == DENY:
+        html_path = generate_html(
+            "temperature_with_alert.html",
+            city.name, data['weather'][0]['description'],
+            data['weather'][0]['icon'], data['coord']['lat'],
+            data['coord']['lon'], data['main']['temp'],
+            data['main']['temp_max'],
+            data['main']['temp_min'],
+            data['wind']['speed'], data['clouds']['all'],
+            data['main']['pressure'],
+            data['main']['humidity']
+        )
+    else:
+        html_path = generate_html(
+            "temperature.html",
+            city.name, data['weather'][0]['description'],
+            data['weather'][0]['icon'], data['coord']['lat'],
+            data['coord']['lon'], data['main']['temp'],
+            data['main']['temp_max'],
+            data['main']['temp_min'],
+            data['wind']['speed'], data['clouds']['all'],
+            data['main']['pressure'],
+            data['main']['humidity']
+        )
     image_path = generate_image(html_path)
     return image_path
 
 
-def generate_html(name, description, id_icon, lat, lon, temp, temp_max,
+def generate_html(template, name, description, id_icon, lat, lon, temp,
+                  temp_max,
                   temp_min, wind, cloud, pressure, humidity):
-    base = open(TEMPLATE_PATH, "r")
+    base = open(join(TEMPLATE_PATH, template))
     print "reading"
     string_file = base.read()
     generated_html = string_file.format(
         city=name, icon=str(id_icon), desc=description.title(), lat=str(lat),
         lon=str(lon), temp=str(temp), temp_max=str(temp_max),
         temp_min=str(temp_min), cloud=str(cloud), wind=str(wind),
-        pressure=str(pressure), humidity=str(humidity)
+        pressure=str(pressure), humidity=str(humidity),
     )
     base.close()
     html_path = join(GENERATED_PATH, "temperature.html")
@@ -72,7 +93,7 @@ def generate_image(html_path):
     return join("static", image_name)
 
 
-def can_fly(lat, lng):
+def can_fly(name, lat, lng):
     json_data = get_weather_by_geo(lat, lng)
     data = json_loads_byteified(json_data)
     available = True
@@ -81,8 +102,12 @@ def can_fly(lat, lng):
             if data['wind']['speed'] >= 10.0:
                 available = False
     if "rain" in data:
-        available = False
-    return available
+        if data["rain"]:
+            available = False
+    if available:
+        set_temperature_availability(name, ALLOW)
+    else:
+        set_temperature_availability(name, DENY)
 
 
 def remove_update_temp(image_path):

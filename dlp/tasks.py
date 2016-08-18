@@ -10,8 +10,9 @@ from celery.utils.log import get_task_logger
 
 from DLP.celery import app
 from DLP.settings import BASE_DIR
-from dlp.apis.api_weather import can_fly
-from dlp.file_manager.file_manager import get_site_url
+from dlp.apis.api_weather import can_fly, ALLOW
+from dlp.file_manager.file_manager import get_site_url, \
+    get_temperature_availability, has_temperature_availability
 from dlp.galaxy_comunication.galaxy_comunication import send_kmls
 from dlp.kml_manager.kml_generator import create_transports_list, \
     create_packages_list, create_delivers
@@ -69,7 +70,9 @@ def manage_all_packets():
 def drones_availability(package):
     droppoint = package.drop_point
     city = droppoint.logistic_center.city
-    if can_fly(city.lat, city.lng):
+    if not has_temperature_availability(city.name):
+        can_fly(city.name, city.lat, city.lng)
+    if get_temperature_availability(city.name) == ALLOW:
         lc = LogisticCenter.objects.get(id=droppoint.logistic_center_id)
         drones = Drone.objects.filter(
             logistic_center_id=droppoint.logistic_center_id,
@@ -89,7 +92,7 @@ def drones_availability(package):
             send_package.delay(drone.id, package.id, transport.id, json_pos)
             break
     else:
-        logger.info("Weather inestable in {city}").format(city=city.name)
+        logger.info("Weather inestable in {city}".format(city=city.name))
 
 
 def create_transport(package, drone, lc, max_steps):

@@ -38,3 +38,20 @@ def demo():
             )
             package.save()
     f.close()
+
+
+def set_temperature_availability(city, value):
+    if not CONFIG.has_section('Temperature'):
+        CONFIG.add_section('Temperature')
+    CONFIG.set('Temperature', city, value)
+    with open(CONFIG_FILE, 'wb') as configfile:
+        CONFIG.write(configfile)
+
+
+def has_temperature_availability(city):
+    return CONFIG.has_option('Temperature', city)
+
+
+def get_temperature_availability(city):
+    CONFIG.read(CONFIG_FILE)
+    return CONFIG.get('Temperature', city)
