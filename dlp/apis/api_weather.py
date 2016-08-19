@@ -16,6 +16,7 @@ TEMPLATE_PATH = abspath(join(dirname(__file__), "templates"))
 GENERATED_PATH = abspath(join(dirname(__file__), "generated"))
 ALLOW = "Allow"
 DENY = "Deny"
+ACCEPTED_WEATHER_CODES = [800, 801, 802, 803, 804]
 
 
 def get_weather_by_geo(lat, lng):
@@ -101,9 +102,8 @@ def can_fly(name, lat, lng):
         if "speed" in data["wind"]:
             if data['wind']['speed'] >= 10.0:
                 available = False
-    if "rain" in data:
-        if data["rain"]:
-            available = False
+    if data["weather"][0]["id"] not in ACCEPTED_WEATHER_CODES:
+        available = False
     if available:
         set_temperature_availability(name, ALLOW)
     else:
