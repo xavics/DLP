@@ -29,13 +29,33 @@ myRequests.factory('UpdateLc', ['$http', '$cacheFactory', function($http, $cache
 
 myRequests.factory('RefreshWeather', ['$http', '$cacheFactory', function($http, $cacheFactory) {
     return{
-        refresh : function(city, time) {
+        refresh: function(city, time) {
             $cacheFactory.get('$http').remove('/refreshweather');
             return $http({
                 url: '/refreshweather',
                 method: 'GET',
                 params: {
                     city: city,
+                    time: time
+                }
+            })
+        },
+        get_restriction: function(time) {
+            $cacheFactory.get('$http').remove('/get_restriction');
+            return $http({
+                url: '/get_restriction',
+                method: 'GET',
+                params: {
+                    time: time
+                }
+            })
+        },
+        toogle_restriction: function(time) {
+            $cacheFactory.get('$http').remove('/toogle_restriction');
+            return $http({
+                url: '/toogle_restriction',
+                method: 'GET',
+                params: {
                     time: time
                 }
             })

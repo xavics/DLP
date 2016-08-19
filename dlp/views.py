@@ -8,7 +8,8 @@ from rest_framework import viewsets
 
 from DLP.settings import MAPS_API_KEY
 from dlp.apis.api_weather import generate_weather_image
-from dlp.file_manager.file_manager import get_site_url
+from dlp.file_manager.file_manager import get_site_url, \
+    get_temperature_restriction, set_temperature_restriction
 from dlp.galaxy_comunication.galaxy_comunication import send_kmls, start_tour, \
     exit_tour, fly_to_view, send_empty_kmls
 from dlp.kml_manager.kml_generator import create_updates, TMP, \
@@ -109,6 +110,16 @@ def is_inside_folder(filename, path):
             return True
     return False
 
+
+@csrf_exempt
+def toogle_temperature_restriction(request):
+    set_temperature_restriction(str(not get_temperature_restriction()))
+    return HttpResponse(get_temperature_restriction())
+
+
+@csrf_exempt
+def get_temp_restriction(request):
+    return HttpResponse(get_temperature_restriction())
 
 '''
     Galaxy requests

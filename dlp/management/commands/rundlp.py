@@ -3,7 +3,8 @@ import re
 
 from django.core.management.base import BaseCommand, CommandError
 
-from dlp.file_manager.file_manager import set_network_variables
+from dlp.file_manager.file_manager import set_network_variables, \
+    set_temperature_restriction
 from dlp.galaxy_comunication.galaxy_comunication import send_kmls
 from dlp.kml_manager.kml_generator import create_logisticcenters_list, \
     create_droppoints_list, create_layouts_list, create_kml_folders, \
@@ -59,6 +60,7 @@ class Command(BaseCommand):
                 self.create_base_kml()
                 # Remove DB to evade problems in demo.
                 self.reset_db()
+                set_temperature_restriction("true")
                 # Run the system
                 os.system("bash rundlp {ip} {galaxy_ip}".format(
                     ip=app_ip, galaxy_ip=parsed_ip)

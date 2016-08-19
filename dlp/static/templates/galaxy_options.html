@@ -30,10 +30,19 @@
     <h5>{{ main_city.name }}</h5>
     <section class="block-list">
         <header>{{ 'WEATHER' | translate }}</header>
-        <ul>
+        <ul style="margin-bottom: 0;">
             <li>
                 <a ng-click="refresh_weather(main_city.id)" class="expand hollow button">
                     <i class="fa fa-refresh" aria-hidden="true"></i> {{ 'REFRESH_WEATHER' | translate }}</a>
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <span>{{ 'RESTRICTION' | translate }}</span>
+                <div class="switch">
+                    <input type="checkbox" ng-model="checked.status" ng-change="toggle_temp_restriction()" ng-init="get_temp_restriction()" id="switch_restriction" ng-checked="checked.status">
+                    <label for="switch_restriction"></label>
+                </div>
             </li>
         </ul>
         <header>{{ 'TOUR' | translate }}</header>

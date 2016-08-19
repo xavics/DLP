@@ -55,3 +55,18 @@ def has_temperature_availability(city):
 def get_temperature_availability(city):
     CONFIG.read(CONFIG_FILE)
     return CONFIG.get('Temperature', city)
+
+
+def set_temperature_restriction(value):
+    if not CONFIG.has_section('Temperature'):
+        CONFIG.add_section('Temperature')
+    print "setting"
+    CONFIG.set('Temperature', 'restriction', value)
+    print "writting"
+    with open(CONFIG_FILE, 'wb') as configfile:
+        CONFIG.write(configfile)
+
+
+def get_temperature_restriction():
+    CONFIG.read(CONFIG_FILE)
+    return CONFIG.getboolean('Temperature', 'restriction')

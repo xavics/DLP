@@ -12,7 +12,8 @@ from DLP.celery import app
 from DLP.settings import BASE_DIR
 from dlp.apis.api_weather import can_fly, ALLOW
 from dlp.file_manager.file_manager import get_site_url, \
-    get_temperature_availability, has_temperature_availability
+    get_temperature_availability, has_temperature_availability, \
+    get_temperature_restriction
 from dlp.galaxy_comunication.galaxy_comunication import send_kmls
 from dlp.kml_manager.kml_generator import create_transports_list, \
     create_packages_list, create_delivers
@@ -72,7 +73,8 @@ def drones_availability(package):
     city = droppoint.logistic_center.city
     if not has_temperature_availability(city.name):
         can_fly(city.name, city.lat, city.lng)
-    if get_temperature_availability(city.name) == ALLOW:
+    if get_temperature_availability(
+            city.name) == ALLOW or get_temperature_restriction() == False:
         lc = LogisticCenter.objects.get(id=droppoint.logistic_center_id)
         drones = Drone.objects.filter(
             logistic_center_id=droppoint.logistic_center_id,
@@ -88,7 +90,8 @@ def drones_availability(package):
             destiny = Point(droppoint.lat, droppoint.lng, droppoint.alt)
             positions = get_drone_steps(origin, destiny, city)
             json_pos = json.dumps([ob.__dict__ for ob in positions])
-            transport = create_transport(package, drone, lc, len(positions) * 2)
+            transport = create_transport(package, drone, lc,
+                                         len(positions) * 2)
             send_package.delay(drone.id, package.id, transport.id, json_pos)
             break
     else:

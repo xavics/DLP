@@ -65,7 +65,8 @@ angular.module('DLPApp').config(['$translateProvider', function ($translateProvi
         'KML_MANAGER': 'KML Administration',
         'REFRESH': 'Refresh',
         'WAITING': 'Ready',
-        'DELIVERING': 'Delivering'
+        'DELIVERING': 'Delivering',
+        'RESTRICTION': 'Override Weather'
     });
 
     $translateProvider.translations('es', {
@@ -131,7 +132,8 @@ angular.module('DLPApp').config(['$translateProvider', function ($translateProvi
         'KML_MANAGER': 'Administracion KML',
         'REFRESH': 'Actualizar',
         'WAITING': 'Preparado',
-        'DELIVERING': 'En entrega'
+        'DELIVERING': 'En entrega',
+        'RESTRICTION': 'Sobreescribir temperatura'
     });
     $translateProvider.preferredLanguage('en');
 }]);

@@ -15,6 +15,7 @@ angular.module('DLPApp').controller('GalaxyOptCntrll',['$scope', '$http', 'Refre
             {'name': 'SPANISH', 'key': 'es', 'selected': $translate.use() == 'es'}
         ];
         $scope.selected_language = $translate.use();
+        $scope.checked = {status: null};
         $scope.refresh_weather = function(city){
             RefreshWeather.refresh(city, Date.now())
         };
@@ -43,5 +44,17 @@ angular.module('DLPApp').controller('GalaxyOptCntrll',['$scope', '$http', 'Refre
         };
         $scope.changeLanguage = function (key) {
             $translate.use(key);
+        };
+        $scope.get_temp_restriction = function() {
+            RefreshWeather.get_restriction(Date.now())
+                .then(function(result){
+                    $scope.checked.status = result.data == "True";
+                })
+        };
+        $scope.toggle_temp_restriction = function() {
+            RefreshWeather.toogle_restriction(Date.now())
+                .then(function(result){
+                    $scope.checked.status = result.data == "True";
+                })
         };
     }]);
